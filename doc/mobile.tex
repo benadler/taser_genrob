@@ -1,0 +1,231 @@
+%
+%
+%
+
+\documentclass{article}
+
+\usepackage{a4wide}
+\usepackage[latin1]{inputenc}
+
+\parindent0em
+\parskip1ex
+
+\begin{document}
+
+\newcommand{\ind}{$\;\;\;\;$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Software}
+
+in pseudo -- c++ syntax
+
+{\tiny
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CMOTOR}
+\\
+\hline private: & ENCODER\_STATE state
+\\[1ex]
+& POSIX\_CONDITION condition
+\\[1ex]
+& THREAD::Fxn ()\\
+& \{\\
+& \ind while (42)\\
+& \ind \{\\
+& \ind \ind state = BlockingReadFromMotor ()\\
+& \ind \ind condition.Signal ()\\
+& \ind \}\\
+& \}
+\\[1ex]
+public: & SetEncoderVelocity ()
+\\[1ex]
+& ENCODER\_STATE GetEncoderState ()\\
+& \{\\
+& \ind condition.Wait ()\\
+& \ind return state\\
+& \}
+\end{tabular}}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CMOTORFEEDER}
+\\
+\hline private: & GetWorldState ()\\
+& \{\\
+& \ind CMOTOR::GetEncoderState ()\\
+& \}
+\\[1ex]
+& THREAD::Fxn()\\
+& \{\\
+& \ind while (42) \{\\
+& \ind \ind GetWorldState ()\\
+& \ind \ind Localisation::updateOdometry ()\\
+& \ind \}\\
+& \}\\
+public:\\
+& SetWorldVelocity()\\
+& \{\\
+& \ind SetEncoderVelocity()\\
+& \}\\
+\end{tabular}}
+
+} %\tiny
+
+\subsection{Motoren}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CMOTOR}
+\\
+\hline private: & ENCODER\_STATE state\\
+& POSIX\_CONDITION condition\\
+& THREAD::Fxn ()
+\\
+public: & SetEncoderVelocity ()\\
+& GetEncoderState ()
+\end{tabular}}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CMOTORFEEDER}
+\\
+\hline private: & GetWorldState ()\\
+& THREAD::Fxn()\\
+public:\\
+& SetWorldVelocity()\\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Laserscanner}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CLASER}
+\\
+\hline private: & CTHREAD::Fxn()
+\\
+public: & --
+\end{tabular}}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CLASERFEEDER}
+\\
+\hline protected: & CLASER *\_laser[]\\
+& POSIX\_CONDITION condition\\
+& Receive()\\
+& CTHREAD::Fxn()
+\\
+public: & GetClosestObstacleDistance()\\
+& GetLaserScan()
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Trajektoriengenerator}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CPERIODICTIMER}
+\\
+\hline protecetd: & Fxn()\\
+& virtual Event() = 0
+\\
+public: & --
+\end{tabular}}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CGENBASE : CPERIODICTIMER}
+\\
+\hline protected: & Localisation localisation\\
+& CMOTORFEEDER motorFeeder\\
+& CLASERFEEDER laserFeeder\\
+& Fxn()\\
+& virtual Event()
+\\
+public: & GetPos()\\
+& SetPos()\\
+& MotionRotate()\\
+& MotionTranslate()
+\end{tabular}}
+
+\fbox{\begin{tabular}{ll}
+\multicolumn{2}{l}{CMOTION}
+\\
+\hline private: & double \_transVel\\
+& double \_rotVel\\
+& virtual Step() = 0
+\\
+public: & GetVelocities()
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zeitlicher Ablauf}
+
+\subsection{New Setpoint for a Motion}
+
+\begin{itemize}\itemsep0ex
+\item \texttt{RTC} timer event occurs (every 31.25 milliseconds)
+\item \texttt{CPERIODICTIMER::Fxn()::read("/dev/rtc")} returns
+\item \texttt{CPERIODICTIMER::Fxn()} calls \texttt{CGENBASE::Event()}
+\item \texttt{CGENBASE::Event()} calls \texttt{Localisation::predict()} for
+last desired output
+\item \texttt{CGENBASE::Event()} calls \texttt{MOTION::Step()} for next
+setpoint
+\item \texttt{CGENBASE::Event()} modifies setpoint for collision avoidance (if
+appropriate)
+\item \texttt{CGENBASE::Event()} computes inverse kinematic on setpoint
+\item \texttt{CGENBASE::Event()} calls
+\texttt{CMOTORFEEDER::SetWorldVelocity()}
+\item \texttt{CMOTORFEEDER::SetWorldVelocity()} calls
+\texttt{CMOTOR::SetEncoderVelocity()}
+\item \texttt{CMOTOR::SetEncoderVelocity()} writes command via \texttt{RS232}
+to motor
+\item \texttt{CGENBASE::Event()} returns
+\item \texttt{CPERIODICTIMER::Fxn()} calls \texttt{read("/dev/rtc")} to wait
+for next event
+\end{itemize}
+
+\subsection{Reply from Motor}
+
+\begin{itemize}\itemsep0ex
+\item \texttt{RS232} data from motor becomes available
+\item \texttt{CMOTOR::Fxn()::read("/dev/cua0")} returns available data
+\item \texttt{CMOTOR::Fxn()} check completeness and sanity of reply
+\item \texttt{CMOTOR::Fxn()} convert data to encoder state
+\item \texttt{CMOTOR::Fxn()} update encoder state variable
+\item \texttt{CMOTOR::Fxn()} signal condition (does not yet go to sleep?)
+\item \texttt{CMOTOR::Fxn()::read()} waits for more data (goes to sleep)
+\item \texttt{CMOTORFEEDER::Fxn()::GetWorldState()} wakes up on condition
+\item \texttt{CMOTORFEEDER::Fxn()::GetWorldState()} converts encoder state to
+world state (forward kinematic)
+\item \texttt{CMOTORFEEDER::Fxn()::GetWorldState()} returns world state
+\item \texttt{CMOTORFEEDER::Fxn()::updateOdometry()} calls Kalman filter
+\item \texttt{CMOTORFEEDER::Fxn()::GetWorldState()} waits for next state update
+\end{itemize}
+
+\subsection{Laser Scanner}
+
+note that there are two threads running two laser scanners in parallel. they're
+synchronized by means of a posix condition. only if both threads have delivered
+scan data within a certain amount of time are they used for positioning
+(they're always used for collision avoidance).  for simplicity reasons the
+following flowchart shows one laser thread only.
+
+\begin{itemize}\itemsep0ex
+\item \texttt{CLASER::Fxn()::read()} returns some data
+\item \texttt{CLASER::Fxn()} check for completeness and sanity of data
+\item \texttt{CLASER::Fxn()} calls \texttt{CLASERFEEDER::Receive()}
+\item \texttt{CLASERFEEDER::Receive()} convert (radial) data to platform coordinates
+\item \texttt{CLASERFEEDER::Receive()} detect reflector marks
+\item \texttt{CLASERFEEDER::Receive()} signal condition (does not yet go to
+sleep) and return
+\item \texttt{CLASER::Fxn()} calls \texttt{read()} to wait for more data (goes
+to sleep)
+\item \texttt{CLASERFEEDER::Fxn()} wakes up on condition
+\item \texttt{CLASERFEEDER::Fxn()} check if \textbf{both} scans are available
+\item \texttt{CLASERFEEDER::Fxn()} calls \texttt{Localisation::updateLaser()}
+on reflector marks
+\item \texttt{CLASERFEEDER::Fxn()} wait on condition for new scans
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

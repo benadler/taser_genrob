@@ -1,0 +1,626 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.1	//
+A	arrays.h	189;"	m	class:CPOSARRAY	access:public
+Add	arrays.h	162;"	p	class:CDYNDEGREEARRAY	access:public
+Add	arrays.h	98;"	p	class:CDYNARRAY	access:public
+ApplyBrakes	client.h	86;"	p	class:CCLIENT	access:protected
+ApplyBrakes	genBase.h	228;"	p	class:CGENBASE	access:public
+AreBrakesReleased	client.h	88;"	p	class:CCLIENT	access:protected
+AreBrakesReleased	genBase.h	230;"	p	class:CGENBASE	access:public
+Avg	arrays.h	164;"	p	class:CDYNDEGREEARRAY	access:public
+CARRAY	arrays.h	32;"	c
+CCANDONGLE	canDongle.h	17;"	c
+CCANDONGLE	canDongle.h	22;"	p	class:CCANDONGLE	access:private
+CCANDONGLE	canDongle.h	30;"	p	class:CCANDONGLE	access:protected
+CCANPLATFORM	canPlatform.h	105;"	p	class:CCANPLATFORM	access:public
+CCANPLATFORM	canPlatform.h	28;"	c	inherits:CCANDONGLE
+CCANPLATFORM	canPlatform.h	46;"	p	class:CCANPLATFORM	access:private
+CCLIENT	client.h	108;"	p	class:CCLIENT	access:public
+CCLIENT	client.h	23;"	c	inherits:CCONNECTION,CDETACHEDTHREAD
+CCLIENT	client.h	28;"	p	class:CCLIENT	access:private
+CCLIENT	client.h	29;"	p	class:CCLIENT	access:private
+CDYNARRAY	arrays.h	64;"	c	inherits:CARRAY
+CDYNDEGREEARRAY	arrays.h	144;"	c	inherits:CARRAY
+CFILTER	filter.h	21;"	c
+CFORWARD	genForward.h	31;"	c	inherits:_CGENMOTION,CFILTER
+CFORWARD	genForward.h	36;"	p	class:CFORWARD	access:private
+CFORWARD	genForward.h	37;"	p	class:CFORWARD	access:private
+CFORWARD	genForward.h	70;"	p	class:CFORWARD	access:public
+CGENBASE	genBase.h	125;"	p	class:CGENBASE	access:public
+CGENBASE	genBase.h	34;"	c	inherits:CPERIODICTIMER
+CGENBASE	genBase.h	44;"	p	class:CGENBASE	access:private
+CLASER	laser.h	24;"	c	inherits:CTHREAD
+CLASER	laser.h	29;"	p	class:CLASER	access:private
+CLASER	laser.h	30;"	p	class:CLASER	access:private
+CLASER	laser.h	55;"	p	class:CLASER	access:public
+CLASERFEEDER	laserFeeder.h	12;"	c	inherits:CTHREAD
+CLASERFEEDER	laserFeeder.h	52;"	p	class:CLASERFEEDER	access:public
+CLASERFEEDER	laserFeederWir.h	12;"	c	inherits:CTHREAD
+CLASERFEEDER	laserFeederWir.h	52;"	p	class:CLASERFEEDER	access:public
+CLASERFEEDER	laserFeeder_org.h	24;"	c	inherits:CTHREAD
+CLASERFEEDER	laserFeeder_org.h	31;"	p	class:CLASERFEEDER	access:private
+CLASERFEEDER	laserFeeder_org.h	32;"	p	class:CLASERFEEDER	access:private
+CLASERFEEDER	laserFeeder_org.h	56;"	p	class:CLASERFEEDER	access:public
+CLPT	lpt.h	15;"	c
+CLPT	lpt.h	20;"	p	class:CLPT	access:private
+CLPT	lpt.h	21;"	p	class:CLPT	access:private
+CLPT	lpt.h	31;"	p	class:CLPT	access:public
+CMAP	map.h	24;"	c
+CMAP	map.h	44;"	p	class:CMAP	access:private
+CMOTORFEEDER	motorFeeder.h	21;"	c	inherits:CTHREAD
+CMOTORFEEDER	motorFeeder.h	28;"	p	class:CMOTORFEEDER	access:private
+CMOTORFEEDER	motorFeeder.h	75;"	p	class:CMOTORFEEDER	access:public
+CMOVE	genMove.h	19;"	c	inherits:_CGENMOTION
+CMOVE	genMove.h	24;"	p	class:CMOVE	access:private
+CMOVE	genMove.h	25;"	p	class:CMOVE	access:private
+CMOVE	genMove.h	41;"	p	class:CMOVE	access:public
+CMOVE	genMove.h	49;"	p	class:CMOVE	access:public
+CMOVE	genMove.h	57;"	p	class:CMOVE	access:public
+CMOVE	genMove.h	66;"	p	class:CMOVE	access:public
+CMOVE	genMove.h	78;"	p	class:CMOVE	access:public
+CPERIODICTIMER	periodicTimer.h	17;"	c	inherits:CTHREAD
+CPERIODICTIMER	periodicTimer.h	23;"	p	class:CPERIODICTIMER	access:private
+CPERIODICTIMER	periodicTimer.h	37;"	p	class:CPERIODICTIMER	access:public
+CPOSARRAY	arrays.h	182;"	c
+CRADIALSCAN	radialscan.h	15;"	c
+CRADIALSCAN	radialscan.h	20;"	p	class:CRADIALSCAN	access:private
+CRADIALSCAN	radialscan.h	27;"	p	class:CRADIALSCAN	access:public
+CRADIALSCANMATCHED	radialscan.h	54;"	c	inherits:CRADIALSCAN
+CRADIALSCANMATCHED	radialscan.h	59;"	p	class:CRADIALSCANMATCHED	access:private
+CRADIALSCANMATCHED	radialscan.h	66;"	p	class:CRADIALSCANMATCHED	access:public
+CROTATION	genRotation.h	23;"	c	inherits:_CGENMOTION,CFILTER
+CROTATION	genRotation.h	28;"	p	class:CROTATION	access:private
+CROTATION	genRotation.h	29;"	p	class:CROTATION	access:private
+CROTATION	genRotation.h	74;"	p	class:CROTATION	access:public
+CROTATION	genRotation.h	86;"	p	class:CROTATION	access:public
+CRS422	rs422.h	26;"	c
+CRS422	rs422.h	31;"	p	class:CRS422	access:private
+CRS422	rs422.h	32;"	p	class:CRS422	access:private
+CRS422	rs422.h	44;"	p	class:CRS422	access:protected
+CSICKLASER	sicklaser.h	18;"	c	inherits:CRS422,_CSICKRAWLASER
+CSICKLASER	sicklaser.h	24;"	p	class:CSICKLASER	access:private
+CSICKLASER	sicklaser.h	25;"	p	class:CSICKLASER	access:private
+CSICKLASER	sicklaser.h	73;"	p	class:CSICKLASER	access:public
+CSICKSCAN	sickrawlaser.h	17;"	c
+CSICKSCAN	sickrawlaser.h	24;"	p	class:CSICKSCAN	access:private
+CSICKSCAN	sickrawlaser.h	25;"	p	class:CSICKSCAN	access:private
+CSICKSCAN	sickrawlaser.h	31;"	p	class:CSICKSCAN	access:protected
+CSICKSIMLASER	sicksimlaser.h	20;"	c	inherits:_CSICKRAWLASER
+CSICKSIMLASER	sicksimlaser.h	26;"	p	class:CSICKSIMLASER	access:private
+CSICKSIMLASER	sicksimlaser.h	27;"	p	class:CSICKSIMLASER	access:private
+CSICKSIMLASER	sicksimlaser.h	48;"	p	class:CSICKSIMLASER	access:public
+CTRANSLATION	genTranslation.h	21;"	c	inherits:_CGENMOTION,CFILTER
+CTRANSLATION	genTranslation.h	26;"	p	class:CTRANSLATION	access:private
+CTRANSLATION	genTranslation.h	27;"	p	class:CTRANSLATION	access:private
+CTRANSLATION	genTranslation.h	61;"	p	class:CTRANSLATION	access:public
+CVOLTAGEDISPLAYTHREAD	voltageDisplayThread.h	13;"	c	inherits:CDETACHEDTHREAD
+CVOLTAGEDISPLAYTHREAD	voltageDisplayThread.h	18;"	p	class:CVOLTAGEDISPLAYTHREAD	access:private
+CheckProtocol	client.h	52;"	p	class:CCLIENT	access:protected
+ComputeCrc	sicklaser.h	46;"	p	class:CSICKLASER	access:private
+ComputeProfile	filter.h	115;"	p	class:CFILTER	access:public	implementation:virtual
+ComputeProfile	genForward.h	59;"	p	class:CFORWARD	access:protected	implementation:virtual
+ComputeProfile	genRotation.h	54;"	p	class:CROTATION	access:protected	implementation:virtual
+ComputeProfile	genTranslation.h	50;"	p	class:CTRANSLATION	access:protected	implementation:virtual
+ComputeTargetError	filter.h	92;"	p	class:CFILTER	access:public
+ComputeTrajectoryError	filter.h	91;"	p	class:CFILTER	access:public
+Connect	canPlatform.h	89;"	p	class:CCANPLATFORM	access:protected
+ConvertBatteryVoltage	canPlatform.h	134;"	p	class:CCANPLATFORM	access:public
+DataAvailable	client.h	42;"	p	class:CCLIENT	access:protected	implementation:virtual
+Debugging	client.h	53;"	p	class:CCLIENT	access:protected
+Dev	arrays.h	165;"	p	class:CDYNDEGREEARRAY	access:public
+DisableBrakeLeft	canPlatform.h	58;"	p	class:CCANPLATFORM	access:protected
+DisableBrakeRight	canPlatform.h	59;"	p	class:CCANPLATFORM	access:protected
+Disconnect	canPlatform.h	88;"	p	class:CCANPLATFORM	access:protected
+EMOTIONTYPE	genMotion.h	31;"	t	class:_CGENMOTION	access:public
+EnableCommLeft	canPlatform.h	67;"	p	class:CCANPLATFORM	access:protected
+EnableCommRight	canPlatform.h	68;"	p	class:CCANPLATFORM	access:protected
+EnableMotorLeft	canPlatform.h	61;"	p	class:CCANPLATFORM	access:protected
+EnableMotorRight	canPlatform.h	62;"	p	class:CCANPLATFORM	access:protected
+Event	genBase.h	80;"	p	class:CGENBASE	access:protected	implementation:virtual
+Event	periodicTimer.h	33;"	p	class:CPERIODICTIMER	access:protected	implementation:pure virtual
+Execute	client.h	47;"	p	class:CCLIENT	access:protected
+FindMaximum	arrays.h	237;"	p	class:CPOSARRAY	access:public
+FlushInput	rs422.h	57;"	p	class:CRS422	access:public
+Forward	client.h	79;"	p	class:CCLIENT	access:protected
+Fxn	client.h	43;"	p	class:CCLIENT	access:protected	implementation:virtual
+Fxn	laser.h	45;"	p	class:CLASER	access:protected	implementation:virtual
+Fxn	laserFeeder.h	44;"	p	class:CLASERFEEDER	access:protected	implementation:virtual
+Fxn	laserFeederWir.h	44;"	p	class:CLASERFEEDER	access:protected	implementation:virtual
+Fxn	laserFeeder_org.h	52;"	p	class:CLASERFEEDER	access:protected	implementation:virtual
+Fxn	motorFeeder.h	53;"	p	class:CMOTORFEEDER	access:protected	implementation:virtual
+Fxn	periodicTimer.h	31;"	p	class:CPERIODICTIMER	access:protected	implementation:virtual
+Fxn	voltageDisplayThread.h	26;"	p	class:CVOLTAGEDISPLAYTHREAD	access:protected	implementation:virtual
+GetAllLines	client.h	64;"	p	class:CCLIENT	access:protected
+GetAllMarks	client.h	60;"	p	class:CCLIENT	access:protected
+GetAllMarksInitial	client.h	61;"	p	class:CCLIENT	access:protected
+GetAllMarksWithVariances	client.h	62;"	p	class:CCLIENT	access:protected
+GetBatteryVoltage	canPlatform.h	135;"	p	class:CCANPLATFORM	access:public
+GetBatteryVoltage	client.h	103;"	p	class:CCLIENT	access:protected
+GetBatteryVoltage	genBase.h	232;"	p	class:CGENBASE	access:public
+GetBatteryVoltageRaw	canPlatform.h	133;"	p	class:CCANPLATFORM	access:public
+GetClosestObstacleDistance	laserFeeder.h	56;"	p	class:CLASERFEEDER	access:public
+GetClosestObstacleDistance	laserFeederWir.h	56;"	p	class:CLASERFEEDER	access:public
+GetClosestObstacleDistance	laserFeeder_org.h	60;"	p	class:CLASERFEEDER	access:public
+GetDeltaAngleLeft	canPlatform.h	187;"	p	class:CCANPLATFORM	access:public
+GetDeltaAngleRight	canPlatform.h	188;"	p	class:CCANPLATFORM	access:public
+GetDriveTemperatures	canPlatform.h	138;"	p	class:CCANPLATFORM	access:public
+GetDriveTemperatures	client.h	104;"	p	class:CCLIENT	access:protected
+GetDriveTemperatures	genBase.h	240;"	p	class:CGENBASE	access:public
+GetGyroVal	canPlatform.h	117;"	p	class:CCANPLATFORM	access:public
+GetGyroValAbs	canPlatform.h	118;"	p	class:CCANPLATFORM	access:public
+GetJoyVal	canPlatform.h	115;"	p	class:CCANPLATFORM	access:public
+GetLaserScan	genBase.h	202;"	p	class:CGENBASE	access:public
+GetLaserScanPlatform	genBase.h	203;"	p	class:CGENBASE	access:public
+GetLaserScanPlatform	laserFeeder.h	59;"	p	class:CLASERFEEDER	access:public
+GetLaserScanPlatform	laserFeederWir.h	59;"	p	class:CLASERFEEDER	access:public
+GetLaserScanPlatform	laserFeeder_org.h	63;"	p	class:CLASERFEEDER	access:public
+GetLaserScanPlatformMatched	laserFeeder.h	60;"	p	class:CLASERFEEDER	access:public
+GetLaserScanPlatformMatched	laserFeederWir.h	60;"	p	class:CLASERFEEDER	access:public
+GetLaserScanPlatformMatched	laserFeeder_org.h	64;"	p	class:CLASERFEEDER	access:public
+GetLaserScanScanner	laserFeeder.h	58;"	p	class:CLASERFEEDER	access:public
+GetLaserScanScanner	laserFeederWir.h	58;"	p	class:CLASERFEEDER	access:public
+GetLaserScanScanner	laserFeeder_org.h	62;"	p	class:CLASERFEEDER	access:public
+GetMarks	genBase.h	301;"	p	class:CGENBASE	access:public
+GetMarks	genBase.h	302;"	p	class:CGENBASE	access:public
+GetMode	client.h	95;"	p	class:CCLIENT	access:protected
+GetNumScanners	client.h	66;"	p	class:CCLIENT	access:protected
+GetPos	genBase.h	179;"	p	class:CGENBASE	access:public
+GetPosAndVar	genBase.h	182;"	p	class:CGENBASE	access:public
+GetPosOdo	genBase.h	180;"	p	class:CGENBASE	access:public
+GetPosition	client.h	55;"	p	class:CCLIENT	access:protected
+GetPositionAndVariance	client.h	58;"	p	class:CCLIENT	access:protected
+GetPositionOdo	client.h	56;"	p	class:CCLIENT	access:protected
+GetScale	client.h	91;"	p	class:CCLIENT	access:protected
+GetScanContinuous	rawlaser.h	49;"	p	class:_CRAWLASER	access:public	implementation:pure virtual
+GetScanContinuous	sickrawlaser.h	95;"	p	class:_CSICKRAWLASER	access:public	implementation:virtual
+GetScanContinuousSick	sicklaser.h	83;"	p	class:CSICKLASER	access:public	implementation:virtual
+GetScanContinuousSick	sickrawlaser.h	97;"	p	class:_CSICKRAWLASER	access:public	implementation:pure virtual
+GetScanContinuousSick	sicksimlaser.h	63;"	p	class:CSICKSIMLASER	access:public	implementation:virtual
+GetScanPlatform	client.h	70;"	p	class:CCLIENT	access:protected
+GetScanRadialScanner	client.h	69;"	p	class:CCLIENT	access:protected
+GetScanScanner	client.h	68;"	p	class:CCLIENT	access:protected
+GetScanWorld	client.h	71;"	p	class:CCLIENT	access:protected
+GetScannerPosition	client.h	67;"	p	class:CCLIENT	access:protected
+GetSerialPortStatistics	rawlaser.h	51;"	p	class:_CRAWLASER	access:public	implementation:virtual
+GetSerialPortStatistics	sicklaser.h	85;"	p	class:CSICKLASER	access:public	implementation:virtual
+GetState	genBase.h	105;"	p	class:CGENBASE	access:protected
+GetStatus	canPlatform.h	113;"	p	class:CCANPLATFORM	access:public
+GetType	sicklaser.h	54;"	p	class:CSICKLASER	access:private
+GetWorldState	canPlatform.h	193;"	p	class:CCANPLATFORM	access:public
+GetWorldState	canPlatform.h	209;"	p	class:CCANPLATFORM	access:public
+GetWorldState	motorFeeder.h	69;"	p	class:CMOTORFEEDER	access:protected
+InitializeAngleGyro	canPlatform.h	80;"	p	class:CCANPLATFORM	access:protected
+InitializeAngleLeft	canPlatform.h	76;"	p	class:CCANPLATFORM	access:protected
+InitializeAngleRight	canPlatform.h	77;"	p	class:CCANPLATFORM	access:protected
+IntegrateProfile	filter.h	116;"	p	class:CFILTER	access:public	implementation:virtual
+IntegrateProfile	genForward.h	60;"	p	class:CFORWARD	access:protected	implementation:virtual
+IntegrateProfile	genRotation.h	55;"	p	class:CROTATION	access:protected	implementation:virtual
+IntegrateProfile	genTranslation.h	51;"	p	class:CTRANSLATION	access:protected	implementation:virtual
+IsCompleted	client.h	81;"	p	class:CCLIENT	access:protected
+LoadMap	map.h	52;"	p	class:CMAP	access:protected
+LoadMarks	map.h	56;"	p	class:CMAP	access:protected
+MOTION_FORWARD	genMotion.h	30;"	e	enum:_CGENMOTION::<anonymous>
+MOTION_MOVE	genMotion.h	29;"	e	enum:_CGENMOTION::<anonymous>
+MOTION_ROTATEANGLE	genMotion.h	26;"	e	enum:_CGENMOTION::<anonymous>
+MOTION_ROTATEPOINT	genMotion.h	27;"	e	enum:_CGENMOTION::<anonymous>
+MOTION_TRANSLATE	genMotion.h	28;"	e	enum:_CGENMOTION::<anonymous>
+Mark	rs422.h	59;"	p	class:CRS422	access:public
+Mode	sicklaser.h	55;"	p	class:CSICKLASER	access:private
+ModifyScale	client.h	93;"	p	class:CCLIENT	access:protected
+MotionForward	genBase.h	226;"	p	class:CGENBASE	access:public
+MotionMove	genBase.h	224;"	p	class:CGENBASE	access:public
+MotionMove	genBase.h	225;"	p	class:CGENBASE	access:public
+MotionRotateAngle	genBase.h	221;"	p	class:CGENBASE	access:public
+MotionRotatePoint	genBase.h	222;"	p	class:CGENBASE	access:public
+MotionTranslate	genBase.h	223;"	p	class:CGENBASE	access:public
+Move	client.h	77;"	p	class:CCLIENT	access:protected
+MovePoint	client.h	78;"	p	class:CCLIENT	access:protected
+Out	lpt.h	34;"	p	class:CLPT	access:public
+Ping	client.h	51;"	p	class:CCLIENT	access:protected
+Read	rs422.h	52;"	p	class:CRS422	access:public
+ReadTimeout	rs422.h	53;"	p	class:CRS422	access:public
+Receive	canDongle.h	44;"	p	class:CCANDONGLE	access:protected
+ReceiveDeltaAngles	canPlatform.h	191;"	p	class:CCANPLATFORM	access:public
+ReceiveMultipleTimeout	canDongle.h	52;"	p	class:CCANDONGLE	access:protected
+ReceiveTelegram	sicklaser.h	49;"	p	class:CSICKLASER	access:private
+ReceiveTimeout	canDongle.h	47;"	p	class:CCANDONGLE	access:protected
+ReleaseBrakes	client.h	87;"	p	class:CCLIENT	access:protected
+ReleaseBrakes	genBase.h	229;"	p	class:CGENBASE	access:public
+RemoveAverage	arrays.h	105;"	p	class:CDYNARRAY	access:public
+RemoveAverage	arrays.h	107;"	p	class:CDYNARRAY	access:public
+RemoveAverage	arrays.h	167;"	p	class:CDYNDEGREEARRAY	access:public
+RequestDeltaAngles	canPlatform.h	190;"	p	class:CCANPLATFORM	access:public
+Reset	arrays.h	128;"	p	class:CDYNARRAY	access:public
+Reset	rawlaser.h	45;"	p	class:_CRAWLASER	access:public	implementation:pure virtual
+Reset	sicklaser.h	65;"	p	class:CSICKLASER	access:protected	implementation:virtual
+Reset	sicksimlaser.h	40;"	p	class:CSICKSIMLASER	access:protected	implementation:virtual
+ResetEmStop	canPlatform.h	224;"	p	class:CCANPLATFORM	access:public
+ResetSick	sicklaser.h	53;"	p	class:CSICKLASER	access:private
+RotateAngle	client.h	75;"	p	class:CCLIENT	access:protected
+RotatePoint	client.h	76;"	p	class:CCLIENT	access:protected
+SICK_LMS6	laser.h	51;"	e	enum:CLASER::<anonymous>
+SICK_SIM	laser.h	52;"	e	enum:CLASER::<anonymous>
+SLINE_t	map.h	33;"	t	class:CMAP	access:public
+SMARK_t	map.h	38;"	t	class:CMAP	access:public
+ScanContinuously	sicklaser.h	58;"	p	class:CSICKLASER	access:private
+Send	canDongle.h	32;"	p	class:CCANDONGLE	access:protected
+SendTelegram	sicklaser.h	48;"	p	class:CSICKLASER	access:private
+SetEmStop	canPlatform.h	223;"	p	class:CCANPLATFORM	access:public
+SetMode	client.h	96;"	p	class:CCLIENT	access:protected
+SetMode	genBase.h	317;"	p	class:CGENBASE	access:public
+SetParameters	filter.h	79;"	p	class:CFILTER	access:public
+SetPos	genBase.h	186;"	p	class:CGENBASE	access:public
+SetPosition	client.h	57;"	p	class:CCLIENT	access:protected
+SetPositionAndVelocity	filter.h	80;"	p	class:CFILTER	access:public
+SetScale	client.h	92;"	p	class:CCLIENT	access:protected
+SetSpeed	rs422.h	50;"	p	class:CRS422	access:public
+SetTarget	filter.h	81;"	p	class:CFILTER	access:public
+SetVelLeft	canPlatform.h	147;"	p	class:CCANPLATFORM	access:public
+SetVelLeft	canPlatform.h	150;"	p	class:CCANPLATFORM	access:public
+SetVelRight	canPlatform.h	148;"	p	class:CCANPLATFORM	access:public
+SetVelRight	canPlatform.h	151;"	p	class:CCANPLATFORM	access:public
+SetWorldVelocity	canPlatform.h	163;"	p	class:CCANPLATFORM	access:public
+SetWorldVelocity	motorFeeder.h	90;"	p	class:CMOTORFEEDER	access:public
+Stalled	client.h	84;"	p	class:CCLIENT	access:protected
+StartMotors	canPlatform.h	111;"	p	class:CCANPLATFORM	access:public
+StartOdoLogging	client.h	99;"	p	class:CCLIENT	access:protected
+StartScanContinuous	rawlaser.h	47;"	p	class:_CRAWLASER	access:public	implementation:pure virtual
+StartScanContinuous	sicklaser.h	81;"	p	class:CSICKLASER	access:public	implementation:virtual
+StartScanContinuous	sicksimlaser.h	61;"	p	class:CSICKSIMLASER	access:public	implementation:virtual
+Step	genForward.h	77;"	p	class:CFORWARD	access:public	implementation:virtual
+Step	genMotion.h	70;"	p	class:_CGENMOTION	access:public	implementation:pure virtual
+Step	genMove.h	95;"	p	class:CMOVE	access:public	implementation:virtual
+Step	genRotation.h	96;"	p	class:CROTATION	access:public	implementation:virtual
+Step	genTranslation.h	69;"	p	class:CTRANSLATION	access:public	implementation:virtual
+StopMotion	client.h	73;"	p	class:CCLIENT	access:protected
+StopOdoLogging	client.h	100;"	p	class:CCLIENT	access:protected
+StretchProfile	filter.h	118;"	p	class:CFILTER	access:public	implementation:virtual
+SyncMotorLeft	canPlatform.h	64;"	p	class:CCANPLATFORM	access:protected
+SyncMotorRight	canPlatform.h	65;"	p	class:CCANPLATFORM	access:protected
+TYPE_t	laser.h	53;"	t	class:CLASER	access:public
+Translate	client.h	74;"	p	class:CCLIENT	access:protected
+UpdateLaser	genBase.h	114;"	p	class:CGENBASE	access:protected
+UpdateLaser	genBase.h	115;"	p	class:CGENBASE	access:protected
+UpdateOdometry	genBase.h	109;"	p	class:CGENBASE	access:protected
+WORLDSTATE	motorFeeder.h	67;"	t	class:CMOTORFEEDER	access:protected
+WaitForCompleted	client.h	82;"	p	class:CCLIENT	access:protected
+Write	rs422.h	55;"	p	class:CRS422	access:public
+WriteSick	sicklaser.h	44;"	p	class:CSICKLASER	access:private
+X	arrays.h	188;"	m	class:CPOSARRAY	access:public
+Y	arrays.h	188;"	m	class:CPOSARRAY	access:public
+_CGENMOTION	genMotion.h	17;"	c
+_CGENMOTION	genMotion.h	36;"	p	class:_CGENMOTION	access:private
+_CGENMOTION	genMotion.h	37;"	p	class:_CGENMOTION	access:private
+_CGENMOTION	genMotion.h	58;"	p	class:_CGENMOTION	access:protected
+_CRAWLASER	rawlaser.h	17;"	c
+_CRAWLASER	rawlaser.h	23;"	p	class:_CRAWLASER	access:private
+_CSICKRAWLASER	sickrawlaser.h	65;"	c	inherits:_CRAWLASER
+_CSICKRAWLASER	sickrawlaser.h	71;"	p	class:_CSICKRAWLASER	access:private
+_CSICKRAWLASER	sickrawlaser.h	87;"	p	class:_CSICKRAWLASER	access:public
+_a0	laser.h	71;"	m	class:CLASER	access:public
+_a0	laserFeeder.h	31;"	m	class:CLASERFEEDER	access:protected
+_a0	laserFeederWir.h	31;"	m	class:CLASERFEEDER	access:protected
+_a0	sicksimlaser.h	38;"	m	class:CSICKSIMLASER	access:protected
+_abort	genMotion.h	54;"	m	class:_CGENMOTION	access:protected
+_abortCurrentMotion	genBase.h	66;"	m	class:CGENBASE	access:protected
+_activeMotion	genMove.h	32;"	m	class:CMOVE	access:protected
+_ae	genRotation.h	39;"	m	class:CROTATION	access:protected
+_alarm_level	laserFeeder.h	38;"	m	class:CLASERFEEDER	access:protected
+_alarm_level	laserFeederWir.h	38;"	m	class:CLASERFEEDER	access:protected
+_angleInc	sickrawlaser.h	43;"	m	class:CSICKSCAN	access:public
+_angleMode	genRotation.h	37;"	m	class:CROTATION	access:protected
+_angleStart	sickrawlaser.h	42;"	m	class:CSICKSCAN	access:public
+_backwards	genForward.h	50;"	m	class:CFORWARD	access:protected
+_blend	sickrawlaser.h	50;"	m	class:CSICKSCAN	access:public
+_brakesReleased	genBase.h	89;"	m	class:CGENBASE	access:protected
+_buffer	client.h	39;"	m	class:CCLIENT	access:protected
+_canPlatform	motorFeeder.h	35;"	m	class:CMOTORFEEDER	access:protected
+_closestObstacleDistance	laser.h	80;"	m	class:CLASER	access:public
+_cond	client.h	40;"	m	class:CCLIENT	access:protected
+_cond	laserFeeder_org.h	44;"	m	class:CLASERFEEDER	access:protected
+_condition	laser.h	39;"	m	class:CLASER	access:protected
+_controllerDone	genRotation.h	48;"	m	class:CROTATION	access:protected
+_cos	arrays.h	148;"	m	class:CDYNDEGREEARRAY	access:private
+_current	genMove.h	35;"	m	class:CMOVE	access:protected
+_dDir	genTranslation.h	46;"	m	class:CTRANSLATION	access:protected
+_dVal	genTranslation.h	47;"	m	class:CTRANSLATION	access:protected
+_datafile	canPlatform.h	34;"	m	class:CCANPLATFORM	access:private
+_de	genForward.h	56;"	m	class:CFORWARD	access:protected
+_dir0	genForward.h	55;"	m	class:CFORWARD	access:protected
+_dist	sickrawlaser.h	45;"	m	class:CSICKSCAN	access:public
+_driveTemperatures	canPlatform.h	128;"	m	class:CCANPLATFORM	access:private
+_emStop	canPlatform.h	219;"	m	class:CCANPLATFORM	access:private
+_enableVoltage	genBase.h	82;"	m	class:CGENBASE	access:protected
+_fadeOut	genRotation.h	52;"	m	class:CROTATION	access:protected
+_fadeOut	genTranslation.h	57;"	m	class:CTRANSLATION	access:protected
+_fd	canDongle.h	28;"	m	class:CCANDONGLE	access:protected
+_fd	lpt.h	27;"	m	class:CLPT	access:protected
+_fd	periodicTimer.h	30;"	m	class:CPERIODICTIMER	access:protected
+_fd	rs422.h	39;"	m	class:CRS422	access:protected
+_fineTune	genRotation.h	50;"	m	class:CROTATION	access:protected
+_fp	genForward.h	43;"	m	class:CFORWARD	access:private
+_fp	genMotion.h	52;"	m	class:_CGENMOTION	access:protected
+_genBase	client.h	37;"	m	class:CCLIENT	access:protected
+_genBase	laserFeeder.h	27;"	m	class:CLASERFEEDER	access:protected
+_genBase	laserFeederWir.h	27;"	m	class:CLASERFEEDER	access:protected
+_genBase	laserFeeder_org.h	48;"	m	class:CLASERFEEDER	access:protected
+_genBase	motorFeeder.h	38;"	m	class:CMOTORFEEDER	access:protected
+_headController	genTranslation.h	33;"	m	class:CTRANSLATION	access:protected
+_hiSpeed	sicklaser.h	32;"	m	class:CSICKLASER	access:private
+_iAngleLeft	canPlatform.h	75;"	m	class:CCANPLATFORM	access:protected
+_iAngleRight	canPlatform.h	75;"	m	class:CCANPLATFORM	access:protected
+_iGyro	canPlatform.h	79;"	m	class:CCANPLATFORM	access:protected
+_idleCondition	genBase.h	62;"	m	class:CGENBASE	access:protected
+_idx	laser.h	36;"	m	class:CLASER	access:protected
+_idx	sicklaser.h	31;"	m	class:CSICKLASER	access:private
+_idx	sicksimlaser.h	35;"	m	class:CSICKSIMLASER	access:protected
+_inBuf	sicklaser.h	39;"	m	class:CSICKLASER	access:private
+_intensity	sickrawlaser.h	48;"	m	class:CSICKSCAN	access:public
+_isStalled	genBase.h	88;"	m	class:CGENBASE	access:protected
+_joyValX	motorFeeder.h	71;"	m	class:CMOTORFEEDER	access:protected
+_joyValY	motorFeeder.h	71;"	m	class:CMOTORFEEDER	access:protected
+_kalmanState	genBase.h	107;"	m	class:CGENBASE	access:protected
+_laser	laserFeeder_org.h	41;"	m	class:CLASERFEEDER	access:protected
+_laserFeeder	genBase.h	54;"	m	class:CGENBASE	access:protected
+_laserLogFile	genBase.h	113;"	m	class:CGENBASE	access:protected
+_lastErrLeft	canPlatform.h	201;"	m	class:CCANPLATFORM	access:protected
+_lastErrRight	canPlatform.h	201;"	m	class:CCANPLATFORM	access:protected
+_lastEvent	genBase.h	78;"	m	class:CGENBASE	access:protected
+_lastGetWorldState	canPlatform.h	198;"	m	class:CCANPLATFORM	access:protected
+_lastVelLeft	canPlatform.h	177;"	m	class:CCANPLATFORM	access:protected
+_lastVelRight	canPlatform.h	177;"	m	class:CCANPLATFORM	access:protected
+_line	map.h	63;"	m	class:CMAP	access:public
+_loc	sicksimlaser.h	37;"	m	class:CSICKSIMLASER	access:protected
+_localisation	genBase.h	102;"	m	class:CGENBASE	access:protected
+_localisation	genRotation.h	64;"	m	class:CROTATION	access:protected
+_localisationOdo	genBase.h	103;"	m	class:CGENBASE	access:protected
+_logOdometry	genBase.h	87;"	m	class:CGENBASE	access:protected
+_map	genBase.h	101;"	m	class:CGENBASE	access:protected
+_map	sicksimlaser.h	36;"	m	class:CSICKSIMLASER	access:protected
+_mark	map.h	66;"	m	class:CMAP	access:public
+_markAngle	radialscan.h	43;"	m	class:CRADIALSCAN	access:public
+_markDist	radialscan.h	44;"	m	class:CRADIALSCAN	access:public
+_markIdx	radialscan.h	72;"	m	class:CRADIALSCANMATCHED	access:public
+_maxDiffLeft	canPlatform.h	200;"	m	class:CCANPLATFORM	access:protected
+_maxDiffRight	canPlatform.h	200;"	m	class:CCANPLATFORM	access:protected
+_maxLines	map.h	50;"	m	class:CMAP	access:protected
+_maxMarks	map.h	54;"	m	class:CMAP	access:protected
+_maxMarks	radialscan.h	41;"	m	class:CRADIALSCAN	access:public
+_maxScans	radialscan.h	34;"	m	class:CRADIALSCAN	access:public
+_mode	genBase.h	308;"	m	class:CGENBASE	access:protected
+_motion	genBase.h	60;"	m	class:CGENBASE	access:protected
+_motion	genMove.h	34;"	m	class:CMOVE	access:protected
+_motorFeeder	genBase.h	52;"	m	class:CGENBASE	access:protected
+_motorFeeder	voltageDisplayThread.h	24;"	m	class:CVOLTAGEDISPLAYTHREAD	access:protected
+_motorStopped	genMotion.h	50;"	m	class:_CGENMOTION	access:protected
+_msgKo	sicklaser.h	40;"	m	class:CSICKLASER	access:private
+_msgOk	sicklaser.h	40;"	m	class:CSICKLASER	access:private
+_mutex	canPlatform.h	50;"	m	class:CCANPLATFORM	access:private
+_numLaser	laserFeeder.h	29;"	m	class:CLASERFEEDER	access:protected
+_numLaser	laserFeederWir.h	29;"	m	class:CLASERFEEDER	access:protected
+_numLaser	laserFeeder_org.h	40;"	m	class:CLASERFEEDER	access:protected
+_numLines	map.h	62;"	m	class:CMAP	access:public
+_numMarks	map.h	65;"	m	class:CMAP	access:public
+_numMarks	radialscan.h	42;"	m	class:CRADIALSCAN	access:public
+_numMotions	genMove.h	31;"	m	class:CMOVE	access:protected
+_numScans	radialscan.h	35;"	m	class:CRADIALSCAN	access:public
+_numValues	sickrawlaser.h	41;"	m	class:CSICKSCAN	access:public
+_oldAngle1	genTranslation.h	39;"	m	class:CTRANSLATION	access:protected
+_oldAngle2	genTranslation.h	40;"	m	class:CTRANSLATION	access:protected
+_oldAngle3	genTranslation.h	41;"	m	class:CTRANSLATION	access:protected
+_oldAngle4	genTranslation.h	42;"	m	class:CTRANSLATION	access:protected
+_p0	genRotation.h	66;"	m	class:CROTATION	access:protected
+_pathController	genRotation.h	57;"	m	class:CROTATION	access:protected
+_platform	laserFeeder.h	42;"	m	class:CLASERFEEDER	access:protected
+_platform	laserFeederWir.h	42;"	m	class:CLASERFEEDER	access:protected
+_platform_valid	laserFeeder.h	39;"	m	class:CLASERFEEDER	access:protected
+_platform_valid	laserFeederWir.h	39;"	m	class:CLASERFEEDER	access:protected
+_pos	genMotion.h	45;"	m	class:_CGENMOTION	access:protected
+_profileDone	genForward.h	64;"	m	class:CFORWARD	access:protected
+_profileDone	genRotation.h	47;"	m	class:CROTATION	access:protected
+_profileDone	genTranslation.h	56;"	m	class:CTRANSLATION	access:protected
+_ptr	arrays.h	71;"	m	class:CDYNARRAY	access:private
+_rawLaser	laser.h	41;"	m	class:CLASER	access:protected
+_realtime	periodicTimer.h	29;"	m	class:CPERIODICTIMER	access:protected
+_rotAccMax	genBase.h	73;"	m	class:CGENBASE	access:protected
+_rotVel	genMotion.h	48;"	m	class:_CGENMOTION	access:protected
+_rotVelMax	genBase.h	72;"	m	class:CGENBASE	access:protected
+_rotVelScale	genBase.h	76;"	m	class:CGENBASE	access:protected
+_running	genForward.h	49;"	m	class:CFORWARD	access:protected
+_running	genRotation.h	46;"	m	class:CROTATION	access:protected
+_running	genTranslation.h	35;"	m	class:CTRANSLATION	access:protected
+_scanAngle	radialscan.h	36;"	m	class:CRADIALSCAN	access:public
+_scanBuf	sicklaser.h	38;"	m	class:CSICKLASER	access:private
+_scanDist	radialscan.h	37;"	m	class:CRADIALSCAN	access:public
+_scanPlatform	laser.h	76;"	m	class:CLASER	access:public
+_scanPlatformMatched	laser.h	78;"	m	class:CLASER	access:public
+_scanScanner	laser.h	75;"	m	class:CLASER	access:public
+_scanner	laserFeeder.h	41;"	m	class:CLASERFEEDER	access:protected
+_scanner	laserFeederWir.h	41;"	m	class:CLASERFEEDER	access:protected
+_sickScan	sickrawlaser.h	79;"	m	class:_CSICKRAWLASER	access:protected
+_simulate	genBase.h	98;"	m	class:CGENBASE	access:protected
+_sin	arrays.h	148;"	m	class:CDYNDEGREEARRAY	access:private
+_size	arrays.h	70;"	m	class:CDYNARRAY	access:private
+_stateCtrlLeft	canPlatform.h	38;"	m	class:CCANPLATFORM	access:public
+_stateCtrlRight	canPlatform.h	38;"	m	class:CCANPLATFORM	access:public
+_tProfileDone	genForward.h	66;"	m	class:CFORWARD	access:protected
+_tStarted	genForward.h	65;"	m	class:CFORWARD	access:protected
+_targErrLast	genRotation.h	60;"	m	class:CROTATION	access:protected
+_targErrSum	genRotation.h	61;"	m	class:CROTATION	access:protected
+_targGain	genRotation.h	62;"	m	class:CROTATION	access:protected
+_targetController	genRotation.h	58;"	m	class:CROTATION	access:protected
+_te	genForward.h	58;"	m	class:CFORWARD	access:protected
+_te	genRotation.h	42;"	m	class:CROTATION	access:protected
+_te	genTranslation.h	49;"	m	class:CTRANSLATION	access:protected
+_tempMeasLeft	canPlatform.h	39;"	m	class:CCANPLATFORM	access:public
+_tempMeasRight	canPlatform.h	39;"	m	class:CCANPLATFORM	access:public
+_temperatureLeft	canPlatform.h	127;"	m	class:CCANPLATFORM	access:private
+_temperatureRight	canPlatform.h	127;"	m	class:CCANPLATFORM	access:private
+_transAccMax	genBase.h	71;"	m	class:CGENBASE	access:protected
+_transVel	genMotion.h	48;"	m	class:_CGENMOTION	access:protected
+_transVelMax	genBase.h	70;"	m	class:CGENBASE	access:protected
+_transVelScale	genBase.h	75;"	m	class:CGENBASE	access:protected
+_trigger	motorFeeder.h	44;"	m	class:CMOTORFEEDER	access:protected
+_ttys	rs422.h	41;"	m	class:CRS422	access:protected
+_tv	laser.h	73;"	m	class:CLASER	access:public
+_type	genMotion.h	43;"	m	class:_CGENMOTION	access:protected
+_upAndRunningMask	laser.h	37;"	m	class:CLASER	access:protected
+_upAndRunningMask	laserFeeder_org.h	43;"	m	class:CLASERFEEDER	access:protected
+_used	arrays.h	70;"	m	class:CDYNARRAY	access:private
+_vMax	genForward.h	52;"	m	class:CFORWARD	access:protected
+_vMax	genTranslation.h	37;"	m	class:CTRANSLATION	access:protected
+_vel	genMotion.h	46;"	m	class:_CGENMOTION	access:protected
+_velocitiesChanged	genMotion.h	49;"	m	class:_CGENMOTION	access:protected
+_voltageCount	canPlatform.h	126;"	m	class:CCANPLATFORM	access:private
+_voltageDisplayThread	genBase.h	53;"	m	class:CGENBASE	access:protected
+_x0	genForward.h	54;"	m	class:CFORWARD	access:protected
+_x0	genTranslation.h	44;"	m	class:CTRANSLATION	access:protected
+_x0	laser.h	71;"	m	class:CLASER	access:public
+_x0	laserFeeder.h	31;"	m	class:CLASERFEEDER	access:protected
+_x0	laserFeederWir.h	31;"	m	class:CLASERFEEDER	access:protected
+_x0	sicksimlaser.h	38;"	m	class:CSICKSIMLASER	access:protected
+_xHead	genRotation.h	40;"	m	class:CROTATION	access:protected
+_xe	genTranslation.h	45;"	m	class:CTRANSLATION	access:protected
+_y0	laser.h	71;"	m	class:CLASER	access:public
+_y0	laserFeeder.h	31;"	m	class:CLASERFEEDER	access:protected
+_y0	laserFeederWir.h	31;"	m	class:CLASERFEEDER	access:protected
+_y0	sicksimlaser.h	38;"	m	class:CSICKSIMLASER	access:protected
+_yHead	genRotation.h	40;"	m	class:CROTATION	access:protected
+buf	canDongle.h	13;"	m	struct:reply	access:public
+buf	laserFeeder.h	35;"	m	class:CLASERFEEDER	access:protected
+buf	laserFeederWir.h	35;"	m	class:CLASERFEEDER	access:protected
+buflen	laserFeeder.h	36;"	m	class:CLASERFEEDER	access:protected
+buflen	laserFeederWir.h	36;"	m	class:CLASERFEEDER	access:protected
+cmd	canDongle.h	11;"	m	struct:reply	access:public
+cnt	arrays.h	68;"	m	class:CDYNARRAY	access:private
+computeProfile	filter.h	29;"	p	class:CFILTER	access:protected
+datatype_t	map.h	28;"	t	class:CMAP	access:public
+degree_t	arrays.h	152;"	t	class:CDYNDEGREEARRAY	access:public
+degree_t	arrays.h	192;"	t	class:CPOSARRAY	access:public
+degree_t	units.h	13;"	t
+deltaPosGyro	motorFeeder.h	66;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+deltaPosLeft	motorFeeder.h	64;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+deltaPosRight	motorFeeder.h	64;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+fd	laserFeeder.h	33;"	m	class:CLASERFEEDER	access:protected
+fd	laserFeederWir.h	33;"	m	class:CLASERFEEDER	access:protected
+gotcha	canDongle.h	12;"	m	struct:reply	access:public
+id	canDongle.h	10;"	m	struct:reply	access:public
+integrateProfile	filter.h	39;"	p	class:CFILTER	access:protected
+interval	motorFeeder.h	61;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+marks2matched	laserFeeder.h	45;"	p	class:CLASERFEEDER	access:protected
+marks2matched	laserFeederWir.h	45;"	p	class:CLASERFEEDER	access:protected
+meter_t	arrays.h	191;"	t	class:CPOSARRAY	access:public
+meter_t	units.h	11;"	t
+operator =	canDongle.h	23;"	p	class:CCANDONGLE	access:private
+operator =	canPlatform.h	47;"	p	class:CCANPLATFORM	access:private
+operator =	client.h	30;"	p	class:CCLIENT	access:private
+operator =	genBase.h	45;"	p	class:CGENBASE	access:private
+operator =	genForward.h	38;"	p	class:CFORWARD	access:private
+operator =	genMotion.h	38;"	p	class:_CGENMOTION	access:private
+operator =	genMove.h	26;"	p	class:CMOVE	access:private
+operator =	genRotation.h	30;"	p	class:CROTATION	access:private
+operator =	genTranslation.h	28;"	p	class:CTRANSLATION	access:private
+operator =	laser.h	31;"	p	class:CLASER	access:private
+operator =	laserFeeder_org.h	33;"	p	class:CLASERFEEDER	access:private
+operator =	lpt.h	22;"	p	class:CLPT	access:private
+operator =	map.h	45;"	p	class:CMAP	access:private
+operator =	motorFeeder.h	29;"	p	class:CMOTORFEEDER	access:private
+operator =	periodicTimer.h	24;"	p	class:CPERIODICTIMER	access:private
+operator =	radialscan.h	30;"	p	class:CRADIALSCAN	access:public
+operator =	radialscan.h	69;"	p	class:CRADIALSCANMATCHED	access:public
+operator =	radialscan.h	70;"	p	class:CRADIALSCANMATCHED	access:public
+operator =	rawlaser.h	24;"	p	class:_CRAWLASER	access:private
+operator =	rs422.h	33;"	p	class:CRS422	access:private
+operator =	sicklaser.h	26;"	p	class:CSICKLASER	access:private
+operator =	sickrawlaser.h	26;"	p	class:CSICKSCAN	access:private
+operator =	sickrawlaser.h	72;"	p	class:_CSICKRAWLASER	access:private
+operator =	sicksimlaser.h	28;"	p	class:CSICKSIMLASER	access:private
+operator =	voltageDisplayThread.h	19;"	p	class:CVOLTAGEDISPLAYTHREAD	access:private
+operator ==	canDongle.h	24;"	p	class:CCANDONGLE	access:private
+operator ==	canPlatform.h	48;"	p	class:CCANPLATFORM	access:private
+operator ==	client.h	31;"	p	class:CCLIENT	access:private
+operator ==	genBase.h	46;"	p	class:CGENBASE	access:private
+operator ==	genForward.h	39;"	p	class:CFORWARD	access:private
+operator ==	genMotion.h	39;"	p	class:_CGENMOTION	access:private
+operator ==	genMove.h	27;"	p	class:CMOVE	access:private
+operator ==	genRotation.h	31;"	p	class:CROTATION	access:private
+operator ==	genTranslation.h	29;"	p	class:CTRANSLATION	access:private
+operator ==	laser.h	32;"	p	class:CLASER	access:private
+operator ==	laserFeeder_org.h	34;"	p	class:CLASERFEEDER	access:private
+operator ==	lpt.h	23;"	p	class:CLPT	access:private
+operator ==	map.h	46;"	p	class:CMAP	access:private
+operator ==	motorFeeder.h	30;"	p	class:CMOTORFEEDER	access:private
+operator ==	periodicTimer.h	25;"	p	class:CPERIODICTIMER	access:private
+operator ==	radialscan.h	21;"	p	class:CRADIALSCAN	access:private
+operator ==	radialscan.h	60;"	p	class:CRADIALSCANMATCHED	access:private
+operator ==	rawlaser.h	25;"	p	class:_CRAWLASER	access:private
+operator ==	rs422.h	34;"	p	class:CRS422	access:private
+operator ==	sicklaser.h	27;"	p	class:CSICKLASER	access:private
+operator ==	sickrawlaser.h	27;"	p	class:CSICKSCAN	access:private
+operator ==	sickrawlaser.h	73;"	p	class:_CSICKRAWLASER	access:private
+operator ==	sicksimlaser.h	29;"	p	class:CSICKSIMLASER	access:private
+operator ==	voltageDisplayThread.h	20;"	p	class:CVOLTAGEDISPLAYTHREAD	access:private
+operator []	arrays.h	125;"	p	class:CDYNARRAY	access:public	implementation:virtual
+operator []	arrays.h	126;"	p	class:CDYNARRAY	access:public	implementation:virtual
+operator []	arrays.h	169;"	p	class:CDYNDEGREEARRAY	access:public	implementation:virtual
+operator []	arrays.h	51;"	p	class:CARRAY	access:public	implementation:pure virtual
+posGyro	motorFeeder.h	65;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+posLeft	motorFeeder.h	63;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+posRight	motorFeeder.h	63;"	m	struct:CMOTORFEEDER::<anonymous>	access:public
+projTs	filter.h	61;"	m	class:CFILTER	access:protected
+projVp	filter.h	61;"	m	class:CFILTER	access:protected
+radian_t	units.h	12;"	t
+rate	filter.h	51;"	m	class:CFILTER	access:protected
+raw2radial	laserFeeder.h	46;"	p	class:CLASERFEEDER	access:protected
+raw2radial	laserFeederWir.h	46;"	p	class:CLASERFEEDER	access:protected
+reply	canDongle.h	8;"	s
+sum	arrays.h	68;"	m	class:CDYNARRAY	access:private
+sumq	arrays.h	68;"	m	class:CDYNARRAY	access:private
+updatePlatform	laserFeeder.h	63;"	p	class:CLASERFEEDER	access:public
+updatePlatform	laserFeederWir.h	63;"	p	class:CLASERFEEDER	access:public
+worldA	filter.h	51;"	m	class:CFILTER	access:protected
+worldT0	filter.h	65;"	m	class:CFILTER	access:protected
+worldTe	filter.h	65;"	m	class:CFILTER	access:protected
+worldV0	filter.h	55;"	m	class:CFILTER	access:protected
+worldV1	filter.h	56;"	m	class:CFILTER	access:protected
+worldVm	filter.h	51;"	m	class:CFILTER	access:protected
+worldX0	filter.h	55;"	m	class:CFILTER	access:protected
+worldX1	filter.h	56;"	m	class:CFILTER	access:protected
+worldXe	filter.h	55;"	m	class:CFILTER	access:protected
+x	map.h	37;"	m	struct:CMAP::<anonymous>	access:public
+x0	map.h	32;"	m	struct:CMAP::<anonymous>	access:public
+xe	map.h	32;"	m	struct:CMAP::<anonymous>	access:public
+y	map.h	37;"	m	struct:CMAP::<anonymous>	access:public
+y0	map.h	32;"	m	struct:CMAP::<anonymous>	access:public
+ye	map.h	32;"	m	struct:CMAP::<anonymous>	access:public
+~CCANDONGLE	canDongle.h	58;"	p	class:CCANDONGLE	access:public	implementation:virtual
+~CCANPLATFORM	canPlatform.h	107;"	p	class:CCANPLATFORM	access:public	implementation:virtual
+~CCLIENT	client.h	110;"	p	class:CCLIENT	access:public	implementation:virtual
+~CFILTER	filter.h	77;"	p	class:CFILTER	access:public	implementation:virtual
+~CFORWARD	genForward.h	75;"	p	class:CFORWARD	access:public	implementation:virtual
+~CGENBASE	genBase.h	129;"	p	class:CGENBASE	access:public	implementation:virtual
+~CLASER	laser.h	65;"	p	class:CLASER	access:public	implementation:virtual
+~CLASERFEEDER	laserFeeder.h	54;"	p	class:CLASERFEEDER	access:public	implementation:virtual
+~CLASERFEEDER	laserFeederWir.h	54;"	p	class:CLASERFEEDER	access:public	implementation:virtual
+~CLASERFEEDER	laserFeeder_org.h	58;"	p	class:CLASERFEEDER	access:public	implementation:virtual
+~CLPT	lpt.h	32;"	p	class:CLPT	access:public	implementation:virtual
+~CMAP	map.h	81;"	p	class:CMAP	access:public	implementation:virtual
+~CMOTORFEEDER	motorFeeder.h	76;"	p	class:CMOTORFEEDER	access:public	implementation:virtual
+~CMOVE	genMove.h	93;"	p	class:CMOVE	access:public	implementation:virtual
+~CPERIODICTIMER	periodicTimer.h	38;"	p	class:CPERIODICTIMER	access:public	implementation:virtual
+~CRADIALSCAN	radialscan.h	28;"	p	class:CRADIALSCAN	access:public	implementation:virtual
+~CRADIALSCANMATCHED	radialscan.h	67;"	p	class:CRADIALSCANMATCHED	access:public	implementation:virtual
+~CROTATION	genRotation.h	94;"	p	class:CROTATION	access:public	implementation:virtual
+~CRS422	rs422.h	48;"	p	class:CRS422	access:public	implementation:virtual
+~CSICKLASER	sicklaser.h	75;"	p	class:CSICKLASER	access:public
+~CSICKSCAN	sickrawlaser.h	37;"	p	class:CSICKSCAN	access:public	implementation:virtual
+~CSICKSIMLASER	sicksimlaser.h	55;"	p	class:CSICKSIMLASER	access:public	implementation:virtual
+~CTRANSLATION	genTranslation.h	67;"	p	class:CTRANSLATION	access:public	implementation:virtual
+~CVOLTAGEDISPLAYTHREAD	voltageDisplayThread.h	37;"	p	class:CVOLTAGEDISPLAYTHREAD	access:public	implementation:virtual
+~_CGENMOTION	genMotion.h	62;"	p	class:_CGENMOTION	access:public	implementation:virtual
+~_CRAWLASER	rawlaser.h	39;"	p	class:_CRAWLASER	access:public	implementation:virtual
+~_CSICKRAWLASER	sickrawlaser.h	89;"	p	class:_CSICKRAWLASER	access:public	implementation:virtual

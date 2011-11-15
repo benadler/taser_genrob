@@ -1,0 +1,22 @@
+
+// general permissions for genControl
+// 11Jun03
+// Currently no restrictions apply!
+// Remember to reduce permissions if needed.
+
+
+// UNRESTRICTED PERMISSION
+
+grant
+{
+	permission  java.security.AllPermission;
+};
+
+
+// The minimum set of permissions genControl would need
+
+grant
+{
+	// allow incoming calls for the HTTP service to be answered
+//	permission  java.net.SocketPermission  "*:1024-", "accept,connect";
+};

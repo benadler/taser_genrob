@@ -1,0 +1,77 @@
+;
+; Reflektoren: Universitaet Hamburg, Fachbereich Informatik, Haus F, Flur 3xx
+;
+; Version: 1.0
+; Autor  : Daniel Westhoff
+; Date   : 26.07.2007
+;
+; x y winkel (in welche richtung zeigt die spitze des reflektors) öffnungswinkel (180 für dreiecke, 90 für streifen)
+
+4325 9099  0   90     ; Flurende bei Bernd
+4325 7365   45   90   ; Flurecke bei Bernds Büro
+8070  10220 45   270  ; Marke am Tisch für die HOAPs
+9400  13800 179 180  ; Marke am Tisch vor den Fenstern ganz links
+11000 13720 -90 180   ; Marke am 2. Tisch vor den Fenstern von links
+15449 9998  90   180
+13721 10005 90   180
+15995 11750 -180 180  ; Labor (Marke am ersten Tisch rechts, wenn man ins Labor reinkommt)
+16060 14960 -180 180  ; Labor (Marke am zweiten Tisch rechts, wenn man ins Labor reinkommt)
+12054 16828 -90  180  ; Labor (Marke, wenn man auf die Fensterwand schaut, Saeule in der Mitte)
+12370 7355  45   180  ; Flur Durchgang zum Fahrstuhl rechts
+12370 6875  -45  180  ; Marke wie oben nur auf der Fahrstuhlseite
+11086 4505  45   90   ; Marke links neben Fahrstuhltür  
+14470 4505  135  90   ; Marke links neben der Tür zum hinteren Treppenhaus
+14475 7355  135  180  ; Flur Durchgang zum Fahrstuhl links
+15827 7385  90   180  ; Flur (Marke mittig auf der Wand zwischen Andreas und Durchgang zum Fahrstuhl)
+7595  14550 -45  180
+7230  16856 -45  90
+9520  16970 -136 180
+10505 9973  90   180
+9264  7367  90   180   ; Flur (Marke direkt gegenueber der zweiten Tuer zum Labor)
+17787 7380  90   180   ; Flur (Marke recht von Andreas Buerotuer)
+17084 9114  -90  180
+7120 9121   -90  180
+12086 9107  -90  180
+21660 7370  90   180
+;6675 7395   90   180 ; FEHLER BEI DER DARSTELLUNG
+11099 6951  -45   90
+23353 9133  -90  180
+24538 7360  91   180   ; Flur (Marke gegenüber vom Eingang zur Werkstatt)
+29536 7360  90   180
+32176 7490  -180 90    ; Flur (Tuer zu vorderen Flurteil)
+31370 7360  135  90    ; Flur (Marke links vor der Teekueche)
+30900 9140  -90  180   ; Flur (Marke gegenueber des Eingangs zur Teekueche) 
+28380 9140  -90  180   ; Flur (marke links neben dem Eingang zum Kletterroboter)
+
+; Stauraum im Labor
+5891 16275 -46 180
+4081 16374 -45 180
+6711 15411 135 180
+
+; Küche
+31300 7160 -90  180   ; Küche (Marke rechts neben der Tür)
+31439 5300 180 180   ; Küche (Marke rechts auf dem Spuellbeckenunterschrank)
+30110 4975 0    180   ; Küche (Marke links am grossen Schrank)
+30371 4300 0    180   ; Küche (Marke rechts am Tisch nebendem Drucker)
+;31470  3450 180 180   ; Küche (Marke am Kühlschrank) (FEHLER BEI DARSTELLUNG)
+
+; Werkstatt
+23544 11492 0    180  ; Rechts vom Eingang zum Switch-Raum
+25310 10030 135  180  ; rechts am Eingang
+;23649 16196 -90  180  ; Schreibtisch vor Fenster (FEHLER BEI DER DARSTELLUNG)
+26420 11560 -180 180  ; rechts am Schrank
+26980 15780 -135 180  ; Durchgang zum Kletterroboter
+20418 15388 0    180  ; Schreibtisch Wand links
+
+; Kletterroboter
+30350 10030 135  180  ; rechts am Eingang
+28710 13170 0    270  ; Tisch links
+30800 14160  180  180  ; Fuß der halterung des Kletterroboters
+28840 15590  -135 180  ; Tisch zwischen den schreibtischen
+
+; Raum gegenueber von Bernds Buero
+4325 10414 0    180
+4473 11969 0    180
+5335 13060 180 180  (FEHLER BEI DER DARSTELLUNG)
+3820 13690 0    180
+

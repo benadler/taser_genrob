@@ -1,0 +1,11 @@
+;
+; Pfade im TAMS-Bereich
+;
+; Version: 1.0
+; Autor  : Daniel Westhoff
+; Date   : 17.06.2007
+;
+move  9400 11750 90
+move  9400 12750 0
+move 14200 12750 -90
+move 14200 11750 180

@@ -1,0 +1,10 @@
+
+// general permissions for genControl
+// 25Feb03
+// remember to grant more permissions specific to the modules
+
+// for test
+grant
+{
+	permission  java.security.AllPermission;
+};

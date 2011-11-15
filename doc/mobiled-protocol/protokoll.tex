@@ -1,0 +1,2061 @@
+\documentclass[a4paper,headsepline,titlepage,11pt,final]{scrartcl}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{scrpage2}
+\usepackage[latin1]{inputenc}
+\usepackage{ngerman}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage[pdftex,usenames]{color}
+\usepackage[pdftex]{thumbpdf}
+\usepackage[pdftex,bookmarks=true,hypertexnames=false,
+breaklinks=true,colorlinks=true]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{figs/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DefineNamedColor{named}{NavyBlue}{rgb}{0.0,0.0,0.5}
+\DefineNamedColor{named}{ForestGreen}{rgb}{0.3,0.55,0.13}
+\DefineNamedColor{named}{Orange}{rgb}{1.0,0.65,0.0}
+\DefineNamedColor{named}{LightSlateBlue}{rgb}{0.52,0.44,1.0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\version}{20060421-0.5}
+\newcommand{\new}[1]{\color{ForestGreen} #1 \color{black}}
+\newcommand{\changed}[1]{\color{NavyBlue} #1 \color{black}}
+\newcommand{\notimplemented}[1]{\color{Orange} #1 \color{black}}
+\newcommand{\variable}[1]{$<$#1$>$}
+
+\parskip2ex    % Abstand zwischen Absätzen
+\parindent0ex  % Einrückung der ersten Zeile eines Absatzes
+
+\pagestyle{scrheadings} % Kopf- und Fußzeile formatieren
+\automark{section}
+\ohead{\pagemark}
+\ihead{\headmark}
+\chead{}
+\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Kommunikationsprotokoll Robotersteuerung \textit{mobiled}}
+\subject{Version: \version}
+\author{Torsten Scherer \and Hagen Stanek \and Daniel Westhoff}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{
+  pdfauthor={Torsten Scherer, Hagen Stanek und Daniel Westhoff},
+  pdftitle={Kommunikationsprotokoll Robotersteuerung mobiled},
+  pdfsubject={Binäres Kommikationsprotokoll Version \version},
+  pdfkeywords={TCP/IP, Socket-Kommunikation, Roboterstuerung,
+Roblet(R), genRob.com, Universität Hamburg, FB Informatik,
+AB TAMS},
+  linkcolor={LightSlateBlue}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Dieses Dokument spezifiziert das Kommunikationsprotokoll zwischen der 
+Steuerung \textit{mobiled} des mobilen Roboters des AB Tams am 
+Fachbereich Informatik der Universität Hamburg und Client-Anwendungen die
+den Roboter steuern sollen. Das Roblet\textregistered-Server-Modul
+\texttt{uhh.fbi.tams.mobilerobot} nutzt dieses Protokoll um den Roboter zu
+steuern.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Einleitung}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Protokoll allgemein (Version \version)}
+
+\begin{itemize}
+\item zustandsloses Protokoll, d.h. 1 Kommando $\rightarrow$ 1 Antwort und
+  keine Speicherung von Kontextinformation ber zwei Kommandos hinweg.
+\item alle Daten werden in 32bit Worten übertragen (damit alles immer schön
+  \textit{aligned} ist), es gibt also nur die typen \textit{int} (s32),
+  \textit{unsigned int} (u32) und \textit{float} (f32). Gezählt wird aber in
+  einzelnen Bytes, so dass die Längenangabe für das ganze Telegramm ein
+  Vielfaches von 4 sein muss.
+\item Ich sehe (noch) keine Notwendigkeit zur Übertragung von ASCII-Texten
+  (u8) oder \textit{double}s (f64). Wenn das mal kommt muss man sich halt was
+  etwas komplizierteres überlegen.
+\item Negative Statuswerte sind Fehler, echt positive Zahlen Warnungen und 0
+  ist \glqq ok\grqq.
+\item Die Kodierung der Worte erfolgt im im \textit{little-endian} (intel)
+        Format, d.h. 0x12345678 liegt linear im Speicher als 0x78 0x56 0x34
+        0x12 und wird auch in dieser Reihenfolge als Bytestrom
+        bertragen. Anderes Beispiel: Der MAGIC Wert \glqq HELO\grqq\
+        (0x4f4c4548) wird als 0x48 0x45 0x4c 0x4f bertragen. Über eine spätere
+        Erweiterung auf Untersttzung des \textit{big-endian} Formates (kann an
+        der MAGIC number erkannt werden) kann noch verhandelt werden.
+\item Die Kodierung von Fließkommawerten erfolgt im \textit{little-endian} 32
+        Bit IEEE \textit{float} Format. Als Beispiel für den Bytestrom mögen
+        gelten:
+        \begin{itemize}\itemsep0ex
+          \item -1.0     $\rightarrow$ 0x00 0x00 0x80 0xbf
+          \item +0.0     $\rightarrow$ 0x00 0x00 0x00 0x00
+          \item +1.0     $\rightarrow$ 0x00 0x00 0x80 0x3f
+          \item +3.14159 $\rightarrow$ 0xd0 0x0f 0x49 0x40
+          \item +INF     $\rightarrow$ 0x00 0x00 0x80 0x7f
+          \item -INF     $\rightarrow$ 0x00 0x00 0x80 0xff
+          \item  NAN     $\rightarrow$ 0x00 0x00 0xc0 0x7f
+        \end{itemize}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Changes}
+
+\begin{itemize}
+\item \textbf{++itschere20021105:} Re-Write nach und gem? der Diskussion
+  letzte Woche.
+\item \textbf{++itschere20021219:} Unterscheidung zwischen initialen und
+  aktuellen Koordinaten von Marken.
+\item \textbf{++itschere20030130:} Neuer Befehl `Forward()' (und ein paar
+  kleine Bugfixes). \textcolor{black}{Schwarz} sind alle Sachen markiert die
+  implementiert sind, \new{grün} alle Sachen die seit der letzten
+  Version neu hinzu gekommen sind, \changed{blau} alles was sich seit
+  der letzten Version geändert hat (wenn ich dran gedacht habe dran zu denken)
+  und \notimplemented{orange} alles was noch nicht implementiert ist.
+\item \textbf{++itschere20030206:} Ein paar mehr Befehle rund um Scanner...
+\item \textbf{++itschere20030403:} MovePoint() (eher nutzlos), RotatePoint(),
+        dazu ID von Turn() geändert (aber da das eh noch nicht implementiert
+        war msste es egal sein)
+\item \textbf{++itschere20030430:} GetScale(), SetScale() und ModifyScale()
+\item \textbf{++itschere20030511:} GetMode() \& SetMode() (partially)
+\item \textbf{++itschere20030806:} GetPositionAndVariance()
+\item \textbf{++itschere20031209:} GetPositionOdo()
+\item \textbf{++westhoff20050810:} Überarbeitung des Dokuments und
+  Integration aller Modifikationen, die in Hamburg seit der letzten
+  Version durchgeführt wurden.
+\item \textbf{++westhoff20060421:} TurnAngle()
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsection{\label{sec:todo}TODO und Diskussion}
+
+\begin{description}
+\item[CheckProtocol()] Verionsnmummer dreiteilig übermitteln
+(Major.Minor.Patch), zurzeit wird nur eine 0 übertragen.
+\item[Umlaute] Aufgrund der Umstellung des Encodings dieser Datei sind einige
+Umlaute verschwunden oder werden in diesem Dokument falsch dargestellt.
+\item[IsCompleted()] Prüfen, ob ein \variable{FLAG} oder \variable{BOOL}
+übertragen wird und wo der Unterschied besteht.
+\item[StartOdoLogging()] Ermitteln der Datei in der die Odometriedaten
+gespeichert werden.
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Paketaufbau}
+
+Im folgendsen soll der Aufbau der Pakete erläutert werden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Allgemeiner Paketaufbau}
+
+Unterschieden wird (nur) zwischen Kommandos und Antworten, erkennbar am
+Bit 0x80000000 im Kommandofeld. Kommandos haben eine Mindestlänge von 4
+Worten (\`a 4 Byte), Antworten von 5 Worten weil sie immer mindestens
+1 Statuswort enthalten müssen. Dieses Wissen kann mit dem magic byte, der
+Länge und der Prüfsumme für Plausibilitätstests benutzt werden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Generelles Layout}
+
+\begin{center}
+
+% use packages: array
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+%
+{\footnotesize
+\begin{tabular}{|lllllllllllllllllllllllllllll}\hline
+\mc{1}{|r|}{Wort} & \mc{4}{|c|}{0} & \mc{4}{|c|}{1} & \mc{4}{|c|}{2} &
+\mc{4}{|c|}{3} & \mc{4}{|c|}{...} & \mc{4}{|c|}{N-2} & \mc{4}{|c|}{N-1} \\
+\hline
+\mc{1}{|r|}{Byte} & \mc{1}{|c|}{0} & \mc{1}{|c|}{1} & \mc{1}{|c|}{2} &
+\mc{1}{|c|}{3} & \mc{1}{|c|}{4} & \mc{1}{|c|}{5} & \mc{1}{|c|}{6} &
+\mc{1}{|c|}{7} & \mc{1}{|c|}{8} & \mc{1}{|c|}{9} & \mc{1}{|c|}{10} &
+\mc{1}{|c|}{11} & \mc{12}{|c|}{...} &
+\mc{1}{|c|}{} & \mc{1}{|c|}{} & \mc{1}{|c|}{} &
+\mc{1}{|c|}{} \\ \hline
+Bezeichnung & \mc{4}{|c|}{$<$MAGIC$>$} & \mc{4}{|c|}{$<$SIZE$>$} &
+\mc{4}{|c|}{$<$CMD$>$} & \mc{12}{|c|}{$<$DATA$>$} & \mc{4}{|c|}{$<$CRC$>$} \\
+\hline
+\end{tabular}
+}
+\end{center}
+
+\begin{verbatim}
+MAGIC  : u32, 0x4f4c4548 ("HELO")
+SIZE   : u32, gezählt in Bytes ber das gesamte Telegramm,
+              unterste 2 Bits sind immer 0 weil nur
+              Vielfache von 4 erlaubt
+CMD    : u32, 0x00??????, Kommando
+              0x80??????, Antwort auf Kommando
+DATA   : ???, any kind of data
+CRC    : u32, crc32 checksum
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Kommandos}
+
+In diesem Kapitel werden die vom Protokoll spezifizierten Kommandos
+vorgestellt. Abgebildet sind nur die Nutzdaten inklusive Status. Die Farben
+markieren Kommandos, die in dieser Version des Protokolls \new{neu
+hinzugekommen} sind, die \changed{geändert} wurden oder die noch
+\notimplemented{nicht von der Robotersteuerung \emph{mobiled} implementiert}
+werden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\subsubsection{}
+%
+%\begin{tabular}{l|lll}
+%Kommando & Argument & Erkl?ung
+%\\
+%\hline &
+%\\
+%\hline & \variable{STATUS}\\
+%\end{tabular}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0000 - Initialisierung}
+
+Mit dem Prefix 0x0000 beginnen Kommandos, um die Kommunikation zu initialisieren
+und zu überwachen.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Ping() -- Are You Alive?}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00000000
+\\
+\hline 0x80000000 & \variable{STATUS} & sollte 0 sein\\
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{CheckProtocol() -- Protokoll und unterstützte Befehle abfragen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00000001
+\\
+\hline 0x80000001 & \variable{STATUS}\\
+& \variable{VERSION}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{CMD} & ID des Kommandos\\
+& \}
+\end{tabular}
+
+Liefert die implementierte Protokollversion und eine Liste der implementierten
+Befehle zurück. Es kann ja sein das nicht alle definierten auch wirklich
+implementiert sind, insbesondere in der Anfangszeit.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Debugging() -- Debugausgaben ein/ausschalten}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00000002 & \variable{FLAG} & neues Debugging-Flag
+\\
+\hline 0x80000002 & \variable{STATUS}\\
+& \variable{FLAG} & altes Debugging-Flag
+\end{tabular}
+
+Schaltet Debugausgaben ein oder aus.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable           & Typ & Beschreibung \\
+\hline
+\variable{STATUS}  & s32 & Fehlercode. Bei den meisten Befehlen 0
+(hoffendlich).\\
+\variable{VERSION} & u32 & Versionsnummer. Noch ohne
+genaue Spezifizierung, d.h zurzeit wird eine 0 übertragen. Siehe dazu auch
+Kapitel \ref{sec:todo}.\\
+\variable{COUNT}   & u32 & Zähler.\\
+\variable{CMD}     & u32 & Kommando ID, siehe IDs in diesem Dokument.
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0001 - Betriebsmodus}
+
+Mit dem Prefix 0x0001 beginnen Kommandos, die den Betriebsmodus des Roboters
+abfragen oder verändern.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetMode() -- Abfragen des aktuellen Modus}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00010000
+\\
+\hline 0x80010000 & \variable{STATUS}\\
+& \variable{MODE} & aktueller Modus
+\end{tabular}
+
+\texttt{GetMode()} liefert den aktuellen Betriebsmodus zurck. Untersttzte
+Modi sind z.Z. \texttt{STANDBY} (Bremsen angezogen) und \texttt{TARGET}
+(Bremsen gelöst). Startmodus ist aus historischen Grnden \texttt{TARGET}.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{SetMode() -- Setzen eines neuen Modus}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00010001 & \variable{MODE} & neuer Modus
+\\
+\hline 0x80010001 & \variable{STATUS}\\
+& \variable{MODE} & alter Modus\\
+& \variable{MODE} & neuer Modus
+\end{tabular}
+
+\texttt{SetMode()} setzt einen neuen Modus und liefer sowohl den alten als auch
+den neuen zurck. Im Fehlerfall kann es sein das der neue Modus nicht der
+eiegntlich gesetzte neue Modus ist.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable           & Typ & Beschreibung \\
+\hline
+\variable{MODE} & s32 & Betriebsmodus. Glütige Werte: -1 (\texttt{ERROR}), 0
+(\texttt{STANDBY}) und 1 (\texttt{TARGET}). Für die Zukunft vorgesehene weitere
+Werte: 2 (\texttt{STICK}).
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0002 - Lokalisation (Marken)}
+
+Mit dem Prefix 0x0002 beginnen Kommandos, die die Lokalisation des Roboters
+abfragen oder beeinflussen. Die Lokalisation basiert auf Abstands- und
+Winkelmessungen zu Landmarken.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetPosition() -- Auslesen der momentanen Pose}
+
+\begin{tabular}{l|ll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020000
+\\
+\hline 0x80020000 & \variable{STATUS}\\
+& \variable{POSX} & X-Position (in Meter)\\
+& \variable{POSY} & Y-Position (in Meter)\\
+& \variable{POSA} & Orientierung (in Grad)
+\end{tabular}
+
+Liefert die momentane Pose gemäß der Lokalisation zurck.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{SetPosition() -- Setzen einer neuen Pose}
+
+\begin{tabular}{l|ll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020001 & \variable{POSX} & neue Position\\
+& \variable{POSY} & " \\
+& \variable{POSA} & neue Orientierung
+\\
+\hline 0x80020001 & \variable{STATUS}\\
+& \variable{POSX} & gesetzte Position, kann leicht anders sein\\
+& \variable{POSY} & "\\
+& \variable{POSA} & gesetzte Orientierung, kann leicht anders sein
+\end{tabular}
+
+Im wesentlichen ist die zurckgelieferte Pose das, was man nach einem
+Iterationsschritt des Kalmanfilter bekäme, also faktisch äquivalent zu
+\texttt{GetPosition()}.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetPositionAndVariance() -- Auslesen der momentanen Pose}
+
+\begin{tabular}{l|ll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020002
+\\
+\hline 0x80020002 & \variable{STATUS}\\
+& \variable{POSX} & X-Position (in Meter)\\
+& \variable{POSY} & Y-Position (in Meter)\\
+& \variable{POSA} & Orientierung (in Grad)\\
+& \variable{VARXX}\\
+& \variable{VARXY}\\
+& \variable{VARYX}\\
+& \variable{VARYY}\\
+& \variable{VARAA}
+\end{tabular}
+
+Siehe \texttt{GetPosition()}, nur wird zusätzlich noch die Varianz der Pose
+mit zurück geliefert.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetPositionOdo() -- Auslesen der momentanen Pose der
+Odometrie}
+
+\begin{tabular}{l|ll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020003
+\\
+\hline 0x80020003 & \variable{STATUS}\\
+& \variable{POSX} & X-Position (in Meter)\\
+& \variable{POSY} & Y-Position (in Meter)\\
+& \variable{POSA} & Orientierung (in Grad)
+\end{tabular}
+
+Liefert die momentane Pose gemäß dem Odometrieteil der Lokalisation
+zurck. \variable{STATUS} kann negativ sein wenn keine separate
+Odometrielokalisation
+existiert. In diesem Fall sind die anderen Werte undefiniert.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetNumMarks() -- Anzahl der Reflektormarken abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020010
+\\
+\hline 0x80020010 & \variable{STATUS}\\
+& \variable{COUNT}
+\end{tabular}
+
+\variable{STATUS} gibt nur an ob das Kommando an sich korrekt bearbeitet wurde
+oder nicht. \variable{COUNT} kann jeden Wert $\ge 0$ annehmen.
+
+}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{ListMarks() -- Auflistung der IDs aller Marken}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020011
+\\
+\hline 0x80020011 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\variable{STATUS} gibt nur an ob das Kommando an sich korrekt bearbeitet wurde
+oder nicht. \variable{COUNT} kann jeden Wert $\ge 0$ annehmen.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetMark() -- Eine einzelne Marke abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020012 & \variable{ID}
+\\
+\hline 0x80020012 & \variable{STATUS}\\
+& if \variable{BOOL} \{ & existiert die ID?\\
+& \indent \variable{COORDS}\\
+& \indent \variable{ANGLE}\\
+& \indent \variable{RANGE}\\
+& \}
+\end{tabular}
+
+\variable{STATUS} gibt nur an ob das Kommando an sich korrekt bearbeitet wurde
+oder nicht. \variable{BOOL} gibt an ob die Marke existiert oder nicht.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetMarks() -- Mehrere Marken abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020013 & for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \}
+\\
+\hline 0x80020013 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent if \variable{BOOL} \{ & existiert die Marke?\\
+& \indent \indent \variable{COORDS}\\
+& \indent \indent \variable{ANGLE}\\
+& \indent \indent \variable{RANGE}\\
+& \indent \}\\
+& \}
+\end{tabular}
+
+\variable{STATUS} gibt nur an ob das Kommando an sich korrekt bearbeitet wurde
+oder nicht. \variable{COUNT} in der Antwort endspricht dem \variable{COUNT} in
+der Anfrage. \variable{BOOL} gibt an, ob die jeweilige Marke $i$ existiert oder
+nicht.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetAllMarks() -- Alle Marken abfragen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020014
+\\
+\hline 0x80020014 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \indent \variable{COORDS}\\
+& \indent \variable{ANGLE}\\
+& \indent \variable{RANGE}\\
+& \}
+\end{tabular}
+
+\textbf{ACHTUNG:} Die \variable{ID}s werden bis jetzt nur gefaked!
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetMarkInitial() -- Eine einzelne Marke abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020015 & \variable{ID}
+\\
+\hline 0x80020015 & \variable{STATUS}\\
+& if \variable{BOOL} \{ & existiert die ID?\\
+& \indent \variable{COORDS}\\
+& \indent \variable{ANGLE}\\
+& \indent \variable{RANGE}\\
+& \}
+\end{tabular}
+
+Siehe \texttt{GetMark()}, nur werden die initialen Koordinaten wie von
+\texttt{AddMark()} vorgegeben zurck gegeben.
+
+Die Idee ist das die Lokalisation die Marken bei Bedarf verschieben kann, man
+aber trotzdem noch die initiale Position kennen möchte um diese Verschiebung
+darstellen und/oder berwachen zu können.
+
+\textbf{ACHTUNG:} Die \variable{ID}s werden bis jetzt nur gefaked!
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetMarksInitial() -- Mehrere Marken abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020016 & for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \}
+\\
+\hline 0x80020016 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent if \variable{BOOL} \{ & existiert die Marke?\\
+& \indent \indent \variable{COORDS}\\
+& \indent \indent \variable{ANGLE}\\
+& \indent \indent \variable{RANGE}\\
+& \indent \}\\
+& \}
+\end{tabular}
+
+Siehe \texttt{GetMarksInitial()}, nur werden die initialen Koordinaten zurck
+gegeben.
+
+\textbf{ACHTUNG:} Die \variable{ID}s werden bis jetzt nur gefaked!
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetAllMarksInitial() -- Alle Marken abfragen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020017
+\\
+\hline 0x80020017 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \indent \variable{COORDS}\\
+& \indent \variable{ANGLE}\\
+& \indent \variable{RANGE}\\
+& \}
+\end{tabular}
+
+Siehe \texttt{GetAllMarks()}, nur werden die initialen Koordinaten zurck
+gegeben.
+
+\textbf{ACHTUNG:} Die \variable{ID}s werden bis jetzt nur gefaked!
+
+%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection{GetAllMarksWithVariances() -- Alle Marken abfragen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020018
+\\
+\hline 0x80020018 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \indent \variable{COORDS}\\
+& \indent \variable{ANGLE}\\
+& \indent \variable{RANGE}\\
+& \indent \variable{VARXX}\\
+& \indent \variable{VARXY}\\
+& \indent \variable{VARYX}\\
+& \indent \variable{VARYY}\\
+& \}
+\end{tabular}
+
+Wie \texttt{GetAllMarks()}, nur werden noch die Varianzen der
+Kalman-Filter-Kovarianzmatrix mitgeliefert.
+
+\textbf{ACHTUNG:} Die \variable{ID}s, \variable{ANGLE} und \variable{RANGE}
+werden bis jetzt nur gefaked!
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{AddMark() -- Neue Marke hinzufgen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkl?ung
+\\
+\hline 0x00020020 & \variable{COORDS}\\
+& \variable{ANGLE}\\
+& \variable{RANGE}
+\\
+\hline 0x80020020 & \variable{STATUS}\\
+& \variable{ID} & erzeugte ID der neu angelegten Marke
+\end{tabular}
+
+\variable{STATUS} gibt an ob das Kommando an sich korrekt bearbeitet wurde oder
+nicht. Wenn \variable{STATUS} $< 0$ ist konnte keine Marke angelegt werden
+(z.B. \textit{out of memory}) und \variable{ID} ist undefiniert.
+
+Ansonsten kann \variable{ID} jeden beliebigen Wert $\ge 0$ annehmen. Es wird
+keine verbindliche Aussage darber gemacht nach welchem Schema die IDs intern
+erzeugt werden. Insbesondere können numerisch die gleichen IDs wie fr schon
+existierende Linien erzeugt werden.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteMark() -- eine Marke löschen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkl?ung
+\\
+\hline 0x00020030 & \variable{ID}
+\\
+\hline 0x80020030 & \variable{STATUS}
+\end{tabular}
+
+\variable{STATUS} gibt an ob das Kommando an sich korrekt bearbeitet wurde oder
+nicht. Wenn \variable{STATUS} $< 0$ ist existierte die \variable{ID} nicht oder
+die Marke konnte aus sonstigen Grnden nicht gelöscht werden.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteMarks() -- mehrere Marken löschen}
+
+\notimplemented{
+
+0x00020031, 0x80020031 -- NYI
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteAllMarks() -- alle Marken löschen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020032 &
+\\
+\hline 0x80020032 & \variable{STATUS}
+\end{tabular}
+
+\variable{STATUS} gibt an ob das Kommando an sich korrekt bearbeitet wurde oder
+nicht. Eigentlich sollte es unmöglich sein das \variable{STATUS} bei diesem
+Kommando jemals $< 0$ ist, weil, was soll daran schief gehen die gesamte Karte
+(Marken) zu löschen?
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{MoveMark() - Marke verschieben}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00020040 & \variable{ID}\\
+& \variable{COORDS}\\
+& \variable{ANGLE}\\
+& \variable{RANGE}
+\\
+\hline 0x80020040 & \variable{STATUS}\\
+\end{tabular}
+
+\variable{STATUS} gibt an ob das Kommando an sich korrekt bearbeitet wurde oder
+nicht. Wenn \variable{STATUS} $< 0$ ist existierte die \variable{ID} nicht oder
+die Marke konnte aus sonstigen Grnden nicht verschoben werden.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable           & Typ & Beschreibung \\
+\hline
+\variable{STATUS}  & s32 & Fehlercode des Befehls. Bezieht sich i.d.R. nur
+  auf die generelle Abarbeitung des Befehles und nicht auf in der Antwort
+  bertragene Wahrheitswerte (Ausnahmen bestätigen die Regel).\\
+\variable{ID}      & s32 & eindeutige intern selbst erzeugte ID ($\ge 0$) fr
+  Linien und/oder Marken (es k?nen fr beides die gleichen IDs erzeugt
+  werden). Es ist ausdrcklich keinerlei Annahme ber die Art der Erzeugung
+  dokumentiert.\\
+\variable{COORDS}  &     & \variable{POSX}, \variable{POSY}\\
+\variable{POSX}    & f32 & X-Koordinate (in Meter)\\
+\variable{POSY}    & f32 & Y-Koordinate (in Meter)\\
+\variable{POSA}    & f32 & Orientierung des Roboters (in Rad)\\
+\variable{ANGLE}   & f32 & Orientierung der Marke in Rad. Gemeint ist so
+etwas wie die \glqq direkte Blickrichtung\grqq\ der Marke, wenn sie denn so
+etwas hat (eine planare Marke hat das natrülich). Siehe auch unter
+\variable{RANGE}.\\
+\variable{RANGE}   & f32 & symmetrischer Bereich der Sichtbarkeit der Marke
+in Rad um den Grundwinkel \variable{ANGLE} herum. Bei uns typischerweise $\Pi/4$
+(45), da wir aber \glqq doppelte\grqq\ Marken haben $\Pi/2$ (90). Die Idee ist
+das flache Marken nicht aus allen Richtungen sichtbar sind. Falls es später
+mal runde Marken gibt kann man immer noch $\Pi$ nehmen.\\
+\variable{BOOL}    & s32 & (oder u32, das macht keinen
+Unterschied), Wahrheitswert gemäß C, also 0 = \texttt{false} und \~\ 0 =
+\texttt{true}.\\
+\variable{COUNT}   & u32 & Anzahl von irgendwas (Marken)\\
+\variable{VARXX}   & f32 &  Varianzen laut Kalmanfilter.\\
+\variable{VARXY}   & f32 &  Varianzen laut Kalmanfilter.\\
+\variable{VARYX}   & f32 &  Varianzen laut Kalmanfilter.\\
+\variable{VARYY}   & f32 &  Varianzen laut Kalmanfilter.\\
+\variable{VARAA}   & f32 &  Varianzen laut Kalmanfilter.
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0003 - Bewegung}
+
+\begin{itemize}
+
+  \item Es kann zwar mehrere Verbindungen geben, aber es findet keine
+        Synchronisation statt. Die jeweiligen Sender sind dafür verantwortlich
+        das keine widersprüchlichen Kommandos geschickt werden.
+
+  \item Bewegungskommandos kehren i.d.R. (s. \glqq Warteschlange\grqq) sofort
+        zurck, d.h. sie warten nicht bis die Bewegung abgeschlossen ist.
+
+  \item Es gibt (noch?) keine Warteschlange für Bewegungen, d.h. ein bei einer
+        noch bestehenden Bewegung eintreffendes Kommando für eine neue Bewegung
+        blockiert so lange bis die bisherige Bewegung beendet ist.
+
+  \item Ein Wort vorweg zu den Geschwindigkeiten: Angestrebt wird ein Prinzip
+        wo nur einmal zu Programmstart eine maximale Geschwindigkeit
+        programmiert wird (was ist eigentlich mit den Beschleunigungen?) und
+        danach nur noch relativ skaliert wird. Es ist oftmals einfacher zu
+        sagen \glqq die nächste Bewegung bitte halb so schnell\grqq\ als das
+        mit absoluten Geschwindigkeiten anzugeben. Außerdem kann man dann an
+        einer zentralen Stelle die globale Arbeitsgeschwindigkeit an sich
+        verändern, wenn das zum debuggen einmal notwendig sein sollte.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetSpeed() -- Auslesen der Geschwindigkeitslimits}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00030000
+\\
+\hline 0x80030000 & \variable{STATUS}\\
+& \variable{TSPEED}\\
+& \variable{RSPEED}
+\end{tabular}
+
+\texttt{GetSpeed()} liest die aktuelle grundlegende Maximalgeschwindigkeit
+aus. Dieser Wert multipliziert mit der aktuellen Skalierung (s.u.) ergibt die
+Geschwindigkeit mit der Bewegungen gefahren werden.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{SetSpeed() -- Setzen der Geschwindigkeitslimits}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030001 & \variable{TSPEED}\\
+& \variable{RSPEED}
+\\
+\hline 0x80030001 & \variable{STATUS}\\
+& \variable{TSPEED} & resultierende Geschwindigkeit\\
+& \variable{RSPEED}
+\end{tabular}
+
+\texttt{SetSpeed()} setzt die grundlegende Maximalgeschwindigkeit (wenn
+entsprechendes Argument $> 0$). Gleichzeitig wird die entsprechende Skalierung
+auf 1.0 gesetzt (s.u.). \texttt{SetSpeed()} sollte nur bei der Initialisierung
+der Plattform benutzt werden. Alle späteren Geschwindigkeitsveränderungen
+können besser ber die Skalierung vorgenommen werden. Zurück gegeben werden auf
+jeden Fall beide Maximalgeschwindigkeiten, auch wenn sie nicht verändert wurden
+($\le 0$ gesetzt wurden).
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScale() -- Auslesen der Geschwindigkeitsskalierung}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030010
+\\
+\hline 0x80030010 & \variable{STATUS}\\
+& \variable{TSCALE} & $>$ 0.0, siehe SetScale() \\
+& \variable{RSCALE} & $>$ 0.0, siehe SetScale()
+\end{tabular}
+
+\texttt{GetScale()} gibt die aktuelle Skalierung $>$ 0 zurck.
+
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{SetScale() -- Setzen der Geschwindigkeitsskalierung}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030011 & \variable{TSCALE}\\
+& \variable{RSCALE}
+\\
+\hline 0x80030011 & \variable{STATUS}\\
+& \variable{TSCALE} & $>$ 0.0\\
+& \variable{RSCALE} & $>$ 0.0
+\end{tabular}
+
+\texttt{SetScale()} setzt eine neue Skalierung (wenn entsprechender Faktor $>$
+0). Zurck gegeben werden immer beide Skalierungen, egal ob sie verändert
+wurden oder nicht.
+
+\textbf{Achtung:} Ich möchte sowohl 0 für die absolute Geschwindigkeit als auch
+0 fr die relative Skalierung vermeiden. Das gibt nichts als Ärger wenn man
+versuchen will dadurch Translation bzw. Rotation effektiv aus zu schalten.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{ModifyScale()}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030012 & \variable{TSCALEFACTOR} & $>$ 0.0\\
+& \variable{RSCALEFACTOR} & $>$ 0.0
+\\
+\hline 0x80030012 & \variable{STATUS}\\
+& \variable{TSCALE} & vorherige Skalierung\\
+& \variable{RSCALE} & vorherige Skalierung
+\end{tabular}
+
+\texttt{ModifyScale()} ver?dert die aktuelle Skalierung durch Multiplikation
+mit einem relativen Faktor $>$ 0 (Faktor 1.0 l?st Werte effektiv unverändert).
+Zurck gegeben werden immer beide \textbf{vorherigen} Skalierungen, egal ob sie
+verändert wurden oder nicht. Dadurch kann mit \texttt{ModifyScale(0.5)} die
+Geschwindigkeit halbiert werden um danach ohne \texttt{ModifyScale(2.0)} und
+damit verbundenen Ungenauigkeiten wegen Fließkommamultiplikationen per
+\texttt{SetScale()} direkt auf den vorherigen Wert zurck zu schalten.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Stop() -- Abbruch einer Bewegung}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030100
+\\
+\hline 0x80030100 & \variable{STATUS}
+\end{tabular}
+
+\texttt{Stop()} bricht eine (eventuell bestehende) aktuelle Bewegung ab. Die
+Bewegung wird dabei noch nicht sofort beendet, sondern lediglich innerhalb der
+Bewegungsstruktur eine Flagge gesetzt das die Plattform schnellstmöglich zum
+Stillstand gebracht werden soll. Die jeweilige Bewegung soll daraufhin die
+(kartesische) Geschwindigkeit schnellstmöglich (entsprechend der programmierten
+Parameter) auf Null rampen.
+
+\textbf{Achtung:} Bei so einem Abbruch kann nicht
+nur das gewnschte Ziel nicht erreicht, sondern auch die Trajektorie dahin
+verlassen werden!
+
+}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Translate() -- Fahrt zu kartesischer Zielposition}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030200 & \variable{POSX}\\
+& \variable{POSY}
+\\
+\hline 0x80030200 & \variable{STATUS}
+\end{tabular}
+
+\texttt{Translate()} fährt an eine kartesische Zielposition. Die
+Zielorientierung ergibt sich dabei aus der geraden Linie von der Startposition
+zum Ziel. Bevor die Translation beginnt dreht die Plattform erst in die
+ungefähre Richtung des Zieles.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Forward() -- inkrementelle Translation}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030201 & \variable{DISTANCE}\\
+\\
+\hline 0x80030201 & \variable{STATUS}
+\end{tabular}
+
+\texttt{Forward()} fährt eine gegebene Distanz gerade aus, egal in welche
+Richtung die Plattform gerade guckt. Während der Fahrt wird keinerlei
+Ausrichtung der Plattform auf ein Ziel oder eine Bahn hin versucht. Negative
+Distanzen entsprechen einer Fahrt rckwärts und sind explizit erlaubt.
+
+Es wird empfohlen nur kleine ($<1m$), aber nicht zu kleine ($>0.1m$) Distanzen
+mit diesem Befehl zu fahren, da sich sonst die Orientierung der Tonne
+unkontrolliert ändern könnte. Aus dem gleichen Grund wird diese Bewegung im
+Moment auch nur mit $\frac{1}{3}$ der maximalen Geschwindigkeit gefahren.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Backward() -- inkrementelle Translation}
+
+\notimplemented{
+
+0x00030202, 0x80030202 -- NYI
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{RotateAngle() -- Drehung auf kartesische Zielorientierung}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030300 & \variable{POSA}
+\\
+\hline 0x80030300 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{RotateAngle()} dreht auf eine Zielorientierung. Aufgrund von
+Ungenauigkeiten in der Mechanik, Elektronik und Steuerung wird dabei die
+kartesische Position i.a. geringfgig verlassen werden.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{RotatePoint() -- Drehung auf kartesischen Zielpunkt}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030301 & \variable{POSX}\\
+& \variable{POSY}
+\\
+\hline 0x80030301 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{RotatePoint()} dreht auf einen Zielpunkt. Das ist insofern
+unterschiedlich als \texttt{RotateAngle()} weil sich bei der Drehung die
+Position ändern kann, z.B. weil die Tonne ausrutscht. Wenn der Winkel vorher
+berechnet war um auf ein Ziel hin zu zeigen wäre das problematisch.
+
+\textbf{Achtung:} Noch nicht vollständig implementiert.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{TurnAngle() -- Drehung auf kartesische Zielorientierung (ohne Kollisionsvermeidung)}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030302 & \variable{POSA}
+\\
+\hline 0x80030302 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{TurnAngle()} dreht auf eine Zielorientierung, wobei die
+Kollisionsvermeidung abgeschaltet ist. Aufgrund von
+Ungenauigkeiten in der Mechanik, Elektronik und Steuerung wird dabei die
+kartesische Position i.a. geringfgig verlassen werden.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Turn() -- inkrementelle Rotation}
+
+\notimplemented{
+
+0x0003030X, 0x8003030X -- NYI
+
+}  % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Move() -- komplexe Bewegung mit Bahnplanung}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030400 & \variable{POSX}\\
+& \variable{POSY}\\
+& \variable{POSA}
+\\
+\hline 0x80030400 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{Move()} fährt an eine kartesische Position und Orientierung. Zur
+Erreichung der Position wird anhand der Karte eine Bahn mit beliebig vielen
+Zwischenpunkten erzeugt, die der Reihe nach mit \texttt{Translate()} angefahren
+werden. Am Zielpunkt wird mit \texttt{Rotate()} die Zielorientierung
+eingestellt.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{MovePoint() -- komplexe Bewegung mit Bahnplanung (ohne
+Zielorientierung)}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030401 & \variable{POSX}\\
+& \variable{POSY}\\
+\\
+\hline 0x80030401 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{MovePoint()} fährt an eine kartesische Position \textbf{ohne}
+Zielorientierung (nützlich z.B. fr Bewegungen wo bekannt ist das direkt danach
+eine weitere Bewegung folgt, wie bei den Annäherungsbewegungen im
+Technikum). Ansonsten siehe \texttt{Move()}.
+
+\textbf{Achtung:} Noch nicht vollständig implementiert!
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{IsCompleted() -- }
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030500
+\\
+\hline 0x80030500 & \variable{STATUS}\\
+& \variable{FLAG} & (???\emph{oder \variable{BOOL}, weiß nicht}???)\\
+\end{tabular}
+
+\texttt{IsCompleted()} fragt ab ob momentan eine Bewegung gefahren wird oder
+nicht.
+
+Das bezieht sich auf alle Arten von Bewegungen, also auch auf ein
+\texttt{Move()} als ganzes und nicht nur auf dessen Teile.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{WaitForCompleted() -- }
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00030501
+\\
+\hline 0x80030501 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{WaitForCompleted()} wartet bis die (alle?) aktuelle(n) Bewegung(en)
+beendet sind und liefert erst dann das Antworttelegram zurck.
+
+In einer Umgebung mit mehreren Clients kann nicht davon ausgegangen werden das
+die Plattform danach wirklich \textit{idle} ist, aber besser geht's im Moment
+nicht.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetTrajectory() -- aktuellen Pfad abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030510\\
+\\
+\hline 0x80030510 & \variable{STATUS}\\
+                  & for i = 1 to \variable{COUNT} \{ & Anzahl der Punkte\\
+                  & \indent \variable{COORDS}\\
+                  & \}
+\end{tabular}
+
+\texttt{GetTrajectory()} liefert den Pfad der momentan ausgefhrten
+Bewegung. Dieser Pfad ist bei keiner existierenden Bewegung oder bei
+\texttt{Rotate()} leer (COUNT = 0), bei \texttt{Translate()} enth?t er nur den
+Zielpunkt und bei \texttt{Move()} noch alle Zwischenpunkte der Bahnplanung. Es
+ist in jedem Fall der \textbf{gesamte} Pfad, also nicht nur die noch zu
+fahrenden Teile.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetRemainingTrajectory() -- verbleibenden Pfad abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030511\\
+\\
+\hline 0x80030511 & \variable{STATUS}\\
+                  & for i = 1 to \variable{COUNT} \{ & Anzahl der Punkte\\
+                  & \indent \variable{COORDS}\\
+                  & \}
+\end{tabular}
+
+\texttt{GetRemainingTrajectory()} liefert den noch verbleibenden Pfad der
+momentan ausgefhrten Bewegung. Dieser Pfad ist bei keiner existierenden
+Bewegung oder bei \texttt{Rotate()} leer (COUNT = 0), bei \texttt{Translate()}
+enthöht er nur den Zielpunkt und bei \texttt{Move()} noch alle noch zu
+fahrenden Zwischenpunkte der Bahnplanung. Schon erreichte Punkte der
+Bahnplanung werden \textbf{nicht} mehr gemeldet.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{IsStalled() -- Ist der Roboter blockiert?}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030600\\
+\\
+\hline 0x80030600 & \variable{STATUS}\\
+                  & \variable{BOOL}
+\end{tabular}
+
+\texttt{IsStalled()} liefert zurck, ob der Roboter blockiert ist, d.h.
+ob ein Hindernis von den Laserscanner innerhalb des Radius zur
+Kollisionsdetektion erfasst wird. Ist der Roboter blockiert, wird die
+laufende Bewegung solange angehalten, bis das Objekt entfernt wird.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{ApplyBrakes() -- Bremsen anziehen}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkl?ung
+\\
+\hline 0x00030700\\
+\\
+\hline 0x80030700 & \variable{STATUS}
+\end{tabular}
+
+Zieht die Bremsen des Roboters an. Die Antriebe werden dann stromlos, d.h. die
+Temperatur der Antriebe kann wieder sinken. Daher sollten die Bremsen angezogen
+sein wenn man längere Zeit nicht mit dem Roboter fahren will. Praktisch werden
+die Bremsen mit einem Elektro-Magneten in den Antrieben gelöst, fließt kein
+Strom mehr, kann der Elektro-Magnet die Bremse nicht halten und sie rastet ein.
+
+} %new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{ReleaseBrakes -- Bremsen lösen}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00030701\\
+\\
+\hline 0x80030701 & \variable{STATUS}
+\end{tabular}
+
+Die Elektro-Magnete in den Antrieben lösen die Bremse, die Antriebe verbrauchen
+mehr Strom.
+
+\textbf{Anmerkung:} Daher kommt es zu einer Erhitzung der Antriebe, die bei sehr
+lange gelösten Bremsen zu einer Notabschaltung der Motoren führen kann.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{AreBrakesReleased() -- Sind die bremsen gelöst?}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00030700\\
+\\
+\hline 0x80030702 & \variable{STATUS}\\
+                  & \variable{BOOL}
+\end{tabular}
+
+Liefert \texttt{true}, wenn die Bremsen gelöst sind, sonst \texttt{false}.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable           & Typ & Beschreibung \\
+\hline
+\variable{STATUS}  & s32 & (0, es sei denn es ist ein fehler aufgetreten)\\
+\variable{BOOL}    & u32 & Wahrheitswert a la C (0 = FALSE, $~$0 = TRUE)\\
+\variable{POSX}    & f32 & x-Position in Metern\\
+\variable{POSY}    & f32 & y-Position in Metern\\
+\variable{POSA}    & f32 & Orientierung in rad (bei Maschinenlesbarkeit
+besser)\\
+\variable{DISTANCE}& f32 & Distanz in Metern\\
+\variable{TSPEED}  & f32 & Translationsgeschwindigkeit in m/s\\
+\variable{RSPEED}  & f32 & Rotationsgeschwindigkeit in rad/s\\
+\variable{TSCALE}  & f32 & Skalierungsfaktor (> 0) für momentane
+Translationsgeschwindigkeit\\
+\variable{RSCALE}  & f32 & Skalierungsfaktor (> 0) für momentane
+Rotationsgeschwindigkeit
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0004 - Laserscanner}
+
+Die Kommandos mit dem Prefix 0x0004 regeln die Kommunikation mit den
+Laserscannern.
+
+\subsubsection{GetNumScanners() -- Anzahl der Scanner auslesen}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkläung
+\\
+\hline 0x00040000
+\\
+\hline 0x80040000 & \variable{STATUS}\\
+& \variable{NUM}
+\end{tabular}
+
+\texttt{GetNumScanners()} gibt die Anzahl der vorhandenen Scanner zurück. Die
+\variable{IDX} im späteren Verlauf sind
+als Zahlen 0 .. \variable{NUM}-1 zu verstehen.
+
+} % \changed
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScannerPosition() -- Position eines Scanners auslesen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040010 & \variable{IDX}
+\\
+\hline 0x80040010 & \variable{STATUS}\\
+& \variable{POSX}\\
+& \variable{POSY}\\
+& \variable{POSA}
+\end{tabular}
+
+\texttt{GetScannerPosition()} liefert die Position eines Scanners in
+kartesischen Plattformkoordinaten zurück. \variable{STATUS} ist 0, es sei denn
+die gegebene \variable{IDX} existiert nicht.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScanScanner() -- Scan eines Scanners in
+               Scannerkoordinaten abfragen}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040020 & \variable{IDX} & Nummer des Scanners
+\\
+\hline 0x80040020 & \variable{STATUS} \\
+& for i = 1 to \variable{SCANS} \{\\
+& \indent \variable{SCANPOS}\\
+& \}\\
+& for i = 1 to \variable{MARKS} \{\\
+& \indent \variable{SCANPOS}\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\texttt{GetScanScanner()} entspricht \texttt{GetScanRadialPlatform()}, nur
+werden die Werte in kartesischen Koordinaten mit Ursprung des Koordinatensystems
+im Laserscanner geliefert.
+
+} % new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScanRadialScanner() -- Scan eines Scanners in radialen
+               Scannerkoordinaten abfragen}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040021 & \variable{IDX} & Nummer des Scanners
+\\
+\hline 0x80040021 & \variable{STATUS}\\
+& for i = 1 to 361 \{\\
+& \indent \variable{DISTANCE}\\
+& \}
+\end{tabular}
+
+\texttt{GetScanRadialScanner()} gibt den Scan des Scanners \variable{IDX} in
+radialen Scannerkoordinaten zurck, also so hardwarenah wie möglich. In unserem
+Fall bedeutet das fr den vorderen Scanner einen Abtastbereich von $\pm 90$ in
+(meistens, aber höchstens) 360 Schritten zu $0.5$.
+
+\variable{STATUS} sollte 0 sein, es sei denn der Scanner \variable{IDX}
+existiert nicht oder es ist ein interner Fehler aufgetreten. Wenn der Scanner
+nicht existiert ist \variable{STATUS} negativ.
+
+\textbf{Anmerkung:} Marken werden nicht mit übertragen.
+}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScanPlatform() - Scan eines Scanners in Plattformkoordinaten
+abfragen}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040030 & \variable{IDX} & Nummer des Scanners
+\\
+\hline 0x80040030 & \variable{STATUS}\\
+& for i = 1 to \variable{SCANS} \{\\
+& \indent \variable{PLATPOS}\\
+& \}\\
+& for i = 1 to \variable{MARKS} \{\\
+& \indent \variable{PLATPOS}\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\texttt{GetScanPlatform()} entspricht \texttt{GetScanRadialPlatform()}, nur
+werden die Werte in kartesischen Plattformkoordinaten geliefert.
+
+} % \changed
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScanRadialPlatform() -- Scan eines Scanners in radialen
+               Plattformkoordinaten abfragen}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040031 & \variable{IDX} & Nummer des Scanners
+\\
+\hline 0x80040031 & \variable{STATUS}\\
+& for i = 1 to \variable{SCANS} \{\\
+& \indent \variable{RADIALPOS}\\
+& \}\\
+& for i = 1 to \variable{MARKS} \{\\
+& \indent \variable{RADIALPOS}\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\texttt{GetScanRadialPlatform()} entspricht \texttt{GetScanRadialScanner()}, nur
+werden die Werte in radialen Plattformkoordinaten (so wie sie die Lokalisation
+ben?igt) berechnet. Fr den vorderen Scanner bedeutet das bei einer Montage von
+$0.336m$ vor dem Plattformursprung dann z.B. einen Abtastbereich von maximal
+$\approx \pm 87.6$ in Schritten von $< 0.5$.
+
+} % \changed
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetScanWorld() -- Scan eines Scanners in Weltkoordinaten
+abfragen}
+
+\changed{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00040040 & \variable{IDX} & Nummer des Scanners
+\\
+\hline 0x80040040 & \variable{STATUS}\\
+& for i = 1 to \variable{SCANS} \{\\
+& \indent \variable{WORLDPOS}\\
+& \}\\
+& for i = 1 to \variable{MARKS} \{\\
+& \indent \variable{WORLDPOS}\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\texttt{GetScanWorld()} entspricht \texttt{GetScanPlatform()}, nur werden die
+Werte in kartesischen Weltkoordinaten geliefert.
+
+}  % \changed
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable            & Typ & Beschreibung \\
+\hline
+\variable{STATUS}   & s32 & (0, es sei denn es ist ein Fehler aufgetreten)\\
+\variable{NUM}      & u32 & Anzahl der Scanner\\
+\variable{IDX}      & u32 & Nummer 0..\variable{NUM}-1 des anzusprechenden
+Scanners (konvention: 0=vorne, 1=hinten)\\
+\variable{POSX}     & f32 & x-Position in Metern\\
+\variable{POSY}     & f32 & y-Position in Metern\\
+\variable{POSA}     & f32 & Orientierung in rad\\
+\variable{SCANS}    & u32 & Anzahl der Messwerte eines Scans (bei SICK:
+0..361)\\
+\variable{MARKS}    & u32 & Anzahl der Marken (bei SICK: 0..180)\\
+\variable{RADIALPOS}&     & \variable{ANGLE}, \variable{DISTANCE}\\
+\variable{ANGLE}    & f32 & Winkel in rad\\
+\variable{DISTANCE} & f32 & Distanz in Metern\\
+\variable{SCANPOS}  &     & \variable{POSX}, \variable{POSY}\\
+\variable{PLATPOS}  &     & \variable{POSX}, \variable{POSY}\\
+\variable{WORLDPOS} &     & \variable{POSX}, \variable{POSY}\\
+\variable{ID}       & s32 & ID der Marke in der Karte mit der eine Marke im
+Scan assoziiert wurde
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0005 - Karte (Linien)}
+
+\begin{itemize}
+
+  \item Die Karte besteht (wegen der Funktionsweise der Bahnplanung) nur aus
+        einzelnen Linien. Es gibt keine Polygone oder sonstige Gruppierungen
+        der Linien zu zusammenhängenden Gebilden. Sollte so eine Gruppierung
+        wnschenswert sein, so ist sie die Aufgabe der die Plattform steuernden
+        bzw. berwachenden Oberfläche.
+
+  \item Es kann zwar mehrere Verbindungen geben, aber es findet keine
+        Synchronisation statt. Kommandos auch mehrerer Verbindungen werden
+        streng in der Reihenfolge ihres Eintreffens bearbeitet, was ohne
+        externes Lock zu Problemen führen kann.
+
+  \item Die Steuerung kommt grundsätzlich mit einer leeren Karte hoch.
+
+  \item Die Funktionalität der Karte ist nicht echtzeitfähig. Ihre
+        Implementation ist fr den späteren Verlauf des Projektes in einem
+        separaten Prozess vorgesehen.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetNumLines() - Anzahl der Linien abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050000
+\\
+\hline 0x80050000 & \variable{STATUS}\\
+& \variable{COUNT} & Anzahl der Linien
+\end{tabular}
+
+\texttt{GetNumLines()} gibt die Anzahl ($\ge 0$) der existierenden Linien
+zurck.
+
+}  % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{ListLines() - Auflistung der IDs aller Linien}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050001
+\\
+\hline 0x80050001 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{ & Anzahl der Linien\\
+& \indent \variable{ID}\\
+& \}
+\end{tabular}
+
+\texttt{ListLines()} gibt die IDs aller existierenden Linien zurck. STATUS
+sollte immer 0 sein.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetLine() -- Eine einzelne Linie abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050002 & \variable{ID}
+\\
+\hline 0x80050002 & \variable{STATUS}\\
+& if \variable{BOOL} \{ & existiert die Linie?\\
+& \indent \variable{COORDS} & Startpunkt\\
+& \indent \variable{COORDS} & Zielpunkt\\
+& \}
+\end{tabular}
+
+\texttt{GetLine()} gibt die Koordinaten einer Linie zurck (wenn sie
+existiert). STATUS sollte immer 0 sein. Die Information ob die Linie berhaupt
+existiert steckt in BOOL, nicht in STATUS.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetLines() -- Mehrere Linien abfragen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erkl?ung
+\\
+\hline 0x00050003 & for i = 1 to \variable{COUNT} \{\\
+& \indent \variable{ID}\\
+& \}
+\\
+\hline 0x80050003 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{\\
+& \indent if \variable{BOOL} \{ & existiert die Linie?\\
+& \indent \indent \variable{COORDS} & Startpunkt\\
+& \indent \indent \variable{COORDS} & Endpunkt\\
+& \indent \}\\
+& \}
+\end{tabular}
+
+\texttt{GetLines()} gibt die Koordinaten mehrerer Linien zurck (wenn sie
+jeweils existieren). STATUS sollte immer 0 sein. Die Information ob eine Linie
+berhaupt existiert steckt im jeweiligen \variable{BOOL}, nicht in
+\variable{STATUS}.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetAllLines() -- Alle Linien abfragen}
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050004
+\\
+\hline 0x80050004 & \variable{STATUS}\\
+& for i = 1 to \variable{COUNT} \{ & Anzahl der Linien\\
+& \indent \variable{ID} & ID der Linie $i$\\
+& \indent \variable{COORDS} & Startpunkt\\
+& \indent \variable{COORDS} & Endpunkt\\
+& \}
+\end{tabular}
+
+\texttt{GetAllLines()} gibt die IDs und Koordinaten aller
+existierenden Linien
+zurck. \variable{STATUS} sollte immer 0 sein.
+
+\textbf{ACHTUNG:} Die \variable{ID}s werden bis jetzt nur gefaked!
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{AddLine() -- eine (leere) Linie zur Karte hinzufgen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050010 & \variable{COORDS} & Startpunkt\\
+& \variable{COORDS} & Endpunkt
+\\
+\hline 0x80050010 & \variable{STATUS}\\
+& \variable{ID} & ID der neuen (leeren) Linie
+\end{tabular}
+
+\texttt{AddLine()} fgt eine neue Linie (mit Koordianten) der Karte
+hinzu. Zurck gegeben wird die intern erzeugte ID der Linie, unter der sie im
+folgenden angesprochen werden kann. \variable{STATUS} sollte 0 sein, außer wenn
+z.b. wegen \textit{out of memory} die Linie intern nicht angelegt werden konnte.
+
+Es finden keinerlei Überprüfungen statt ob schon eine Linie mit den gleichen
+Koordinaten existiert oder die neue Linie irgendwie durch schon existierende
+Linien obsolet ist oder schon existierende Linien obsolet macht. Wenn eine
+derartige Optimierung gewnscht ist muss sie auf Seite der die Plattform
+steuernden GUI implementiert werden.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteLine() -- eine Linie löschen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050020 & \variable{ID}
+\\
+\hline 0x80050020 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{DeleteLine()} löscht eine Linie. \variable{STATUS} sollte 0 sein, es sei
+denn die ID der Linie hat nicht existiert.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteLines() -- mehrere Linien löschen}
+
+\notimplemented{
+
+0x00050021, 0x80050021 -- NYI
+
+}
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{DeleteAllLines() -- alle Linien löschen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050022
+\\
+\hline 0x80050022 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{DeleteAllLines()} löscht alle Linien (die ganze Karte).
+\variable{STATUS} sollte immer 0 sein, es sei denn es ist ein interner Fehler
+aufgetreten.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{MoveLine() -- Linie verschieben}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050030 & \variable{ID}\\
+                  & \variable{COORDS} & Startpunkt\\
+                  & \variable{COORDS} & Endpunkt
+\\
+\hline 0x80050030 & \variable{STATUS}\\
+\end{tabular}
+
+\texttt{MoveLine()} verschiebt eine Linie. \variable{STATUS} ist 0 wenn alles
+geklappt
+hat, kann aber negativ werden wenn die ID nicht existiert oder ein anderer
+(interner) Fehler vorliegt.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{UpdateMap()}
+
+\notimplemented{
+
+0x00050040, 0x80050040 -- NYI
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetPath() -- Pfad berechnen}
+
+\notimplemented{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00050050 & \variable{COORDS} & Startpunkt\\
+                  & \variable{COORDS} & Zielpunkt\\
+\hline 0x80050050 & \variable{STATUS}\\
+                  & for i = 1 to \variable{COUNT} \{ & Anzahl der Punkte\\
+                  & \indent \variable{COORDS}\\
+                  & \}
+\end{tabular}
+
+\texttt{GetPath()} gibt einen gemäß der Karte geplanten kollisionsfreien Pfad
+vom einem Start- zu einem Zielpunkt zurck. Der Pfad besteht aus $\ge 1$
+Punkt(en), wobei der eigentliche Zielpunkt der letzte Punkt ist.
+\variable{STATUS} sollte immer 0 sein, es sei denn bei der Bahnplanung ist ein
+Fehler aufgetreten. In diesem Fall ist \variable{COUNT} $= 0$ und es gilt für
+\variable{STATUS}:
+%
+\begin{itemize}\itemsep0ex
+  \item[-1] : Startpunkt liegt in einem Hinderniss
+  \item[-2] : Zielpunkt liegt in einem Hinderniss
+  \item[-3] : Es existiert kein kollisionsfreier Pfad
+\end{itemize}
+%
+Andere Werte stehen für interne Fehler.
+
+} % \notimplemented
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+Siehe auch andere Beschreibungen der Variable in vorherigen Kapiteln!
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable            & Typ & Beschreibung \\
+\hline
+\variable{STATUS}   & s32 & (0, es sei denn es ist ein Fehler aufgetreten)\\
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0006 - Odometrie}
+
+Kommandos mit dem Prefix 0x0006 bieten Zugriff auf die Odometrie des Roboters.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{StartOdoLogging() -- Starten des Speicherns der Messwerte der
+Odometrie}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00060000
+\\
+\hline 0x80060000 & \variable{STATUS}\\
+\end{tabular}
+
+Startet das kontinuierliche Speichern der Messwerte der Odometrie samt
+Zeitstempel in einer Datei.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{StopOdoLogging() -- Beenden des Speicherns der Messwerte der
+Odometrie}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00060001
+\\
+\hline 0x80060001 & \variable{STATUS}\\
+\end{tabular}
+
+Beendet das kontinuierliche Speichern der Messwerte der Odometrie.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable            & Typ & Beschreibung \\
+\hline
+\variable{STATUS}   & s32 & (0, es sei denn es ist ein Fehler aufgetreten)
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prefix 0x0007 - Sensoren}
+
+Befehle mit dem Prefix 0x0007 bieten Zugriff auf weitere Sensoren des Roboters.
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetBatteryVoltage() -- Spannung der Batterie abfragen}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00070000
+\\
+\hline 0x80070000 & \variable{STATUS}\\
+& \variable{VOLT} & Spannung der Batterie in Volt
+\end{tabular}
+
+Liefert die Spannung der Batterie in Volt.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{GetDriveTemperatures() -- Temperatur der Antriebsmotoren}
+
+\new{
+
+\begin{tabular}{l|lll}
+Kommando & Argument & Erklärung
+\\
+\hline 0x00070010
+\\
+\hline 0x80070010 & \variable{STATUS}\\
+& \variable{TEMP} & Temperature des linken Antriebsmotors in °Celsius\\
+& \variable{TEMP} & Temperature des rechten Antriebsmotors in °Celsius\\
+\end{tabular}
+
+Liefert die Temperaturen der Antriebsmotoren. Linker Motor bedeutet, wenn man
+hinter dem Roboter steht links.
+
+} % \new
+
+%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Variablenbeschreibung}
+
+\begin{tabular}{l|l|p{0.65\textwidth}}
+Variable            & Typ & Beschreibung \\
+\hline
+\variable{STATUS}   & s32 & (0, es sei denn es ist ein Fehler aufgetreten)\\
+\variable{TEMP}     & f32 & Temperatur in °Celsius\\
+\variable{VOLT}     & f32 & Spannung in Volt
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Hinzufügen von Befehlen zum Protokoll}
+
+Wenn neue Befehle zum Protokoll hinzugefügt werden sollen, dann ist die
+Robotersteuerung mobiled anzupassen. Als Hilfe dazu dienen die folgenden
+Stichpunkte:
+
+\begin{itemize}
+\item In \emph{protcol.h} müssen die neuen Kommando-IDs hinzugefügt werden.
+\item In \emph{client.h} müssen den Kommando-IDs entsprechende
+Methoden-Deklarationen hinzugefügt werden.
+\item In \emph{client.cc} müssen in der Methode
+\emph{CClient::Execute(CRCVTELEGRAM *telegram)} innerhalb der
+\textbf{switch}-Anweisung die neuen Kommando-IDs abgefragt werden und die
+zugehörigen Methodenaufrufe hinzugefügt werden.
+\item In \emph{clientProtocol.cc} müssen die in \emph{client.h} deklarierten
+Methoden implementiert werden.
+\item In \emph{clientProtocol.cc} in der Methode
+\emph{CClient::CheckProtocol(void)} muss die Anzahl der Befehle erhöht und die
+Kommando-IDs der neuen Kommandos müssen mitgeschickt werden.
+\item Die Methoden \emph{clientProtocol} rufen in \emph{genBase.h} deklarierte
+Methoden auf.
+\item Die Methoden aus \emph{genBase.h} sind in \emph{genBase.cc} implementiert.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Bilder}
+
+\begin{figure}[hbt]
+\fbox{
+  \centering\includegraphics[width=0.9\linewidth]{ist_system}
+}
+\caption{Momentane Systemarchitektur}
+\end{figure}
+
+\begin{figure}[hbt]
+\fbox{
+  \includegraphics[width=0.9\linewidth]{stufe1_system}
+}
+\caption{Tempor?e Zwischenarchitektur (fr die n?hsten Wochen?)}
+\end{figure}
+
+\begin{figure}[hbt]
+\fbox{
+  \includegraphics[width=0.9\linewidth]{stufe2_system}
+}
+\caption{Angestrebte Endarchitektur}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section{Kontakt}
+
+Torsten Scherer: \texttt{\small \sout{itschere@techfak.uni-bielefeld.de}}\\
+Hagen Stanek: \texttt{\small stanek@genrob.com} \\
+Daniel Westhoff: \texttt{\small westhoff@informatik.uni-hamburg.de}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

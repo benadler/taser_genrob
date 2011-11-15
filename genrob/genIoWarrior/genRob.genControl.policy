@@ -1,0 +1,44 @@
+
+// general permissions for genControl
+
+// This file is only for the test environment.
+
+grant
+{
+	permission  java.security.AllPermission;
+};
+
+grant
+{
+	// needed by the internal HTTP deamon
+	permission  java.io.FilePermission  ".", "read";	// current directory
+	permission  java.io.FilePermission  "-", "read";	// all files in the current directory
+
+	// allow incoming calls for the HTTP service to be answered
+	permission  java.net.SocketPermission  "*:1024-", "accept,connect";
+};
+
+
+// special permissions for the robot simulation
+
+grant
+{
+    permission  java.io.FilePermission  "genRob.genSimulation.serialized", "read,Write";
+};
+
+
+
+// special permissions for the genView roblets
+
+grant
+{
+    permission  java.io.FilePermission  "genRob.genView.roblet.serialized", "read,Write";
+};
+
+
+// special permissions for the genDemo roblet
+
+grant
+{
+    permission java.net.SocketPermission "localhost:80", "listen";
+};

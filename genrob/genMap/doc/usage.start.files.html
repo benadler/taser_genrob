@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Language" content="de">
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <TITLE>genRob®-genMap - Benutzung - Start - Start-Dateien</TITLE>
+<LINK  rel="stylesheet"  type="text/css"  href="genRob.css"></HEAD>
+
+<BODY><TABLE  id="top_continuous"><TR><TD  class="logo"><A  href="index.html"  target=_top><IMG  src="LogoTextSmall.jpeg"></A></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_1"><A  href="index.html"  target=_top>genMap</A></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_2"><A  href="usage.html"  target=_top>Benutzung</A></SPAN></TD></TR></TABLE><DIV id="left"><TABLE><TR><TD><SPAN  class="square"  id="off"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="active"><A  href="usage.start.html"  target=_top>Start</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id="active"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_1"><A  href="usage.start.files.html"  target=_top>Start-Dateien</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_2"><A  href="usage.start.command.html"  target=_top>Kommando</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_3"><A  href="usage.start.parameters.html"  target=_top>Parameter</A></SPAN></TD></TR></TABLE></DIV><TABLE  id="content_continuous"><TR><TD>
+
+
+<H1>Start-Dateien
+</H1><DIV  id="content">
+
+Zur Vereinfachung des Startens von genRob®-genControl
+mit genRob®-genMap als Modul liegen die Dateien
+<TT>run.bat</tt> (für Windows™) bzw. <TT>run</TT>
+(für Unix®-/Linux-/MacOS®X-sh) bereit.&nbsp;
+Diese Start-Dateien sind möglicherweise für Test-Zwecke schon ausreichend,
+jedoch ist es in einigen Fällen notwendig,
+<A href="usage.start.parameters.html">Parameter</A> zu verändern.
+
+<P>
+Sofern beim Start der Name der Start-Datei
+nicht in einem Terminal(fenster) als Kommando eingegeben wurde,
+wird vom Betriebssystem für die Ein- und Ausgaben der jeweiligen
+Anwendung(en) ein Terminalfenster geöffnet.
+
+
+<H2>Windows™</H2>
+
+Unter Windows™ ist darauf zu achten, daß die Umgebungsvariable
+<B><TT>path</TT></B> passend gesetzt ist.&nbsp;
+Es muß <B><TT>java.exe</TT></B> gefunden werden können.
+
+<P>
+Da die Start-Datei schon mit der Endung <TT>.bat</TT> vorliegt, kann sie
+sofort benutzt werden.&nbsp;
+Arbeitsverzeichnis muß jeweils das Verzeichnis sein, in dem die Datei
+sich befinden.
+
+
+<H2>Unix®/Linux/MacOS®X</H2>
+
+Neben der Tatsache, daß das Programm <B><TT>java</TT></B>
+im Suchpfad für Programme zu finden sein
+und das Arbeitsverzeichnis das sein muß, welches die Datei beherbergt,
+gibt es hier weitere Möglichkeiten, wie die Arbeit angenehmer
+gestaltet werden kann.
+
+<P>
+In der ausgelieferten Version muß die Datei folgendermaßen benutzt
+werden:
+<BLOCKQUOTE><PRE>
+sh  run
+</PRE></BLOCKQUOTE>
+
+<P>
+Will man sich die Angabe der Shell <TT>sh</TT> ersprachen, so genügt ein
+einmaliges
+<BLOCKQUOTE><PRE>
+chmod +x run
+</PRE></BLOCKQUOTE>
+um die Ausführung der Shell implizit werden zu lassen.
+
+<P>
+Sofern sich die Datei nun noch im Suchpfad befindet, läßt sie sich
+einfach über die Angabe
+<BLOCKQUOTE><PRE>
+run
+</PRE></BLOCKQUOTE>
+starten.
+
+
+</DIV><DIV  id="footer"><DIV  id="footer_left">© 2002-2008 genRob GmbH, Hagen Stanek</DIV></DIV><DIV  id="genSite"><TABLE><TR><TD><IMG  src="genRob-button.png"  alt="powered by genRob&reg;"></TD><TD><SPAN  class="small">erzeugt am 02.04.2008 um 06:00:21.276 CEST mit</SPAN><BR><SPAN  class="mid">genRob®-genSite 3.1.1</SPAN></TD></TR></TABLE></DIV></TD></TR></TABLE></BODY>
+</HTML>

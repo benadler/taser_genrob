@@ -1,0 +1,379 @@
+
+/*
+	CSS-Datei für die Seitengenerierung im genRob-Stil
+*/
+
+
+/* Grundlegende Einstellungen. */
+* 
+{
+	font-family	: Arial, Verdana, Helvetica, Sans-Serif;
+	font-size	: 11pt;
+	color		: #5F5F5F;
+}
+
+/* Hintergrund. */
+body
+{
+	background-color	: #F8F7FA;
+	margin-left		: 25px;
+	margin-top		: 25px;
+}
+
+/* Link */
+a
+{
+	font-size	: 100%;
+	color		: #0884B5;
+	text-decoration	: none;
+}
+
+a:visited
+{
+	color	: #064667;
+}
+
+a:hover
+{
+	color		: #EF6B00;
+	text-decoration	: underline;
+}
+
+A.api
+{
+	font-size	: 85%;
+	font-family	: Courier;
+	color		: #0884B5;
+	text-decoration	: none;
+}
+A.api:visited
+{
+	color	: #064667;
+}
+A.api:hover
+{
+	color		: #EF6B00;
+	text-decoration	: underline;
+}
+
+img
+{
+	border	: none;
+}
+
+PRE
+{
+	font-size	: 85%;
+	font-family	: Courier;
+}
+PRE A
+{
+	font-size	: 85%;
+	font-family	: Courier;
+}
+PRE B
+{
+	font-size	: 85%;
+	font-family	: Courier;
+}
+PRE I
+{
+	font-size	: 85%;
+	font-family	: Courier;
+}
+
+table
+{
+	border-spacing	: 0;
+	border-collapse : collapse;
+}
+
+TT
+{
+	font-size	: 85%;
+	font-family	: Courier;
+}
+
+.small
+{
+	color		: #B5B5B5;
+	font-size	: 70%;
+}
+
+.mid	
+{
+	color		: #B5B5B5;
+	font-size	: 85%;
+}
+
+.center
+{
+	text-align	: center;
+}
+
+.emph
+{	
+	font-size	: 100%;
+	font-style	: italic;
+}
+
+
+
+/*****************************************************************/
+/* Top-Menü */
+table#top
+{
+	width		: 865px;
+	margin-bottom	: 25px;
+}
+table#top_continuous
+{
+	margin-bottom	: 25px;
+}
+
+td.logo
+{
+	width		: 215px;
+}
+
+td.menu
+{
+	width		: 163px;
+	vertical-align	: top;
+}
+
+span.menu_item 
+{
+	width	: 138px;
+}
+
+span.menu_item a 
+{ 
+	display				: block;
+	color				: #FFFFFF; 
+	padding				: 4px 10px 4px 10px;
+	margin-right		: 25px;
+}
+
+span.menu_item#blue_1 a { background-color:#084A63;color:#FFFFFF; }
+span.menu_item#blue_2 a { background-color:#085A7B;color:#FFFFFF; }
+span.menu_item#blue_3 a { background-color:#086B8C;color:#FFFFFF; }
+span.menu_item#blue_4 a { background-color:#0873A5;color:#FFFFFF; }
+span.menu_item#blue_5 a { background-color:#0884B5;color:#FFFFFF; }
+span.menu_item#active a { background-color:#EF6B00;color:#FFFFFF; }
+
+span.menu_item#blue_1 a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+span.menu_item#blue_2 a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+span.menu_item#blue_3 a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+span.menu_item#blue_4 a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+span.menu_item#blue_5 a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+span.menu_item#active a:hover
+{
+	background-color: #EF6B00;
+	color			: #FFFFFF;
+	text-decoration	: none;
+}
+
+
+/*****************************************************************/
+/* Left-Menü */
+div#left
+{
+	float		: left;
+	width		: 215px;
+}
+
+span.square
+{
+	display			: block;
+	width			: 25px;
+	height			: 24px;
+	background-color	: #B5B5B5;
+	margin			: 1px 25px 25px 1px;
+}
+
+span.square#active { background-color:#EF6B00; }
+
+span.square#off { background-color:#F8F7FA; }
+
+/*****************************************************************/
+/* Content */
+table#content
+{
+	width		: 630px;
+}
+table#content_continuous
+{
+}
+
+div#content
+{
+	margin-left	: 25px;
+	margin-right	: 25px;
+	margin-top	: 25px;
+}
+
+td.two_columns_left
+{
+	width	    	: 270px;
+	padding-right	: 12px;
+	vertical-align	: top;
+}
+
+td.two_columns_right
+{
+	width	    	: 270px;
+	padding-left	: 12px;
+	vertical-align	: top;
+}
+
+/*****************************************************************/
+/* News */
+td.bordered
+{
+	border		: 1px solid #B5B5B5;
+	padding		: 4px 10px 4px 10px;
+	vertical-align	: top;
+}
+
+/*****************************************************************/
+/* Überschriften */
+h1 
+{ 
+	font-size	: 100%;
+	font-weight	: bold;
+	text-align	: left; 
+	color		: #084A63;
+	background-color: #E5E5E5;
+	display		: block;
+	padding		: 4px 10px 4px 10px;
+}
+h2 
+{ 
+	font-size	: 95%; 
+	color		: #085A7B;
+	margin-top	: 2em;
+}
+h3 
+{ 
+	font-size	: 85%; 
+	color		: #086B8C;
+}
+
+/*****************************************************************/
+/* Box */
+.box
+{
+	display			: block;
+	background-color	: #E5E5E5; /*#0880B6;*/
+	color			: #5F5F5F;
+	margin-left		: 25px;
+	margin-right		: 25px;
+	padding			: 15px;
+/*	border-top		: 1px solid #B5B5B5;
+	border-left		: 1px solid #B5B5B5;
+	border-right		: 1px solid #5F5F5F;
+	border-bottom		: 1px solid #5F5F5F;*/
+}
+
+/*****************************************************************/
+/* Fußzeile */
+div#footer
+{
+	margin-top		: 25px;
+	padding			: 5px 7px 18px 7px;	
+	font-size		: 70%;
+	color			: #5F5F5F;
+	background-color	: #E5E5E5;
+/*	border-top		: 1px solid #B5B5B5;
+	border-bottom		: 1px solid #B5B5B5; */
+}
+
+
+div#footer_left 
+{
+	font-size	: 100%;
+	float		: left;
+}
+
+div#footer_right
+{
+	font-size	: 100%;
+	float		: right;
+	
+}
+
+div#genSite
+{
+	clear		: both;
+	font-size	: 110%;
+	margin-top	: 8px;
+}
+
+div#genSite table
+{
+	margin-left	: -3px;
+	margin-right	: auto;
+}
+
+
+/*
+	Markenbereich auf der Index-Seite
+*/
+SPAN.brand
+{
+	font-size	: 70%;
+}
+SPAN.brand B
+{
+	font-size	: 85%;
+}
+SPAN.brand I
+{
+	font-size	: 85%;
+}
+
+
+/*
+	Einträge auf der Änderungsseite
+*/
+LI.new:before
+{
+	color:	green;
+	content:	"N ";
+}
+LI.change:before
+{
+	color:	orange;
+	content:	"A ";
+}
+LI.correct:before
+{
+	color:	red;
+	content:	"K ";
+}

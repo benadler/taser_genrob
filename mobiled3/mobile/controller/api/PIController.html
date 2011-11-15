@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>class PIController</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class PIController</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+ <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="src___controller___picontroller_h.html">src/controller/picontroller.h</A>&gt;</code></TD></TR>
+<TR><TH><A HREF="full-list-PIController.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>virtual  &nbsp;<b><A HREF="#ref1">~PIController</A></b> () 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">PIController</A></b> (const double kr, const double tr) 
+</LI>
+<LI>double &nbsp;<b><A HREF="#ref3">step</A></b> (const double xDesired, const double xNow) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">setIFade</A></b> (const double iFade) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref5">setKr</A></b> (const double kr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref6">setTr</A></b> (const double tr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref7">setPFade</A></b> (const double pFade) 
+</LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+</p>
+<A NAME="~PIController"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td> &nbsp;<strong>~PIController</strong> ()
+<br></td><td align="right"><h3><strong>~PIController</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PIController"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>PIController</strong> (const double kr, const double tr)
+<br></td><td align="right"><h3><strong>PIController</strong></h3></td></tr></table><p></p><p> 
+</p><table border="0" width="100%">
+<tr>
+<td bgcolor="#BEEAE0">
+<pre>
+
+		constructor with parameters 	kr = PI controller proportional gain
+																	tr = PI controller time constant
+
+</pre>
+</td></tr>
+
+</table> <p>
+	 </p>
+<A NAME="step"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>double &nbsp;<strong>step</strong> (const double xDesired, const double xNow)
+<br></td><td align="right"><h3><strong>step</strong></h3></td></tr></table><p></p><p> 
+		starts one cycle of the PI controller and returns the correcting variable
+	 </p>
+<A NAME="setIFade"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setIFade</strong> (const double iFade)
+<br></td><td align="right"><h3><strong>setIFade</strong></h3></td></tr></table><p></p><p> 
+		sets the fading variable iFade
+	 </p>
+<A NAME="setKr"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setKr</strong> (const double kr)
+<br></td><td align="right"><h3><strong>setKr</strong></h3></td></tr></table><p></p><p> 
+		sets the gain kr for the PI controller
+	 </p>
+<A NAME="setTr"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setTr</strong> (const double tr)
+<br></td><td align="right"><h3><strong>setTr</strong></h3></td></tr></table><p></p><p> 
+		sets the controller's time constant _tr
+	 </p>
+<A NAME="setPFade"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setPFade</strong> (const double pFade)
+<br></td><td align="right"><h3><strong>setPFade</strong></h3></td></tr></table><p></p><p> 
+		fading for the P part of the controller
+	 </p>
+<HR><UL><LI><i>Author</i>: Axel Schneider, Daniel Westhoff
+  </LI><LI><i>Generated</i>: itschere on Dyn-Laptop-10 on Tue Dec 10 15:53:05 2002, using kdoc 2.0a54.</LI></UL></BODY></HTML>

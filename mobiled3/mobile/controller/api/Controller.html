@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE>class Controller</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class Controller</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+ <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="src___controller___controller_h.html">src/controller/controller.h</A>&gt;</code></TD></TR>
+<TR><TH><A HREF="full-list-Controller.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>virtual  &nbsp;<b><A HREF="#ref1">~Controller</A></b> () 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">Controller</A></b> (const double kr_phi,
+							const double tr_phi,
+							const double kr_dist,
+							const double tr_dist,
+							const double rWheels,
+							const double la) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">stepOmega</A></b> (const double phiDesired,
+								const double phiNow,
+								const double vTransWheelMax,
+								double &omegaR,
+								double &omegaL) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">stepVTrans</A></b> (const double xDesired,
+									const double xNow,
+									const double vTransWheelMax,
+									double &omegaR,
+									double &omegaL) 
+</LI>
+<LI>double &nbsp;<b><A HREF="#ref5">calcDifferenceAngle</A></b> (	const double xRobot,
+															const double yRobot,
+															const double phiRobot,
+															const double xGoal,
+															const double yGoal) 
+</LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+</p>
+<A NAME="~Controller"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td> &nbsp;<strong>~Controller</strong> ()
+<br></td><td align="right"><h3><strong>~Controller</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="Controller"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>Controller</strong> (const double kr_phi,
+							const double tr_phi,
+							const double kr_dist,
+							const double tr_dist,
+							const double rWheels,
+							const double la)
+<br></td><td align="right"><h3><strong>Controller</strong></h3></td></tr></table><p></p><p>
+		the constructor with the parameters for the two PI controllers
+		the parameter k is for the proportion of the outputs of the two controllers
+		the distance of the robot's wheels are 2 * la
+	 </p>
+<A NAME="stepOmega"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>stepOmega</strong> (const double phiDesired,
+								const double phiNow,
+								const double vTransWheelMax,
+								double &omegaR,
+								double &omegaL)
+<br></td><td align="right"><h3><strong>stepOmega</strong></h3></td></tr></table><p></p><p>
+		executes one control cycle for the angular velocity
+</p><table border="0" width="100%">
+<tr>
+<td bgcolor="#BEEAE0">
+<pre>
+
+		phi-desired is the target angle for the robot
+		phi-Now is the actual angle of the robot
+		vTransWheelMax is the maximum translatory speed of a wheel
+		omegaR,L are the resulting angular velocities of the wheels
+
+</pre>
+</td></tr>
+
+</table> <p>
+	 </p>
+<A NAME="stepVTrans"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>stepVTrans</strong> (const double xDesired,
+									const double xNow,
+									const double vTransWheelMax,
+									double &omegaR,
+									double &omegaL)
+<br></td><td align="right"><h3><strong>stepVTrans</strong></h3></td></tr></table><p></p><p> 
+		executes one control cycle for the velocity
+</p><table border="0" width="100%">
+<tr>
+<td bgcolor="#BEEAE0">
+<pre>
+
+		x-desired is the target position in the translatory dof of the robot
+		x-Now is the actual position in the translatory dof of the robot
+		vTransWheelMax is the maximum translatory speed of a wheel
+		omegaR,L are the resulting angular velocities of the wheels
+
+</pre>
+</td></tr>
+
+</table> <p>
+	 </p>
+<A NAME="calcDifferenceAngle"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>double &nbsp;<strong>calcDifferenceAngle</strong> (	const double xRobot,
+															const double yRobot,
+															const double phiRobot,
+															const double xGoal,
+															const double yGoal)
+<br></td><td align="right"><h3><strong>calcDifferenceAngle</strong></h3></td></tr></table><p></p><p> 
+		calculates the difference angle between the robot and a desired goal point
+	 </p>
+<HR><UL><LI><i>Author</i>: Axel Schneider, Daniel Westhoff
+  </LI><LI><i>Generated</i>: itschere on Dyn-Laptop-10 on Tue Dec 10 15:53:05 2002, using kdoc 2.0a54.</LI></UL></BODY></HTML>

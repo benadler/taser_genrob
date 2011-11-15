@@ -1,0 +1,138 @@
+//
+//
+//
+
+
+#include "tracelog.cc"
+static CTRACELOG gtl;
+
+
+#include <typeinfo>
+#define REGISTER(x) Register((&x),typeid(x).name())
+
+
+class CBASE
+{
+private:
+public:
+  CBASE (void);
+  virtual ~CBASE (void);
+  void Register (void);
+  void Register (const void *ptr, const char *name);
+  virtual void _init (void) = 0x0;
+};
+
+
+CBASE::CBASE (void)
+{
+  gtl.Put ("%s\n", __PRETTY_FUNCTION__);
+}
+
+CBASE::~CBASE (void)
+{
+  gtl.Put ("%s\n", __PRETTY_FUNCTION__);
+}
+
+void CBASE::Register (void)
+{
+  // this is called fom the constructor of the real object, not from the base
+  // class, so the virtual table seems to already exist and rtti seems to work.
+  gtl.Push ("%s : %s\n", __PRETTY_FUNCTION__, typeid(*this).name());
+  _init ();
+  gtl.Pop ();
+}
+
+void CBASE::Register (const void *ptr, const char *name)
+{
+  gtl.Put ("%s : %p->\"%s\"\n", __PRETTY_FUNCTION__, ptr, name);
+}
+
+
+/*****************************************************************************/
+
+class CSIMPLEOBJ : public CBASE
+{
+private:
+  int i;
+public:
+  CSIMPLEOBJ (void);
+  ~CSIMPLEOBJ (void);
+  virtual void _init (void);
+};
+
+CSIMPLEOBJ::CSIMPLEOBJ (void)
+{
+  gtl.Push ("%s\n", __PRETTY_FUNCTION__);
+  Register ();
+  gtl.Pop ();
+}
+
+CSIMPLEOBJ::~CSIMPLEOBJ (void)
+{
+  gtl.Put ("%s\n", __PRETTY_FUNCTION__);
+}
+
+void CSIMPLEOBJ::_init (void)
+{
+  gtl.Push ("%s\n", __PRETTY_FUNCTION__);
+  REGISTER (i);
+  gtl.Pop ();
+}
+
+
+/*****************************************************************************/
+
+class CMYOBJ : public CBASE
+{
+public:
+  short s;
+  short sArray[256];
+  short *sArray2[256][16];
+  short *sPtr;
+  CSIMPLEOBJ simpleObj;
+  CSIMPLEOBJ *simpleObjPtr;
+
+  CMYOBJ (void);
+  virtual ~CMYOBJ (void);
+
+  virtual void _init (void);
+};
+
+CMYOBJ::CMYOBJ (void)
+{
+  gtl.Push ("%s\n", __PRETTY_FUNCTION__);
+  Register ();
+  gtl.Pop ();
+}
+
+CMYOBJ::~CMYOBJ (void)
+{
+  gtl.Put ("%s\n", __PRETTY_FUNCTION__);
+}
+
+void CMYOBJ::_init (void)
+{
+  gtl.Push ("%s\n", __PRETTY_FUNCTION__);
+  REGISTER (s);
+  REGISTER (sArray);
+  REGISTER (sArray2);
+  REGISTER (sPtr);
+  REGISTER (simpleObj);
+  REGISTER (simpleObjPtr);
+  gtl.Pop ();
+}
+
+
+/*****************************************************************************/
+
+int main (void)
+{
+  gtl.SetActive (true);
+  gtl.Push ("%s\n", __PRETTY_FUNCTION__);
+  gtl.Put ("-------------\n");
+  CMYOBJ obj1;
+  gtl.Put ("-------------\n");
+  CMYOBJ obj2;
+  gtl.Put ("-------------\n");
+  gtl.Pop ();
+}

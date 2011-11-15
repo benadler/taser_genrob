@@ -1,0 +1,69 @@
+15449 9998
+13721 10005
+15995 11750   # Labor (Marke am ersten Tisch rechts, wenn man ins Labor reinkommt)
+15978 13370   # Labor (Marke am zweiten Tisch rechts, wenn man ins Labor reinkommt)
+16070 16567
+12054 16828   # Labor (Marke, wenn man auf die Fensterwand schaut, SÃule in der Mitte)
+12893 15649   # Labor (Marke am rechten Tischpaar, wenn man Richtung Fenster schaut)
+10997 15394   # Labor (Marke am linken Tischpaar, wenn man Richtung Fenster schaut)
+14527 7371    # Flur (Marke links vom Durchgang zum Fahrstuhl)
+15827 7385    # Flur (Marke mittig auf der Wand zwischen Andreas und Durchgang zum Fahrstuhl)
+8003 11714
+7556 14555
+7230 16856
+9520 16970
+#8690 9974
+10505 9973
+12085 10145
+9264 7367     # Flur (Marke direkt gegenÃber der zweiten ÃrÃr zum Labor)
+10822 7369
+12378 7142
+13088 4545
+11496 4509
+17787 7380   # Flur (Marke recht von Andreas Buerotuer)
+17084 9114
+14447 6689
+#7120 9121
+12086 9107
+
+#----im labor sind die mit y>9500
+
+21656 7419
+24561 7444
+6644 7379
+11099 6951
+23353 9183
+28344 9206
+29536 7453
+32176 7536    # Flur (Tuer zu vorderen Flurteil)
+31370 7450    # Flur (Marke links vor der Teekueche)
+30900 9200    # Flur (Marke gegenueber des Eingangs zur Teekueche) 
+
+# Stauraum im Labor
+5891 16275
+3817 14344
+4081 16374
+6711 15411
+
+4325 9099
+4329 7846
+
+# KÃ¼che
+31332 7330    # KÃ¼che (Marke rechts neben der TÃ¼r)
+31439 5400    # KÃ¼che (Marke rechts auf dem pÃ¼ll¼Ãlbeckenunterschrank)
+29987 4961    # KÃ¼che (Marke links am grossen Schrank)
+30371 4331    # KÃ¼che (Marke rechts am Tisch nebendem Drucker)
+31138 3550    # KÃ¼che (Marke am KÃ¼hlschrank)
+
+# Werkstatt
+23544 11532   # Rechts vom Eingang zum Switch-Raum
+26169 14180   # Schreibtisch rechte Wand
+25971 10070   # unterhalb Waschbecken
+23649 16246   # Schreibtisch vor Fenster
+
+# Raum gegenüber von Bernds Büro
+4301 10414
+4473 11969
+5374 13092
+3809 13690
+

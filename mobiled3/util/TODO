@@ -1,0 +1,11 @@
+- zeitstempel einbauen
+
+printf ("%04i:%06i%s%s\n", s, us, spaces, userMsg);
+
+- ausgaben hierarchisieren (fatal, error, debug, trace)
+
+- ausgaben optional in datei umlenken
+
+* nicht als objekt, sondern als normale c-funktionen. sonst kann es mit
+  globalen objekten, die schon vor main() konstruiert werden durcheinander
+  gehen

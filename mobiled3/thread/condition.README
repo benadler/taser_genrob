@@ -1,0 +1,10 @@
+++itschere20011031: there's no real `condition' in WIN32, only a semaphore. for
+  the purpose of what we're doing here that doesn't matter, but be
+  careful. technically speaking the return from the semaphore and the locking
+  of the mutex isn't atomic, so that other writers may interfere here. but this
+  only means that we cannot guarantee that each change is seen separately. it
+  may happen that multiple changes accumulate before the first listener wakes
+  up. this doesn't hurt now.
+
+++itschere20001214: in this implementation of a condition you don't see the
+  mutex - it's hidden inside.

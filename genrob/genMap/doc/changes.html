@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+	<meta http-equiv="Content-Language" content="de">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <TITLE>genRob®-genMap - Änderungen</TITLE>
+<LINK  rel="stylesheet"  type="text/css"  href="genRob.css"></HEAD>
+
+<BODY><TABLE  id="top_continuous"><TR><TD  class="logo"><A  href="index.html"  target=_top><IMG  src="LogoTextSmall.jpeg"></A></TD></TR></TABLE><DIV id="left"><TABLE><TR><TD><SPAN  class="square"  id="off"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="active"><A  href="index.html"  target=_top>genMap</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id="active"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_1"><A  href="changes.html"  target=_top>Änderungen</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_2"><A  href="content.html"  target=_top>Inhalt</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_3"><A  href="usage.html"  target=_top>Benutzung</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_4"><A  href="tool.html"  target=_top>Werkzeug</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_5"><A  href="unit/index.html"  target=_top>Einheiten</A></SPAN></TD></TR></TABLE></DIV><TABLE  id="content_continuous"><TR><TD>
+
+<H1>Änderungen
+</H1><DIV  id="content">
+
+Auf dieser Seite sind die Anpassungen, Erweiterungen und Änderungen
+aufgelistet, die für die vorliegende Version gemacht wurden.&nbsp;
+Zuerst kommen die jüngsten (neuesten) Einträge.
+
+<P>
+Folgende Eintragsklassen gibt es:
+<UL>
+	<LI class="new">Neue Dinge,
+	<LI class="change">geänderte Sachen und
+	<LI class="correct">Fehlerkorrekturen.
+</UL>
+
+
+<H2>Für Version 3.0</H2>
+<UL>
+	<LI class="new">
+		Neues Beispiel im Verzeichnis <TT>samples</TT>
+		zum Anzeigen von Kartendaten in dreidimensionaler (3D) Form
+	<LI class="change">
+		Anpassungen für Quellverwaltung per SVN
+	<LI class="change">
+		Überarbeitung des Bau-Prozesses
+	<LI class="change">
+		Datei <TT>genRob.genControl.policy</TT> ist entfallen, da
+		genRob®-genControl diese Datei nicht mehr benötigt
+	<LI class="change">
+		Umstellung auf genRob®-genSite 3.1.1
+	<LI class="change">
+		Umstellung auf
+		<A href="content.server.html">genRob®-genControl 5.2.1</A>,
+		um neueste Änderungen mitzubekommen;&nbsp;
+		das genControl-Werkzeug wird jetzt mitgeliefert
+	<LI class="change">
+		Reorganisation des Kapitels <A href="content.html">Inhalt</A>,
+		zur klareren Darstellung
+	<LI class="change">
+		Reorganisation des Kapitels <A href="usage.html">Benutzung</A>,
+		zur klareren Darstellung
+	<LI class="change">
+		Server vom Typ genRob®-genSimulation werden nicht mehr mit
+		Kartendaten versorgt, da ab Version genSimulation 2.6
+		diese Server selbst passend die Kartendaten abholen
+	<LI class="change">
+		Log-Schlüsselwort <TT>exchange</TT> entfernt, da der
+		Datenaustausch mit Servern des Typs genSimulation entfällt
+	<LI class="new">
+		Neue Einheit
+		<A href="unit/genRob/genMap/unit/basic/Lines2.html"
+				><TT>genRob.genMap.unit.basic.Lines2</TT></A>
+		als Ersatz für
+		<A href="unit/genRob/genMap/unit/basic/Lines.html"
+				><TT>genRob.genMap.unit.basic.Lines</TT></A>
+	<LI class="change">
+		Einheit
+		<A href="unit/genRob/genMap/unit/basic/Lines.html"
+				><TT>genRob.genMap.unit.basic.Lines</TT></A>
+		ist als <TT>depricated</TT> gekennzeichnet
+	<LI class="new">
+		Neues Log-Schlüsselwort
+		<A href="usage.start.parameters.html#log"><TT>lines</TT></A>
+		zum Loggen zum Zugriffen auf die Einheiten
+		<A href="unit/genRob/genMap/unit/basic/Lines.html"
+				><TT>genRob.genMap.unit.basic.Lines</TT></A>
+		und
+		<A href="unit/genRob/genMap/unit/basic/Lines2.html"
+				><TT>genRob.genMap.unit.basic.Lines2</TT></A>
+	<LI class="change">
+		Erweiterung des <A href="tool.html">Werkzeugs</A>
+		um die Betreuung von Linien per
+		<A href="unit/genRob/genMap/unit/basic/Lines2.html"
+				><TT>genRob.genMap.unit.basic.Lines2</TT></A>
+</UL>
+
+<H2>Für Version 2.5</H2>
+<UL>
+	<LI><FONT color="red">K</FONT>
+		Datenaustausch verschiedener genRob®-genMap wurde angepaßt,
+		um mit genRob®-genControl ab Version 5.0 klarzukommen
+	<LI><FONT color="orange">Ä</FONT>
+		Umstellung auf
+		<a href="content.server.html">genRob®-genControl 5.1</a>,
+		um die Protokolle 1 und 2 zu ermöglichen
+	<LI><FONT color="green">N</FONT>
+		Ausgabe der gewählten Log-Schlüsselworte
+</UL>
+
+<H2>Für Version 2.4</H2>
+<UL>
+	<LI><FONT COLOR=green>N</FONT>
+		Datei für Kartendaten kann per Java™-Eigenschaft
+		<A href="usage.start.parameters.html#persistence"
+			><TT>genRob.genMap.serialize</TT></A>
+		festgelegt werden
+	<LI><FONT COLOR=orange>Ä</FONT>
+		Dateiarbeit erfolgt gepuffert
+</UL>
+
+<H2>Für Version 2.3</H2>
+<ul>
+	<li>Umstellung auf
+		<a href="content.server.html">genRob®-genControl 4.6</a>,
+		um auf neueste Standards der Klienten-Bibliothek umzustellen
+	<li>Deutliche Erweiterung der Log-Ausgaben bei
+		<TT>exchange</TT>
+	<li>Neue Kartenelemente und zugehörige
+		Einheiten und Klassen zum Zugriff darauf:
+		<ul>
+			<li><a href="unit/genRob/genMap/unit/basic/HLines.html"
+					><tt>Linien mit Höhe</tt></a> und
+			<li><a href="unit/genRob/genMap/unit/basic/HRectangles.html"
+					><tt>Rechtecke mit Höhe</tt></a> und
+			<li><a href="unit/genRob/genMap/unit/basic/MeasuringSections.html"
+					><tt>Meßstrecken</tt></a>.
+		</ul>
+	<li>Umstellung auf genRob®-genSite 2.1.2
+</ul>
+
+<H2>Für Version 2.2</H2>
+<ul>
+	<li>Neue Methoden zur Ermittlung der Stückzahl für
+		<a href="unit/genRob/genMap/unit/basic/TextList.html"
+			><tt>genRob.genMap.unit.basic.TextList</tt></a>
+		und
+		<a href="unit/genRob/genMap/unit/basic/LineList.html"
+			><tt>genRob.genMap.unit.basic.LineList</tt></a>
+	<li>Korrektur der Methode
+		<a href=
+		"unit/genRob/genMap/unit/basic/TextIterator.html#next()"
+			><tt>genRob.genMap.unit.basic.TextIterator.next()</tt></a>
+	<li>Korrektur des Hilfetextes des
+		<a href="tool.html">Werkzeugs</a>
+</ul>
+
+<H2>Für Version 2.1</H2>
+<UL>
+	<li>(2.1.1)
+		<ul>
+			<li>Neue Methoden zur Ermittlung der Stückzahl für
+				<a href="unit/genRob/genMap/unit/basic/TextList.html"
+					><tt>genRob.genMap.unit.basic.TextList</tt></a>
+				und
+				<a href="unit/genRob/genMap/unit/basic/LineList.html"
+					><tt>genRob.genMap.unit.basic.LineList</tt></a>
+			<li>Korrektur der Methode
+				<a href=
+				"unit/genRob/genMap/unit/basic/TextIterator.html#next()"
+					><tt>genRob.genMap.unit.basic.TextIterator.next()</tt></a>
+			<li>Korrektur des Hilfetextes der
+				<a href="tool.html">Werkzeugs</a>
+		</ul>
+	<li>Umstellung auf genRob®-genSite 2.1
+	<li>Umstellung auf
+		<a href="content.server.html">genRob®-genControl 4.1</a>,
+		um neue Möglichkeiten der Klienten-Bibliothek benutzen zu können
+	<li>Einführung des neuen Kartenelementtyps
+		<a href="unit/genRob/genMap/unit/basic/Raster.html"
+			><tt>genRob.genMap.unit.basic.Raster</tt></a>
+		mit zugehöriger Einheit
+		<a href="unit/genRob/genMap/unit/basic/Rasters.html"
+			><tt>genRob.genMap.unit.basic.Rasters</tt></a>
+	<li>Überarbeitung der Dokumentation des <a href="tool.html">Werkzeuges</a>
+</UL>
+
+<H2>Für Version 2.0</H2>
+<UL>
+	<LI>Umstellung auf
+		<a href="content.server.html">genRob®-genControl 4.0</a>
+		(wegen der Umstellung auf die Roblet®-Bibliothek 2.0)
+	<LI>Umstellung auf
+		genRob®-genSimulation 2.0
+		(wegen der Umstellung auf die Roblet®-Bibliothek 2.0)
+	<li>Leichte Überarbeitung der Start-Dateien <tt>genMap.sh</tt> und
+		<tt>genMap.bat</tt>
+		- vgl. <a href="content.module.html">Inhalt</a>
+	<li>Überarbeitung der Kapitel <a href="content.html">Inhalt</a>
+		und <a href="usage.html">Benutzung</a>
+	<li>Bereitstellung eines <a href="tool.html">Werkzeuges</a>, mit dem
+		an und mit genRob®-genMap Manipulationen durchgeführt werden können
+	<li>Überarbeitung der Beispiele im Verzeichnis
+		<a href="../samples/"><tt>samples</tt></a> und ihres Baus
+	<li>Vollständige Überarbeitung der <a href="unit/index.html">Einheiten</a>
+		und zugehörigen Klassen
+		<ul>
+			<li>Allgemeines
+				<ul>
+					<li>Neue Einheit
+						<a href="unit/genRob/genMap/unit/Version.html"
+							><tt>genRob.genMap.unit.Version</tt></a>
+						zur Bestimmung der Modulversion
+				</ul>
+			<li>Basis-Schnittstelle
+				<ul>
+					<li>Ersatz von <tt>genRob.genSimulation.unit.map.Edge</tt>
+						durch
+							<a href="unit/genRob/genMap/unit/basic/Line.html"
+								><tt>genRob.genMap.unit.basic.Line</tt></a>
+					<li>Ersatz von
+						<tt>genRob.genSimulation.unit.UnsynchronizedAccess</tt>
+						durch
+							<a href="unit/genRob/genMap/unit/basic/Lines.html"
+								><tt>genRob.genMap.unit.basic.Lines</tt></a>
+					<li>Neue Einheit
+						<a href="unit/genRob/genMap/unit/basic/Reflectors.html"
+							><tt>genRob.genMap.unit.basic.Reflectors</tt></a>
+						mit zugehöriger Klasse
+						<a href="unit/genRob/genMap/unit/basic/Reflector.html"
+							><tt>genRob.genMap.unit.basic.Reflector</tt></a>
+						für den Zugriff auf die Reflektormarken für
+						Laserscanner
+				</ul>
+			<li>Undokumentierte/unfertige Schnittstelle
+				<ul>
+					<li>Änderung der Einheit
+						<a href="unit/genRob/genMap/unit/MapAccess.html"
+							><tt>genRob.genMap.unit.MapAccess</tt></a>
+						- keine Bereitstellung von
+							<tt>genRob.genMap.unit.MapAccessClient</tt> mehr
+					<li>Weglassen der Einheit
+						<tt>genRob.genMap.unit.EdgeAccess</tt>
+						- Stattdessen kann
+							<a href="unit/genRob/genMap/unit/basic/Lines.html"
+								><tt>genRob.genMap.unit.basic.Lines</tt></a>
+							verwendet werden
+					<li>Verschiebung aller übrigen Klassen nach
+						<tt>genRob.genMap.unit.v2</tt>
+						- Änderungen vorbehalten
+				</ul>
+		</ul>
+</UL>
+
+<H2>Für Version 1.3</H2>
+<UL>
+	<li>Umstellung aller Quellen auf UTF-8.
+	<li>Überarbeitung des Bauens
+	<li>Umstellung auf genRob®-genControl 2.3.1
+	<li>Dokumentationsverzeichnis jetzt <tt>doc</tt> anstatt <tt>docs</tt>.
+	<li>Umstellung auf genRob®-genSite 1.1
+	<li>Überarbeitung der Dokumentation
+</UL>
+
+<H2>Für Version 1.2</H2>
+<UL>
+	<LI>Überarbeitung des Loggings und der Modul-Basis
+	<li>Log-Ausgaben werden jetzt über ein Setzen der Java™-Eigenschaft
+		<tt>genRob.genMap.log</tt> gesteuert
+	<li>Neues Kartenelement <tt>genRob.genMap.unit.Route</tt>.
+</UL>
+
+<H2>Für Version 1.1</H2>
+<UL>
+	<LI><tt>run.bat</tt>, <tt>run.sh</tt>, <tt>make.bat</tt>
+		und <tt>make.sh</tt> wurden auf die seit 1.0 bestehende JAR-Situation
+		angepaßt.
+	<LI>Verwendung des genRob®-genControl 2.1-Loggings
+	<li>Umstellung auf genRob®-genControl 2.2.
+	<li>Überarbeitung der Dokumentation
+		<ul>
+			<li>Dokumentation der Einheit <tt>UnsynchronizedAccess</tt>
+			<li>Beispiele (umgestellt auf Nutzung der
+				genRob®-genControl-Klienten-Bibliothek)
+		</ul>
+	<li>Überarbeitung des Ant-Baus
+</UL>
+
+<H2>Für Version 1.0</H2>
+<UL>
+	<LI>Verwendung von genRob®-genControl 2.0
+		<ul>
+			<li>Anpassung auf genRob®-Roblet®-Bibliothek 1.0
+			<li>Frühere Anteile <tt>genRob.robletX.genMap.*</tt>
+				(enthalten in <tt>genRob.roblet.jar</tt>)
+				jetzt in <tt>genRob.genMap.unit.*</tt>
+			<li>Bereitgestellte Einheiten jetzt in
+				<tt>genRob.genMap.unit.jar</tt>
+		</ul>
+	<LI>Warten von Roblets® auf Kartendaten wurde so verändert,
+		dass genControl sich wieder beenden läßt.&nbsp;
+		Dazu wird genRob®-genControl 2.0 benötigt.
+	<LI>Ein Kartenelement für Transponder wurde hinzugefügt.
+</UL>
+
+<H2>Für Version 0.2</H2>
+<UL>
+	<LI>Anpassung auf genRob®-Roblet®-Bibliothek 0.6 und genRob®-genControl 1.1
+	<LI>Einbau der temporären Einheit
+		<TT>genRob.genMap.dirty.UnsynchronizedAccess</TT>,
+		damit einfaches Listen, Löschen und Laden von Kartendaten möglich wird
+	<LI>Passende Beispiele für diese Einheit inklusive
+		zweier Beispiel-Karten (Uni Hamburg und Fraunhofer IPA)
+</UL>
+
+<H2>Für Version 0.1</H2>
+<UL>
+	<LI>Umstellung auf neue Modul-Schnittstelle von genRob®-genControl 0.6
+</UL>
+
+<H2>Für Version 0.0</H2>
+<UL>
+	<LI>Initiale Version.
+</UL>
+
+</DIV><DIV  id="footer"><DIV  id="footer_left">© 2002-2008 genRob GmbH, Hagen Stanek</DIV></DIV><DIV  id="genSite"><TABLE><TR><TD><IMG  src="genRob-button.png"  alt="powered by genRob&reg;"></TD><TD><SPAN  class="small">erzeugt am 02.04.2008 um 06:00:21.167 CEST mit</SPAN><BR><SPAN  class="mid">genRob®-genSite 3.1.1</SPAN></TD></TR></TABLE></DIV></TD></TR></TABLE></BODY>
+</HTML>

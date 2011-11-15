@@ -1,0 +1,182 @@
+;
+; Hindernisse
+;
+; Version: 1.0
+; Autor  : Daniel Westhoff
+; Date   : 22.06.2007
+;
+; objecttype, x, y, angle
+
+; Labor (Tische vor Fenster, rechts)
+table70 12920 15700 0
+table70 13030 15640 -90
+table70 13770 15700 0
+
+; Labor (Tische vor Fenster, links)
+table80 10200 13750 0
+table80 9400  13750 0
+table80 10200 15350 0
+table80 9400  15350 0
+
+; Labor (Tische an der Wand, rechts)
+table80 16800 11750 -180
+table80 16875 15000 -180
+
+; Labor (Tisch an der Wand, links)
+table80 7280 10230 0
+
+; Labor (Schränke)
+cabinet120 7160 14550 0 
+cabinet120 16750 15340 0
+
+; Labor (Sofa)
+rectangle 11075 11100 900 2200 -90 true
+
+; Labor (Regal)
+shelf 7160 11860 0 2
+
+; Labor (HOAP-Käfige)
+rectangle 7500 11860 700 750 0 false
+rectangle 7500 12630 700 750 0 false
+
+; Labor (zweiter PA10)
+line 16000 11750 15400 11750
+line 15400 11750 15400 13400
+line 15400 13400 16075 13400
+
+; Labor (Türen)
+door 17180 16650 17180 15150
+door 8780 9800 8450 9030
+door 10370 9800 10690 9040
+door 13810 9800 13580 9080
+door 15380 9800 15670 9100
+
+; Flurende bei Bernd
+door 4300 9800 4300 7350 
+
+; Archiv (Eingang)
+door 4400 9800 4450 9000
+door 5930 9800 5900 9000
+
+; Archiv (Tische)
+table70 6340 12000 -180
+table70 7040 12000 -180
+table70 7040 13400 -180
+
+; Archiv (Schränke)
+cabinet92 5360 13580 -90
+cabinet92 4300 10000 90
+cabinet92 2550 13600 -180
+cabinet92 2550 12680 -180
+cabinet92 2550 11760 -180
+cabinet122 4445 11160 90
+cabinet122 4445 11640 90
+
+; Aufhängung für Magnetspule
+rectangle 3150 12750 600 800 0 false
+
+; Archiv (gesperrte Bereiche)
+line 6130 10000 6130 10600
+line 4100 10500 4100 11160
+line 5700 12000 5700 13080
+line 3820 12750 3820 12120
+
+; Archiv (Tür zum Abstellraum vom Labor)
+door 3800 13590 3820 12750
+
+; Abstellraum (Regale)
+shelf 2050 13750 0 2
+shelf 3600 13750 90 1
+shelf 6600 13750 90 1
+shelf 6720 14400 0 1
+
+; Abstellraum (gesperrte Bereiche)
+line 3750 13750 3750 14800
+line 5600 14050 5600 14750
+line 5600 14750 6470 14750
+line 6470 14750 6470 15350
+line 6720 15350 6470 15350
+
+; Abstellraum (Tische)
+table70 3580 14800 0
+table70 4500 16980 -90
+table70 2680 17050 -90
+
+; Abstellraum (Tür)
+door 7000 16730 6000 17000
+
+; Kletterroboter (Tische)
+table80 28710 12420 90
+table70 28850 15600 0
+table80 28850 16200 90
+table80 31140 16160 90
+table70 32130 10170 90
+
+; Kletterroboter (Schränke)
+cabinet122 28810 10000 90
+cabinet120 27110 13220 0
+cabinet120 31730 14360 0
+cabinet120 31730 15560 0
+
+; Kletterroboter (Steuerpult)
+rectangle 28620 11600 850 900 -186 true
+
+; Kletterroboter (Kletterwand)
+line 31750 14160 30800 14160
+line 30800 14160 30900 10900
+line 30900 10900 31700 10920
+rectangle 31700 10920 150 3250 -1 true
+
+; Kletterroboter (kleiner Tische neben Kletterwand)
+rectangle 30980 14650 475 675 -88 false
+
+; Kletterroboter (Türen Eingang)
+door 28830 9780 28635 8960
+door 30400 9780 30740 9030
+
+; Flur (Erste Hilfe Schrank bei Kletterroboter)
+rectangle 28400 9170 250 600 0 true
+
+; Küche
+door 30380 7170 30000 6280
+
+; Küche (Arbeitsfläche)
+rectangle 31370 6500 3720 600 -90 false
+
+; Küche (Schrank)
+cabinet120 30100 6160 -180
+
+; Küche (Tische)
+table70 30360 4360 -180
+rectangle 30360 2960 700 700 -180 false
+
+; Küche (kleine Schränke)
+rectangle 30060 4960 380 600 -180 true
+rectangle 31420 6500 380 600 0 true
+
+; Küche (Papierkarton zum Aufhalten der Tür)
+line 30100 6500 30450 6500
+line 30450 6500 30450 6000
+line 30450 6000 30100 6000
+
+; Werkstatt (Schränke rechte Wand)
+cabinet92 26460 10660 0
+cabinet92 26460 11580 0
+rectangle 26360 12500 600 2340 0 true
+
+; Werkstatt (Sperrbereich Feuerlöscher und Waschbecken)
+line 26460 10660 25500 10660
+line 25500 10660 25500 10000
+
+; Werkstatt (Schreibtische)
+table84 23300 11820 -270
+table84 21500 11820 -270
+table84 26075 16175 -270
+table84 24275 16175 -270
+table84 21950 15900 -270
+table84 20475 15460 180
+
+; Werkstatt (Türen)
+door 23778 9800 23415 9084
+door 25315 9800 25572 9047
+

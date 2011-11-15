@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Dies ist die Ant-Bau-Datei für uhh.fbi.tams.mobilerobot.
+
+    uhh.fbi.tams.mobilerobot
+    © Copyright 2002-2003, Hagen Stanek
+    http://stanek.de, http://genRob.com
+    © Copyright 2004-2008, Daniel Westhoff
+    http://tams-www.informatik.uni-hamburg.de
+
+    Wo sind Versionsnummer und -datum anzupassen?
+        ModuleImpl.java
+        build.xml
+        index.html
+        overview.html
+        mobilerobot.html
+        mobilerobot.sh
+ -->
+<project  name="mobilerobot-module"  default="all">
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- // PROPERTIES                                                   // -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+
+    <!-- VERSION -->
+
+    <property  name="vName"      value="uhh.fbi.tams.mobilerobot"/>
+    <property  name="vShortName" value="mobilerobot"/>
+    <property  name="vNum"       value="0.9"/>
+    <property  name="vDate"      value="16Mar08"/>
+    <property  name="year1"      value="2002-2003"/>
+    <property  name="author1"    value="Hagen Stanek"/>
+    <property  name="year2"      value="2004-2007"/>
+    <property  name="author2"    value="Daniel Westhoff"/>
+    <property  name="author3"    value="Daniel Westhoff, Benjamin Adler"/>
+    <property  name="year3"      value="2008"/>
+
+    <!-- GenRob®-Komponenten, die für das Kompilieren benötigt werden. -->
+
+    <property  name="genControl.version"
+               value= "5.2.1" />
+
+    <property  name="genControl.path"
+	       value="/usr/src/politbuero/mobiled/genrob/genControl"/>
+
+    <property  name="genControl.list"
+               value="
+                      genRob.genControl.jar
+                      genRob.genControl.unit.jar
+                      genRob.genControl.client.jar
+                      genRob.genControl.modules.jar
+	              jini-core.jar
+    	              jini-ext.jar
+                     "/>
+
+    <property  name="genControl.policies"
+               value="genRob.genControl.policy" />
+
+	<property  name="roblet.version"
+	           value="2.0" />
+
+    <property  name="roblet.path"
+	       value="/usr/src/politbuero/mobiled/genrob/genControl" />
+
+    <property  name="roblet.list"
+               value="org.roblet.jar"/>
+
+	<!-- sonstige Bibliotheken die zum Kompilieren benötigt werden. -->
+	<!-- keine weiteren Bibliotheken -->
+
+	<!-- CLASSPATH -->
+	<path id="project.class.path">
+      <fileset dir="${genControl.path}" includes="${genControl.list}" />
+      <fileset dir="${roblet.path}"     includes="${roblet.list}" />
+	</path>
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- // TARGETS                                                      // -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+
+    <!-- Default-Target: make doc jar release -->
+    <target  name="all"
+    	     description="Project bauen: systeminfo, clean, make, doc, jar"
+             depends="build.systeminfo, build.clean, build.make, build.doc, build.jar">
+
+    </target>
+
+    <!-- Informationen zum Build-System. -->
+    <target name="build.systeminfo">
+
+        <echo message="${ant.version}"/>
+        <echo message="Ant File: ${ant.file}"/>
+        <echo message="Project: ${ant.project.name}"/>
+        <echo message="Java Version: ${ant.java.version}"/>
+
+    </target>
+
+    <!-- Baue alle .class-Dateien  -->
+    <target  name="build.make"
+    	     description="Java-Quellen übersetzen">
+
+  	  <!-- Fehlende Verzeichnisse erstellen -->
+      <mkdir dir="jar" />
+      <!--<mkdir dir="lib" /> -->
+      <mkdir dir="doc" />
+      <mkdir dir="classes" />
+
+      <!-- Kompiliere -->
+      <javac  srcdir="java"
+              destdir="classes"
+              includes="**/*.java"
+              fork="false"
+              includeAntRuntime="no"
+              encoding="ISO-8859-1"
+              debug="on"
+              source="1.4"
+              target="1.4">
+
+        <classpath refid="project.class.path" />
+
+      </javac>
+
+      <!-- RMI -->
+      <rmic  base="classes"
+             includes="
+                       **/MobilerobotClient.class,
+                       **/RemoteRobotImpl.class
+                      "
+             includeAntRuntime="no"
+             debug="on"
+             stubversion="1.2">
+
+        <classpath refid="project.class.path" />
+
+      </rmic>
+
+    </target>
+
+
+    <!-- API-Dokumentation. -->
+    <target  name="build.doc"
+    		description="API-Dokumentation erstellen."
+             depends="build.clean, build.make">
+
+        <!-- Abkürzungen -->
+        <property  name="uni"      value="Universit&amp;auml;t Hamburg, Dept. Informatik, Arbeitsbereich TAMS"/>
+        <property  name="hbr"      value="&lt;br&gt;"/>
+        <property  name="hCr"      value="Copyright &amp;copy;"/>
+        <property  name="link1"    value="&lt;a href='http://stanek.de'&gt;http://stanek.de&lt;/a&gt;, &lt;a href='http://genRob.com'&gt;http://genRob.com&lt;/a&gt;"/>
+        <property  name="link2"    value="&lt;a href='http://tams-www.informatik.uni-hamburg.de'&gt;http://tams-www.informatik.uni-hamburg.de&lt;/a&gt;"/>
+
+        <!-- API-Dokumentation -->
+        <javadoc  sourcepath="java"
+                  destdir="doc/api"
+                  packagenames="
+                                ${vName}.unit.*,
+                                ${vName}.client.*,
+                                ${vName}.test.*
+                               "
+                  Overview="html/overview.html"
+                  Doctitle="API-Dokumentation zu ${vName} ${vNum}"
+                  Windowtitle="${vName} ${vNum} - ${vDate}"
+                  Header="${uni} ${hbr} &lt;b&gt;${vName} ${vNum}&lt;/b&gt; - ${vDate}"
+                  Footer="${uni} ${hbr} &lt;b&gt;${vName} ${vNum}&lt;/b&gt; - ${vDate}"
+		  bottom="${hCr} ${year1}, ${author1}, ${link1} ${hbr} ${hCr} ${year2}, ${author2}, ${link2}, ${hbr} ${hCr} ${year3}, ${author3}, ${link2}"
+                  locale="de_DE"
+                  source="1.4">
+
+          <link href="http://java.sun.com/j2se/1.4.2/docs/api/" />
+          <link href="http://www.genRob.com/system/genControl/${genControl.version}/doc/client/" />
+          <link href="http://www.genRob.com/system/genControl/${genControl.version}/doc/modules/" />
+          <link href="http://www.genRob.com/system/genControl/${genControl.version}/doc/unit/" />
+          <link href="http://roblet.org/library/${roblet.version}/doc/lib/" />
+
+          <classpath refid="project.class.path" />
+
+        </javadoc>
+
+        <!-- Kopiere die Hauptseiten der Dokumentation -->
+        <copy toDir="doc"
+              preservelastmodified="yes">
+
+          <fileset  dir="html"
+                    includes="
+                       		  uhh.css
+                       		  index.html
+                       		  content.html
+	                       	  changes.html
+                       		  use.html
+                             "/>
+
+        </copy>
+
+    	<!-- Kopiere Logos und Bilder in die Dokumentation -->
+    	<copy toDir="doc"
+    	      preservelastmodified="yes">
+
+    		<fileset  dir="html"
+    		          includes="
+    							mobilerobot.jpg
+					            logo_uhh_neu.gif
+					            fbilogo_grau64x64.gif
+					            down.gif
+					            top.gif
+    						   " />
+    	</copy>
+
+        <!--
+             Kopiere die Spezifikation des Kommunikations-Protokolls
+             in die Dokumentation
+          -->
+        <copy toDir="doc/api/uhh/fbi/tams/mobilerobot"
+              preservelastmodified="yes">
+
+          <fileset  dir="."
+          	        includes="/home/tams_1/westhoff/Documents/LaTeX/Kommunikations-Protokoll/protokoll.pdf" />
+
+        </copy>
+
+    </target>
+
+
+    <!-- jar-Dateien erstellen -->
+    <target name="build.jar"
+            description="Erstelle jar-Archive der class-Dateien"
+            depends="build.clean, build.make">
+
+       <!-- JAR: Alle class-Dateien außer den Interface-Klassen der Einheiten -->
+       <jar  jarfile="jar/${vName}.jar"
+             basedir="classes"
+             includes="
+                       **/*.class
+                      "
+             excludes="
+					   uhh/fbi/tams/mobilerobot/client/**/*.*
+       				   uhh/fbi/tams/mobilerobot/unit/**/*.*
+                       uhh/fbi/tams/mobilerobot/test/**/*.*
+                      ">
+
+         <manifest>
+
+           <attribute  name="Class-Path"
+                       value="
+                             ${genControl.list}
+                             ${roblet.list}
+                             "/>
+
+           <attribute name="Built-By" value="${author2}"/>
+
+           <section name="common">
+             <attribute name="Specification-Title"    value="${vName}"/>
+             <attribute name="Specification-Version"  value="${vNum}"/>
+             <attribute name="Specification-Vendor"   value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+             <attribute name="Implementation-Title"   value="${vName}"/>
+             <attribute name="Implementation-Version" value="${vNum} ${vDate}"/>
+             <attribute name="Implementation-Vendor"  value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+           </section>
+
+        </manifest>
+
+       </jar>
+
+       <!-- JAR: Interface-Klassen der Einheiten des Moduls -->
+       <jar  jarfile="jar/${vName}.unit.jar"
+             basedir="classes"
+             includes="
+                       uhh/fbi/tams/mobilerobot/unit/**/*.class
+                      ">
+
+         <manifest>
+
+           <attribute  name="Class-Path"
+                       value="
+                             ${genControl.list}
+                             ${roblet.list}
+                             "/>
+
+           <attribute name="Built-By" value="${author2}"/>
+
+           <section name="common">
+             <attribute name="Specification-Title" value="${vName}.unit"/>
+             <attribute name="Specification-Version" value="${vNum}"/>
+             <attribute name="Specification-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+             <attribute name="Implementation-Title" value="${vName}.unit"/>
+             <attribute name="Implementation-Version" value="${vNum} ${vDate}"/>
+             <attribute name="Implementation-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+           </section>
+
+        </manifest>
+
+       </jar>
+
+       <!-- JAR: Klassen für den Client des Moduls -->
+       <jar  jarfile="jar/${vName}.client.jar"
+             basedir="classes"
+             includes="
+                       uhh/fbi/tams/mobilerobot/client/**/*.class
+                      ">
+
+         <manifest>
+
+           <attribute  name="Class-Path"
+                       value="
+                             ${vName}.unit.jar
+                             ${genControl.list}
+                             ${roblet.list}
+                             "/>
+
+           <attribute name="Built-By" value="${author2}"/>
+
+           <section name="common">
+             <attribute name="Specification-Title" value="${vName}.client"/>
+             <attribute name="Specification-Version" value="${vNum}"/>
+             <attribute name="Specification-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+             <attribute name="Implementation-Title" value="${vName}.client"/>
+             <attribute name="Implementation-Version" value="${vNum} ${vDate}"/>
+             <attribute name="Implementation-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+           </section>
+
+        </manifest>
+
+       </jar>
+
+        <!-- JAR: Test-Klassen des Moduls -->
+       <jar  jarfile="jar/${vName}.test.jar"
+             basedir="classes"
+             includes="
+                       uhh/fbi/tams/mobilerobot/test/**/*.class
+                      ">
+
+         <manifest>
+
+           <attribute  name="Class-Path"
+                       value="
+                             ${vName}.unit.jar
+                             ${genControl.list}
+                             ${roblet.list}
+                             "/>
+
+           <attribute name="Built-By" value="${author2}"/>
+
+           <section name="common">
+             <attribute name="Specification-Title" value="${vName}.test"/>
+             <attribute name="Specification-Version" value="${vNum}"/>
+             <attribute name="Specification-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+             <attribute name="Implementation-Title" value="${vName}.test"/>
+             <attribute name="Implementation-Version" value="${vNum} ${vDate}"/>
+             <attribute name="Implementation-Vendor" value="Universität Hamburg, MIN Fakultät, Dept. Informatik, TAMS"/>
+           </section>
+
+        </manifest>
+
+       </jar>
+
+    </target>
+
+
+    <!--
+        Räume alles auf.
+        Kann benutzt werden, um vor einer Archivierung der gesamten
+        Komponente alle temporären Dateien zu entfernen.
+    -->
+    <target  name="build.clean"
+             description="Loesche alle temporaeren Dateien.">
+
+      <delete>
+          <fileset  dir="."
+                    defaultexcludes="no"
+                    includes="
+                        classes/**/*.*
+                        jar/*.jar
+                        doc/**/*.*
+			            **/*.xml~
+			            **/.DS_Store
+                        *.*~
+                        "/>
+      </delete>
+
+    </target>
+
+
+    <!--
+        Legt einen Release im Release-Verzeichnis an.
+    -->
+    <target  name="release"
+             description="Legt einen Release im Release-Verzeichnis an."
+             depends="all">
+
+         <!-- Verzeichnis für den Release -->
+         <property name="releaseDir" value="${vShortName}-${vNum}"/>
+
+	   	 <!-- release-Verzeichnis anlegen -->
+	   	 <mkdir dir="release" />
+	   	 <mkdir dir="release/${releaseDir}" />
+
+         <!-- Kopiere jar-Dateien -->
+         <copy  toDir="release/${releaseDir}"
+                preservelastmodified="yes">
+
+            <fileset  dir="jar"
+                      includes="
+                                ${vName}.jar
+                                ${vName}.unit.jar
+                                ${vName}.client.jar
+                                ${vName}.test.jar
+                               "/>
+         </copy>
+
+        <!-- Kopiere org.roblet.jar -->
+        <copy  toDir="release/${releaseDir}"
+               preservelastmodified="yes">
+
+           <fileset  dir="${roblet.path}"
+                     includes="${roblet.list}" />
+
+        </copy>
+
+        <!-- Kopiere Roblet-Server -->
+        <copy  toDir="release/${releaseDir}"
+               preservelastmodified="yes">
+
+           <fileset  dir="${genControl.path}"
+                     includes="${genControl.list}" />
+
+        </copy>
+
+    	<!-- Scripte kopieren -->
+    	<copy  toDir="release/${releaseDir}"
+               preservelastmodified="yes">
+
+           <fileset  dir="."
+                     includes="*.sh" />
+
+        </copy>
+
+         <!-- Kopiere API-Dokumentation -->
+         <copy  toDir="release/${releaseDir}/doc"
+                preservelastmodified="yes">
+            <fileset  dir="doc"
+                      includes="**/*.*"/>
+        </copy>
+
+        <!-- Erzeuge tar-File -->
+        <zip  destfile="release/uhh_fbi_tams_${vShortName}_${vNum}_${vDate}.zip"
+              basedir="release"
+              includes="${vShortName}-${vNum}/**/*.*"/>
+
+    </target>
+
+
+    <!--
+        Release und Dokumentation auf die Webseite kopieren.
+		TODO www-Targets noch nicht getestet.
+    -->
+    <target  name="tams.www.linux"
+             description="Projekt auf Webseite kopieren (Linux PC)."
+             depends="release">
+
+             <!-- Kopiere logviewer.html -->
+             <copy  toDir="/home/tams_1/westhoff//HTML/Homepage/de/robotik/genRob"
+                    preservelastmodified="yes">
+                <fileset  dir="."
+                          includes="${vShortName}.html"/>
+             </copy>
+
+             <!-- Kopiere .tgz-Datei -->
+             <copy  toDir="/home/tams_1/westhoff/HTML/Homepage/de/robotik/genRob"
+                    preservelastmodified="yes">
+                <fileset  dir="release"
+                          includes="uhh_fbi_tams_${vShortName}_${vNum}_${vDate}.zip"/>
+             </copy>
+
+             <!-- Kopiere Dokumentation -->
+             <copy  toDir="/home/tams_1/westhoff/HTML/Homepage/de/robotik/genRob/${vShortName}"
+                    preservelastmodified="yes">
+                <fileset  dir="doc"/>
+             </copy>
+
+    </target>
+
+
+    <!--
+        Kopiere Release auf den Roboter.
+    -->
+    <target  name="tams.copy2robot"
+             description="Kopiere den Release auf den Roboter."
+             depends="release">
+
+        <scp todir="westhoff-robbi@tams61:/usr/local/src/service_robot/genRob"
+             keyfile="${user.home}/.ssh/id_dsa"
+             passphrase=""
+	       	 verbose="true"
+    	   	 sftp="true">
+
+           <fileset dir="release">
+
+             <include name="${vShortName}-${vNum}/**/*.*"/>
+
+           </fileset>
+
+        </scp>
+
+    </target>
+
+
+    <!--
+        Die für die Entwicklung von Roblet-Anwendungen und zum Testen
+        notwendigen Pakete nach /local/tams1.2/develop/genRob/ kopieren.
+        TODO Noch nicht getestet und überprüft.
+    -->
+
+    <target name="tams.install"
+            description="Kopiere den Release nach /local/tams1.2/develop/genRob/"
+            depends="release">
+
+         <!-- Installationsverzeichnis -->
+         <property name="installDir"
+                   value="/local/tams1.2/develop/genRob/${releaseDir}-devel" />
+
+         <!-- Kopiere jar-Dateien -->
+         <copy  toDir="${installDir}"
+                preservelastmodified="yes">
+            <fileset  dir="."
+                      includes="
+                                ${vName}.unit.jar
+                                ${vName}.client.jar
+                                ${vName}.test.jar
+                                genRob.genControl.client.jar
+                                genRob.genControl.unit.jar
+                                ${roblet.list}
+                                ${jini.list}
+                                scripte/*..sh
+                               "
+                      excludes="
+                                scripte/mobilerobot.sh
+                               "/>
+         </copy>
+
+         <!-- Die Scripte ausführbar machen. -->
+         <chmod dir="${installDir}"
+                perm="755"
+                includes="*.sh" />
+
+         <!-- Kopiere API-Dokumentation -->
+         <copy  toDir="${installDir}/doc"
+                preservelastmodified="yes">
+            <fileset  dir="doc"
+                      includes="**/*.*"/>
+        </copy>
+
+    </target>
+</project>

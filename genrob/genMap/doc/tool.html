@@ -1,0 +1,471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Language" content="de">
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <TITLE>genRob®-genMap - Werkzeug</TITLE>
+<LINK  rel="stylesheet"  type="text/css"  href="genRob.css"></HEAD>
+
+<BODY><TABLE  id="top_continuous"><TR><TD  class="logo"><A  href="index.html"  target=_top><IMG  src="LogoTextSmall.jpeg"></A></TD></TR></TABLE><DIV id="left"><TABLE><TR><TD><SPAN  class="square"  id="off"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="active"><A  href="index.html"  target=_top>genMap</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_1"><A  href="changes.html"  target=_top>Änderungen</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_2"><A  href="content.html"  target=_top>Inhalt</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_3"><A  href="usage.html"  target=_top>Benutzung</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id="active"></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_4"><A  href="tool.html"  target=_top>Werkzeug</A></SPAN></TD></TR><TR><TD><SPAN  class="square"  id=""></SPAN></TD><TD  class="menu"><SPAN  class="menu_item"  id="blue_5"><A  href="unit/index.html"  target=_top>Einheiten</A></SPAN></TD></TR></TABLE></DIV><TABLE  id="content_continuous"><TR><TD>
+
+<H1>Werkzeug
+</H1><DIV  id="content">
+
+Mit dem Paket wird zusätzlich noch ein <B>Werkzeug</B> ausgeliefert.&nbsp;
+Es unterstützt die Einrichtung und Wartung des Moduls.
+
+<P>
+Der Aufruf erfolgt in folgender Weise (in eine Zeile):
+
+<BLOCKQUOTE><PRE>
+java -jar genRob.genMap.tool.jar
+	<A href="#parameters">[Parameter]</A>
+</PRE></BLOCKQUOTE>
+
+
+<HR>
+
+<H2><A name="parameters">Parameter</A></H2>
+
+Die Parameterangabe <TT>[Parameter]</TT> folgt folgender Regel:
+
+<BLOCKQUOTE><PRE>
+host:port Einheit Befehl
+</PRE></BLOCKQUOTE>
+
+<B>host:port</B> gibt den Roblet®-Server mit genRob®-genMap-Modul
+an.&nbsp;
+Kombinationen von <B>Einheit</B> und <B>Befehl</B> können aus der weiter
+unten stehenden Tabelle entnommen werden.
+
+<P>
+Erfolgt der Aufruf ohne Parameter, so wird angezeigt, was mit dem
+Werkzeug alles gemacht werden kann.
+
+<P>
+Nachfolgend die Einheit-Befehl-Kombinationen und ihre Funktion:
+
+<BLOCKQUOTE>
+<TABLE border=1>
+	<TR>
+		<TD>
+			<B>Einheit</B>
+		</TD>
+		<TD>
+			<B>Befehl</B>
+		</TD>
+		<TD>
+			<B>Funktion</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>Version</TT>
+		</TD>
+		<TD>
+			<TT>get</TT>
+		</TD>
+		<TD>
+			Hole Versionsinformationen des genMap-Modul
+			im angegebenen Server.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>MapAccess</TT>
+		</TD>
+		<TD>
+			<TT>read</TT>
+		</TD>
+		<TD>
+			Hole endlos Kartendaten.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>MapWriter</TT>
+		</TD>
+		<TD>
+			<TT>test</TT>
+		</TD>
+		<TD>
+			Füge Reflektor bei (0m, 0m) hinzu
+			(sofern noch nicht vorhanden)
+			und lösche ihn wieder.
+		</TD>
+	</TR>
+	<TR>
+		<TD rowspan=4>
+			<TT>Lines</TT>
+		</TD>
+		<TD>
+			<TT>test</TT>
+		</TD>
+		<TD>
+			Lösche alle Linien.<BR>
+			Schreibe und lese Testdaten.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste (einmal) alle Linien auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Linien, z.B. <TT>(0.1, 0.01, 0.1, -1.0)</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB</TT>
+			</I>
+			<P>
+			Füge Linie hinzu.
+			<P>
+			Beispiel:  <TT>100 10 100 -100</TT><BR>
+			Fügt Line (0.1m, 0.01m, 0.1m, -1m) hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Linien.
+		</TD>
+	</TR>
+	<TR>
+		<TD rowspan=3>
+			<TT>Lines2</TT>
+		</TD>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste (einmal) alle Linien auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Linien, z.B. <TT>(0.1, 0.01, 0.1, -1.0)</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB</TT>
+			</I>
+			<P>
+			Füge Linie hinzu.
+			<P>
+			Beispiel:  <TT>100 10 100 -100</TT><BR>
+			Fügt Line (0.1m, 0.01m, 0.1m, -1m) hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>remove</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB</TT>
+			</I>
+			<P>
+			Entferne Linie.
+			<P>
+			Beispiel:  <TT>100 10 100 -100</TT><BR>
+			Entfernt Line (0.1m, 0.01m, 0.1m, -1m).
+		</TD>
+	</TR>
+	<TR>
+		<TD rowspan=4>
+			<TT>Reflectors</TT>
+		</TD>
+		<TD>
+			<TT>test</TT>
+		</TD>
+		<TD>
+			Lösche alle Reflektoren.<BR>
+			Schreibe und lese Testdaten.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste (einmal) alle Reflektoren auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Reflektoren, z.B. <TT>(0.1, 0.01)</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>x y</TT>
+			</I>
+			<P>
+			Füge Reflektor hinzu.
+			<P>
+			Beispiel:  <TT>100 2100</TT><BR>
+			Fügt Reflektor (0.1m, 2.1m) hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Reflektoren.
+		</TD>
+	</TR>
+	<TR>
+		<TD rowspan=4>
+			<TT>Rasters</TT>
+		</TD>
+		<TD>
+			<TT>test</TT>
+		</TD>
+		<TD>
+			Lösche alle Raster.<BR>
+			Schreibe und lese Testdaten.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste (einmal) alle Raster auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Raster,
+			z.B. <TT>((0.1, 0.01, 0.1, -1.0))((2.1 1.8 "B5"))</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>Linienzahl xA yA xB yB ... Textzahl x y Text ...</TT>
+			</I>
+			<P>
+			Füge Raster hinzu.
+			<P>
+			Beispiel:  <TT>1 100 10 100 -100 1 2100 2300 B5</TT><BR>
+			Fügt Raster {(0.1m, 0.01m, 0.1m, -1m), (2.1m, 2.3m, "B5")} hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Raster.
+		</TD>
+	</TR>
+
+	<!--  HLines  -->
+	<TR>
+		<TD rowspan=4>
+			<TT>HLines</TT>
+		</TD>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste alle Linien mit Höhe auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Linien, z.B.
+			<TT>HLine:(A:(0.01,-0.5),B:(1.5,1.999),h:1.5)</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB h</TT>
+			</I>
+			<P>
+			Füge Linie mit Höhe hinzu.
+			<P>
+			Beispiel:  <TT>100 10 100 -100 500</TT><BR>
+			Fügt die Line von (0.1m, 0.01m) nach (0.1m, -1m)
+			mit Höhe 0.5m hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>remove</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB h</TT>
+			</I>
+			<P>
+			Entfernt Linie mit Höhe.
+			<P>
+			Beispiel:  <TT>100 10 100 -100 500</TT><BR>
+			Entfernt die Line von (0.1m, 0.01m) nach (0.1m, -1m)
+			mit Höhe 0.5m.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Linien.
+		</TD>
+	</TR>
+
+	<!--  HRectangles  -->
+	<TR>
+		<TD rowspan=4>
+			<TT>HRectangles</TT>
+		</TD>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste alle Rechtecke mit Höhe auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Rechtecke, z.B.
+			<TT>HRectangle:(A:(0.01,-0.5),B:(1.5,1.999),C:(1.06,-0.5),D:(2.5,1.888),h:1.5)</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB xC yC xD yD h</TT>
+			</I>
+			<P>
+			Füge Rechteck mit Höhe hinzu.
+			<P>
+			Beispiel (eigentlich kein Rechteck):
+			<TT>100 10 100 -100 1000 1000 2000 2000 500</TT><BR>
+			Fügt das "Rechteck" mit den Kanten
+			von (0.1m, 0.01m) nach (0.1m, -1m)
+			nach (1m, 1m) nach (2m, 2m)
+			mit Höhe 0.5m hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>remove</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (in Millimeter):&nbsp;
+				<TT>xA yA xB yB xC yC xD yD h</TT>
+			</I>
+			<P>
+			Entfernt Rechteck mit Höhe.
+			<P>
+			Beispiel (eigentlich kein Rechteck):
+			<TT>100 10 100 -100 1000 1000 2000 2000 500</TT><BR>
+			Entfernt das "Rechteck" mit den Kanten
+			von (0.1m, 0.01m) nach (0.1m, -1m)
+			nach (1m, 1m) nach (2m, 2m)
+			mit Höhe 0.5m.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Rechtecke.
+		</TD>
+	</TR>
+
+	<!--  MeasuringSections  -->
+	<TR>
+		<TD rowspan=4>
+			<TT>MeasuringSections</TT>
+		</TD>
+		<TD>
+			<TT>list</TT>
+		</TD>
+		<TD>
+			Liste alle Meßstrecken auf.<BR>
+			Die Auflistung erfolgt in Meter mit <I>Dezimalpunkt</I>
+			für die Linien, z.B.
+			<TT>MeasuringSection:(name:Strecke1,A:(0.01,-0.5),B:(1.5,1.999))</TT>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>add</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (Text bzw. in Millimeter):&nbsp;
+				<TT>name xA yA xB yB</TT>
+			</I>
+			<P>
+			Füge Meßstrecke hinzu.
+			<P>
+			Beispiel:  <TT>Strecke1 100 10 100 -100</TT><BR>
+			Fügt die Meßstrecke <I>Strecke1</I>
+			von (0.1m, 0.01m) nach (0.1m, -1m) hinzu.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>remove</TT>
+		</TD>
+		<TD>
+			<I>
+				Weitere Parameter (Text bzw. in Millimeter):&nbsp;
+				<TT>name xA yA xB yB</TT>
+			</I>
+			<P>
+			Entfernt Meßstrecke.
+			<P>
+			Beispiel:  <TT>Strecke1 100 10 100 -100</TT><BR>
+			Fügt die Meßstrecke <I>Strecke1</I>
+			von (0.1m, 0.01m) nach (0.1m, -1m) hinzu.
+			Entfernt die Meßstrecke von (0.1m, 0.01m) nach (0.1m, -1m)
+			mit Namen <I>Strecke1</I>.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<TT>clear</TT>
+		</TD>
+		<TD>
+			Lösche alle Meßstrecken.
+		</TD>
+	</TR>
+
+</TABLE>
+</BLOCKQUOTE>
+
+
+</DIV><DIV  id="footer"><DIV  id="footer_left">© 2002-2008 genRob GmbH, Hagen Stanek</DIV></DIV><DIV  id="genSite"><TABLE><TR><TD><IMG  src="genRob-button.png"  alt="powered by genRob&reg;"></TD><TD><SPAN  class="small">erzeugt am 02.04.2008 um 06:00:21.344 CEST mit</SPAN><BR><SPAN  class="mid">genRob®-genSite 3.1.1</SPAN></TD></TR></TABLE></DIV></TD></TR></TABLE></BODY>
+</HTML>

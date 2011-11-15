@@ -1,0 +1,86 @@
+############################################
+# Parameter file for GenBase II
+############################################
+
+WheelRadius                = 77         # mm 
+DistanceDriveWheels        = 600        # mm
+MaxDistanceMarkMeasurement = 250        # mm
+
+# OdometryVariance           = 0.1 seems physically reasonable :-)
+#OdometryVariance           = 0.01
+OdometryVariance           = 0.1
+
+# GyroVariance               = 1.0
+GyroVariance               = 1.0
+
+# SystemVariance             = 0.125
+#SystemVariance             = 1.0
+SystemVariance             = 0.5
+
+# Tau                        = 0.08
+Tau                        = 0.08
+
+###############################################################################
+
+#
+# LaserDistanceVariance 900.0 is += 30mm
+#
+# ++itschere20030807: the laser distance variance mainly affects translations,
+# at least if translations don't change the angle under which a mark is seen
+# too much (true for most short to medium distances). increased value
+# immediately leads to that the platform is less noisy, i.e. it's standing more
+# or less still compared to the original values.
+#
+#      10.0 ->
+#     100.0 ->
+#    1000.0 ->
+#    4900.0 -> original value
+#   10000.0 -> ok
+#  100000.0 -> still looks ok, but starts getting sluggish. overall system
+#              covariance increases.
+# 1000000.0 -> sluggish, but still works. overall system variance significantly
+#              increased, but system seems to be less noisy.
+#
+#LaserDistanceVariance = 10000.0
+LaserDistanceVariance = 2500.0
+
+#
+# LaserAngleVariance (0.01 is +-5.73)
+#
+# ++itschere20030807: the following observations were made with a passive
+# platform with drive wheel in disable/park position being moved in a
+# translatory way by a human being. since this parameter affects the laser
+# angle precision it's no wonder that the distance measurements are far less
+# affected and translatory movements still work somehow. rotary movements fail
+# to work at much lower parameters.
+#
+#      0.1 -> still 10 times the original setting
+#      1.0 -> absolutely no sluggishness
+#     10.0 -> no sluggishness
+#    100.0 -> system follows sluggishly, but still follows
+#   1000.0 -> system follows while being more and more sluggish
+#  10000.0 -> system follows very sluggishly and only for slow motions
+# 100000.0 -> system does not follow any more at all rate
+#
+#LaserAngleVariance         = 10.0
+LaserAngleVariance         = 2.25
+
+#
+# LaserMarkVariance (0.01)
+#
+# ++itschere20030807: a larger value here means that marks can move more easily
+# ++westhoff22040622: reflector marks do not move
+#
+#LaserMarkVariance = 0.0005
+#LaserMarkVariance = 0.01
+LaserMarkVariance = 0.0
+###############################################################################
+
+##############################################
+# the following parameters are still  unused 
+# and only some examples
+##############################################
+
+RobotType   = GenBaseII
+MaxVel      = 1.0           # m/s
+MaxAngleVel = 10            # /s

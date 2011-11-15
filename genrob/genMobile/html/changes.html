@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- META-Informationen -->
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+  <link rel="stylesheet" href="uhh.css" type="text/css" media="all" />
+  <link rev="made" href="mailto:westhoff@informatik.uni-hamburg.de" />
+  <!-- Titel -->
+  <title>Software: Mobilerobot - &Auml;nderungen</title>
+</head>
+
+<body>
+<!-- Anfang -->
+<table id="top" class="kopf" summary="Kopfzeile des Department Informatik">
+ <tr>
+  <td class="unilogo"><img alt="Logo der Universität Hamburg" src="logo_uhh_neu.gif" height="99" width="392" /></td>
+  <td class="departmentname">MIN-Fakult&auml;t<br />
+  Department&nbsp;Informatik</td>
+  <td class="departmentlogo"><img alt="Logo des Department Informatik" src="fbilogo_grau64x64.gif" height="64" width="64" /></td>
+ </tr>
+</table>
+
+<table class="navigationszeile" summary="Navigation">
+<tbody><tr>
+<td class="left">
+<a href="http://www.uni-hamburg.de/">UHH</a>
+&gt;
+<a href="http://www.min.uni-hamburg.de/">MIN</a>
+&gt;
+<a href="http://www.informatik.uni-hamburg.de/">Informatik</a>
+&gt;
+<a href="http://tams-www.informatik.uni-hamburg.de/">TAMS</a>
+&gt;
+<a href="http://tams-www.informatik.uni-hamburg.de/research/">Research</a>
+&gt;
+<a href="http://tams-www.informatik.uni-hamburg.de/research/software/">Software</a>
+&gt;
+<a href="http://tams-www.informatik.uni-hamburg.de/research/software/roblet/">Roblet&reg;-Technology</a>
+&gt;
+<a href="index.html">Mobilerobot</a>
+</td>
+<td class="right">
+<a href="#bottom"><img src="down.gif" width="13" height="13" title="Seitenende" alt="Seitenende" /></a>
+</td>
+</tr></tbody></table>
+
+<!-- Seitennavigation -->
+<div id="subnavigation">
+<p></p>
+<ul>
+ <li><a href="changes.html">&Auml;nderungen</a></li>
+ <li><a href="content.html">Inhalt</a></li>
+ <li><a href="use.html">Benutzung</a></li>
+ <li><a href="api/index.html">Schnittstellen</a></li>
+</ul>
+</div>
+
+<!-- Inhalt -->
+<div id="content">
+   <h2>Liste der &Auml;nderungen an der Software</h2>
+   Die Liste dokumentiert nicht nur die &Auml;nderungen an den Schnittstellen und
+   deren Implementierungen, sondern auch &Auml;nderungen im Modul f&uuml;r der Roboter.
+   <p><table border=0>
+	  <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.7.4 &rarr; 0.8
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              Umstellung auf <a href="http://www.genRob.com/system/genControl/">genRob&reg;.genControl (Version 5.1)</a>.
+            </li>
+          </ul>
+        </td>
+      </tr>
+	  <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.7.3 &rarr; 0.7.4
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              Ergänzungen und Bugfixes im Paket <tt>uhh.fbi.tams.mobilerobot.client</tt>
+            </li>
+          </ul>
+        </td>
+      </tr>      
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.7.2 &rarr; 0.7.3
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              &uuml;berarbeitung der Dokumentation (neues Layout, weitere Informationen, etc.).
+            </li>
+            <li>
+              Scripte zum Start der Test-Anwendungen.
+            </li>
+            <li>
+              Neues Paket <tt>uhh.fbi.tams.mobilerobot.client</tt>. Mit den
+              Klassen aus diesem Paket lassen sich schnell Client-Anwendungen
+              f&uuml;r den mobilen Roboter schreiben, ohne das man Roblets oder
+              Netzwerk-Kommunikation schreiben muss.
+            </li>
+            <li>
+              Automatische Kalibrierung &uuml;ber neue Einheit
+            </li>
+            <li>
+              Der Roboter wird nicht mehr automatisch kalibriert.
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.7.1 &rarr; 0.7.2
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              Die Pose des Roboters wird zu Beginn geladen und beim Beenden des Moduls gespeichert.
+            </li>
+            <li>
+              Der Roboter wird nicht mehr automatisch kalibriert.
+            </li>
+          </ul>
+        </td>
+      </tr>
+     <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.7 &rarr; 0.7.1
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              <tt>IllegalArgumentException</tt> in <tt>AutoCalibration</tt>, wenn
+              keine Scanpunkte von der Robotersteuerung <tt>mobiled</tt> empfangen
+              wurden.
+            </li>
+            <li>
+              Neues Testprogramm <tt>DriveSquare</tt> im Paket
+              <tt>uhh-fbi.tams.mobilerobot.test</tt>.
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.6.1 &rarr; 0.7
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              Neue Methode <tt>turn()</tt> in der Einheit <tt>Motion</tt>.
+            </li>
+            <li>
+              Neue Ausnahme <tt>CommunicationException</tt> als Oberklasse der
+              Ausnahmen <tt>ProtokollException</tt>,
+              <tt>SocketCommunicationException</tt> und
+              <tt>UnknownCommandException</tt>, die bei der Kommunikation mit
+              der Robotersteuerung <tt>mobiled</tt> auftreten k&ouml;nnen.
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.6 &rarr; 0.6.1
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>
+              Abh&auml;ngigkeiten zum Paket <tt>uhh.fbi.tams.utils</tt>
+              entfernt. Paket wird nicht mehr ben&ouml;tigt.
+            </li>
+            <li>
+              Neue Klasse <tt>Convert</tt> zur Umrechnung in Hexadezimal-
+              und Bin&auml;rdarstellung. Diese Klasse war vorher im Paket
+              <tt>uhh.fbi.tams.utils</tt>.
+            <li>
+              Umstellung auf <tt>genRob.genControl</tt> 4.0.2.
+            </li>
+            <li>
+              Zus&auml;tzliche Debug-Ausgaben in <tt>Commands</tt>.
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.5.1 &rarr; 0.6
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>Neue automatische Kalibrierung: Der Roboter bestimmt
+                zu Beginn seine Pose global anhand der inital
+                vorgegebenen Marken Positionen und den gerade
+                sichtbaren und gescannten Marken.
+            <li>Logging-Informationen k&ouml;nnen durch das neue
+                Schl&uuml;sselwort <tt>calibration</tt> erzeugt werden.
+            <li>Wird dieses Logging eingeschaltet, bestimmt der
+                Roboter seine Pose in regelm&auml;&szlig;igen
+                Abst&auml;nden (5 Sekunden). Die Logging-Informationen
+                enthalten die Abweichung zwischen
+                der Pose-Sch&auml;tzung des <tt>mobiled</tt> und der
+                globalen Lokalisierung.
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.5 &rarr; 0.5.1
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>Umstellung auf <tt>genRob.genControl</tt> 4.0.1 (siehe
+                <a href="http://www.genRob.de" target="_blank">www.genRob.de</a>).
+            <li>Die Methode <tt>getAccess()</tt> der Einheit <tt>Access</tt>
+              liefert jetzt auch <tt>true</tt> zur&uuml;ck, wenn ein Roblet&reg;,
+              das den Zugriff bereits hat, diesen nochmal pr&uuml;ft. Vorher
+              wurde f&auml;lschlicherweise <tt>false</tt> zur&uuml;ckgegeben.
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.4.1 &rarr; 0.5
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li>Umstellung auf Version 2.0 der Roblet&reg;-Bibliothek
+                (siehe <a href="http://www.roblet.org" target="_blank">www.roblet.org</a>).
+            <li>Umstellung auf <tt>genRob.genControl</tt> 4.0 (siehe
+                <a href="http://www.genRob.de" target="_blank">www.genRob.de</a>).
+            <li>Umstellung auf <tt>uhh.fbi.tams.utils</tt> 0.3.
+            <li>Verkn&uuml;pfung der Dokumentation mit der API von
+                <tt>genRob.genControl</tt> 4.0.
+            <li>Verkn&uuml;pfung der Dokumentation mit der API der Version
+                2.0 der Roblet&reg;-Bibliothek.
+          </ul>
+        </td>
+      </tr>
+     <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.4 &rarr; 0.4.1
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+            <li>Die Methoden <tt>getScan()</tt> und <tt>getMarks()</tt>
+                der Klasse <tt>Laserscan</tt> liefern nie <tt>null</tt>
+                zur&uuml;ck sondern immer eine Liste, auch wenn diese
+                m&ouml;glicherweise die L&auml;nge 0 hat.
+            <li>Fehlerbereinigungen und Erg&auml;nzungen in der Dokumentation.
+            <li>Link zum Kommunikations-Protokoll zur Robotersteuerung
+                <i>mobiled</i> in der Dokumentation von <tt>ModuleImpl</tt>
+                hinzugef&uuml;gt.
+          </ul>
+        </td>
+     </tr>
+     <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.7 &rarr; 0.4
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li>Umstellung auf <tt>genrob.genControl</tt> 3.0.
+           <li>Erzetzen der Einheitenimplementierungen: Keine ERU- und
+               MRU-Einheiten mehr, sondern nur noch eine Implementierung.
+           <li>Neue Einheiten:
+              <ul>
+                <li><tt>Access</tt> - Regelt den Zugriff auf die Steuerung
+                                      des Roboters
+                <li><tt>Brakes</tt> - Zugriff auf die Bremsen des Roboters
+              </ul>
+           </li>
+           <li>Verzicht auf <tt>RobletException</tt>, die Methoden der
+               Einheiten l&ouml;sen jetzt paketeigene Ausnahmen aus, die
+               die Fehlerursache klarer beschreiben.
+           <li>Verzicht auf Klassen die nicht im Paket definiert werden wie
+               z.B. <tt>Scan</tt> und <tt>Spot</tt> aus dem Paket
+               <tt>genRob.genSimulation.unit</tt>. Entsprechend Einf&uuml;rung
+               neuer Klassen im Paket <tt>uhh.fbi.tams.mobilerobot.unit</tt>.
+           <li>Die Klassen aus dem Paket <tt>uhh.fbi.mobilerobot.datatypes</tt>
+               sind alle ins Paket <tt>uhh.fbi.tams.mobilerobot.unit</tt>
+               verschoben. Dadurch gen&uuml;gt f&uuml;r die Entwicklung einer
+               Roblet&reg;-Anwendung nur letzteres Paket.
+           <li>Umbenennung des Pakets <tt>uhh.fbi.tams.mobilerobot.unit.sensors</tt>
+               in <tt>uhh.fbi.tams.mobilerobot.unit.sensor</tt>
+           <li>Umbenennung des Pakets <tt>uhh.fbi.tams.mobilerobot.tests</tt>
+               in <tt>uhh.fbi.tams.mobilerobot.test</tt>
+           <li>Test- bzw. Beispielprogramme aus dem Paket
+               <tt>uhh.fbi.tams.mobilerobot.test</tt> &uuml;berarbeitet und
+               angepasst.
+           <li>Anpassung, Erweiterung und &Uuml;berarbeitung der Dokumentation.
+           <li>Dokumentation verlinkt mit der API-Dokumentation der
+               <a href="http://java.sun.com/j2se/1.4.2/docs/api/" target="_blank">Java&trade; 2 Standard Edition v1.4.2</a>.
+           <li>Dokumentation verlinkt mit der API-Dokumentation von
+               <a href="http://www.genrob.com/roblet/genRob_Roblet_1.0_23Mai04/docs/api/" target="_blank">genRob.roblet (Version 1.0)</a>.
+           <li>Dokumentation verlinkt mit der API-Dokumentation von
+               <a href="http://www.genRob.com/system/genRob_genControl_3.0_03Aug05/doc/api/" target="_blank">genRob.genControl (Version 3.0)</a>.
+           <li>Der Release wird von nun an als ZIP-Datei komprimiert, da
+               ZIP-Dateien standardm&auml;&szlig;ig auf den meisten
+               Betriebssystemen entpackt werden k&ouml;nnen, ohne das weiter
+               Software notwendig ist.
+           <li>Versionsinformationen in Manifest-Datei der jar-Archive.
+        </td>
+      </tr>
+
+     <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.6 &rarr; 0.3.7
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Neue Methode <tt>getScanRadial()</tt> in der Einheit
+                <tt>Laserscanner</tt>.
+           <li> Anpassen der Dokumentation der Einheit <tt>Laserscanner</tt>.
+           <li> Umstellung auf <tt>uhh.fbi.tams.utils</tt> Version 0.2.1.
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.5 &rarr; 0.3.6
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Umstellung auf <tt>genRob.genControl 2.3</tt>
+           <li> Neue Methode <tt>getCollisionRadius()</tt> in
+                der Einheit <tt>Collision</tt>.
+           <li> Einheit <tt>Geometry2D</tt>: Koordinatensystem des
+                Roboters wurde um 90 Grad gedreht damit es kompatibel
+                zur Anzeige in <tt>genRob.genView</tt> ist.
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.4 &rarr; 0.3.5
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Neue Einheiten:
+             <ul>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.motion.Collision</tt>
+             </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.3 &rarr; 0.3.4
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Fehlermeldungen in den Ausnahmen umgeschrieben, die in der
+                Klasse <tt>MotionERU</tt> auftreten k&ouml;nnen.
+           <li> Die Methode <tt>Commands.move()</tt> wirft eine
+                ausagekr&auml;ftigere Fehlermeldung, wenn der Status der Antwort
+                ungleich 0 ist.
+           <li> Fehler in der Methode <tt>Commands.getScales()</tt> behoben:
+                Skalierungswert an falscher Stelle aus dem Datenpuffer des
+                empfangenen Paketes gelesen.
+           <li> In der Methode <tt>toString()</tt> der Klasse <tt>Pose</tt>
+                das Gradzeichen durch die Unicode-Sequenz <tt>\u00B0</tt>
+                ersetzt.
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.2 &rarr; 0.3.3
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Kleine Fehler in Log-Ausgabe von <tt>BatteryImpl</tt>
+                beseitigt.
+           <li> Neue Einheiten:
+             <ul>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.sensors.temperature.DriveTemperature</tt>
+             </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3.1 &rarr; 0.3.2
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Beseitigung einer Null-Pointer-Exception in
+                <tt>MotionImpl.isCompleted()</tt>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.3 &rarr; 0.3.1
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Das Module gibt einige intern auftretende Ausnahmen als
+                HTML-formatierten String an den Log weiter.
+            <li> Fehlerbereinigung in der Dokumentation: Darstellung
+                einiger Umlaute.
+           <li> Neue Einheiten:
+             <ul>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.sensors.voltage.Battery</tt>
+             </ul>
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.2 &rarr; 0.3
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Fehler im Target <tt>www.linux</tt> der <i>Ant</i>-Datei
+                <tt>build.xml</tt> beseitigt: Die Dokumentation wurde nicht
+                in das Web-Verzeichnis kopiert (fehlerhafte Pfadangabe).
+           <li> Fehlerbereinigung in der Dokumentation: Darstellung
+                einiger Umlaute.
+           <li> Neue Einheiten:
+             <ul>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.motion.Destination</tt>
+             </ul>
+          </ul>
+        </td>
+      </tr>
+      <tr bgcolor="LIGHTGRAY">
+        <td>
+          &nbsp;0.1.X &rarr; 0.2
+        </td>
+      </tr>
+      <tr bgcolor="WHITE">
+        <td>
+          <ul>
+           <li> Kompilieren, Erzeugen der Dokumentation, etc. &uuml;ber
+             <i>Ant</i>.
+           <li> Module schreibt Ausgaben in den Log des Roblet&reg;-Servers
+           <li> Neue Einheiten:
+             <ul>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.Version</tt>
+               <li><tt>uhh.fbi.tams.mobilerobot.unit.sensors.odometry.OdometryLog</tt>
+             </ul>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+</div>
+
+<!-- Footer -->
+<p>&nbsp;</p>
+<table id="bottom" class="navigationszeile" summary="fusszeile">
+<tr>
+<td class="left">
+<a href="http://tams-www.informatik.uni-hamburg.de/abTams/impressum.html">Impressum</a>
+</td>
+<td class="right">
+2007-08-22, ge&auml;ndert: D. Westhoff
+&nbsp;<a href="#top"><img src="top.gif" width="13" height="13" title="Seitenanfang" alt="Seitenanfang" /></a>
+</td>
+</tr>
+</table>
+</body>
+</html>
+

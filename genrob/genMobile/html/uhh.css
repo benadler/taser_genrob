@@ -1,0 +1,307 @@
+body, div, p, td, ol, ul, li, h1, h2, h3, h4, h5, h6 {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+body   {
+	color: black;
+	padding: 0;
+	background-color: white;
+}
+table.kopf, div.kopf {
+	width: 100%;
+	border: 0 dashed gray;
+	margin: 0;
+	padding: 0;
+	background-color: white;
+	color: black;
+	text-align: right;
+	font-weight: bold;
+	font-size: 100%;
+	letter-spacing: 0.10em;
+}
+div.kopf img.unilogo {
+	float: left;
+	vertical-align: bottom;
+}
+div.kopf img.departmentlogo {
+	float: right;
+	vertical-align: top;
+	padding: 12px;
+}
+div.kopf a {
+	color: black;
+	background-color: white;
+	text-decoration: none;
+}
+table.kopf tr {
+	margin: 0;
+	padding: 0;
+}
+table.kopf td {
+	margin: 0;
+	padding: 0;
+}
+table.kopf td.unilogo {
+	margin: 0;
+	padding: 0;
+	vertical-align: bottom;
+	text-align: left;
+}
+table.kopf td.departmentname {
+	margin: 0;
+	padding: 12px 0 0 0;
+	width: 100%;
+	vertical-align: top;
+	text-align: right;
+}
+table.kopf td.departmentlogo {
+	margin: 0;
+	padding: 12px 0 0 12px;
+	vertical-align: top;
+}
+table.kopf a {
+	color: black;
+	background-color: white;
+	text-decoration: none;
+}
+
+table.navigationszeile {
+	clear: left;
+	margin: 0;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
+	background-color: gray;
+	color: white;
+	width: 100%;
+	font-weight: 700;
+	font-size: smaller;
+	vertical-align: middle;
+}
+
+table.navigationszeile td {
+	border: 0;
+	padding: 0 10px;
+	color: white;
+	text-align: left;
+}
+table.navigationszeile td.right {
+	text-align: right;
+}
+
+table.navigationszeile a {
+	color: white;
+	text-decoration: none;
+}
+
+.left {
+	text-align: left;
+}
+.center {
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+
+img {
+	border: 0;
+}
+
+
+#navigation a {color:#FFF;text-decoration:none;font-weight:bold}
+#navigation a:hover{color:#FFF;text-decoration:underline}
+#navigation a:visited{color:#FFF;text-decoration:underline}
+#navigation a:active{color:#FFF;text-decoration:underline}
+
+#subnavigation {
+	display: block;
+	/* position: fixed; */
+	position: absolute;
+	left: 0;
+	margin-left: 8px;
+	padding: 5px 10px 10px 10px;
+	background-color: #d3d3d3; /* lightgray */
+	border: 0;
+	border-right: 0;
+	border-bottom: 0;
+	font-size: 80%;
+	text-align: left;
+	width: 191px;   /* False value for IE4-5.x/Win */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 170px;   /* Actual value for conformant browsers */
+}
+#subnavigation h1, #subnavigation h2 {
+	margin: 1em 0 0 0;
+	padding: 0 0 0 0.8em;
+	text-align: left;
+	font-size: 100%;
+	font-weight: bold;
+	color: #000;
+}
+#subnavigation ol {
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+#subnavigation ul {
+	margin: 0.25em 0 0 0;
+	border: 0;
+	padding: 0;
+}
+#subnavigation li {
+	margin: 1px 0;
+	border-bottom: 1px solid #f0f0f0;
+	padding: 0 0 0 0.8em;
+	list-style-type: none;
+	background-image: url("/icons/logo_uhh/arrow_link.gif");
+	background-repeat: no-repeat;
+	background-position: left;
+}
+#subnavigation li.intern {
+	background-image: url("/icons/logo_uhh/arrow_out.gif");
+}
+#subnavigation a {
+	text-decoration: none;
+	color: black;
+}
+#subnavigation a:hover {
+        color: gray;
+}
+#content {
+	background: white;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	margin-left: 225px;
+        margin-right: 25px;
+	width: auto;
+}
+#content a {
+        text-decoration: none;
+}
+#content a:link {
+	color: rgb(153,51,51);
+}
+#content a:visited {
+	color: rgb(204,0,51);
+}
+#content a:active {
+	color: rgb(204,51,0);
+}
+
+
+
+
+#inhalt
+{
+	background: white;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	margin-left: 240px;
+	width: auto;
+}
+
+#inhalt a:link {
+	color: rgb(153,51,51);
+}
+#inhalt a:visited {
+	color: rgb(204,0,51);
+}
+#inhalt a:active {
+	color: rgb(204,51,0);
+}
+
+
+h1 h2 h3 {
+	font-weight: bold;
+}
+
+h1 {
+	text-align: center;
+	font-size: x-large;
+	color: red;
+}
+h2 {
+	font-size: large;
+}
+h3 {
+	font-size: medium;
+}
+.center {
+	text-align: center;
+}
+dl dt {
+	font-weight: bold;
+}
+.leftpicture {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: small;
+}
+.rightpicture {
+	float: right;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: small;
+}
+hr.footnote {
+	float: left;
+	width: 33%;
+	font-size: small;
+}
+p.footnote {
+	clear: both;
+	font-size: small;
+}
+
+pre {
+	padding: 3px 5px;
+	background-color: #dcdcdc; /* gainsboro */
+}
+table.display {
+	/*
+	margin-left: 2.5em;
+	text-align: center;
+	*/
+}
+table.display+table.display {
+	margin-top: 1em;
+
+}
+table.display th {
+	padding: 3px 5px;
+	text-align: left;
+	vertical-align: baseline;
+	background-color: #a9a9a9; /* darkgray */
+}
+table.display th.yes {
+	width: 50%;
+	background-color: lime;
+}
+table.display th.no {
+	width: 50%;
+	background-color: red;
+}
+table.display td {
+	padding: 3px 5px;
+	vertical-align: baseline;
+	background-color: #dcdcdc; /* gainsboro */
+}
+table.display td.yes {
+	background-color: #e0ffe0;
+}
+table.display td.no {
+	background-color: #ffe0e0;
+}
+#ind1 {
+	background: white;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	margin-left: 75px;
+	width: auto;
+}
